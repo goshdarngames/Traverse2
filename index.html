@@ -6,6 +6,7 @@
         <script src="lib/tau-prolog.js"></script>
 
         <script src="javascript/traverse_init.js"></script>
+        <script src="javascript/traverse_main_loop.js"></script>
 
     </head>
 
@@ -15,10 +16,19 @@
 
             window.onload = function ()
             {
+                let traverse_data = {};
 
-                window.traverse.init_prolog ( pl );
+                //window.traverse.init_prolog ( pl );
 
-                //window.traverse.init_pixi ( PIXI, document );
+                traverse_data.pixi = PIXI;
+
+                traverse_data.pixi_app =  
+                    window.traverse.init_pixi ( PIXI, document );
+
+                traverse_data.pixi_app.ticker.add ( () =>
+                {
+                    traverse.mainLoop ( traverse_data );
+                });
 
                 console.log ( "Runtime loaded." );
 
