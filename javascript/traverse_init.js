@@ -15,9 +15,12 @@
             let s = pl.create ();
             s.consult ( request.response );
 
-            s.query ("object(X).");
+            s.query ("gamestate([[wall,10,10],[player,1,2],[wall,1,2]]).");
 
-            let cb = console.log;
+            let cb = function( answer ) 
+            { 
+                console.log( pl.format_answer( answer ) ); 
+            };
 
             s.answer ( cb );
         };
