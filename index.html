@@ -2,11 +2,29 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <script src="lib/pixi.js" ></script>
         <script src="lib/tau-prolog.js"></script>
-        <script id="likes.pl" src="prolog/puzzle.pl" type="text/prolog"></script>
+
+        <script src="javascript/traverse_init.js"></script>
+
     </head>
 
     <body>
-        <p>Test prolog</p>
+
+        <script type="text/javascript">
+
+            window.onload = function ()
+            {
+
+                window.traverse.init_prolog ();
+
+                //window.traverse.init_pixi ( PIXI, document );
+
+                console.log ( "Runtime loaded." );
+
+            };
+
+        </script>
+
     </body>
 </html>
