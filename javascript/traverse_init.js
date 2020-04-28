@@ -15,7 +15,7 @@
             let s = pl.create ();
             s.consult ( request.response );
 
-            s.query ("likes(sam,X).");
+            s.query ("object(X).");
 
             let cb = console.log;
 

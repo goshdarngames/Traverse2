@@ -1,4 +1,3 @@
-likes(sam, salad).
-likes(dean, pie).
-likes(sam, apples).
-likes(dean, whiskey).
+object( wall ).
+object( goal ).
+object( wall ).
