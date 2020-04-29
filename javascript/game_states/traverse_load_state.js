@@ -51,8 +51,9 @@
             }
             else
             {
-                //TODO - load main menu state
-                console.log ( "All data loaded." );
+                console.log ( "All assets loaded." );
+
+                traverse_data.game_state = new traverse.PlayState ();
             }
         };
 
