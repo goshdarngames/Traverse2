@@ -15,8 +15,12 @@
 
     let start_tick = function ( play_data, traverse_data )
     {
+        let walls = [ { x : 0, y : 0}, { x : 1, y : 1 } ];
+
         play_data.wall_graphics = 
-            create_wall_graphics ( traverse_data.pixi, [],  40 );
+            create_wall_graphics ( traverse_data.pixi, walls,  40 );
+
+        traverse_data.pixi_app.stage.addChild ( play_data.wall_graphics );
 
         play_data.tick = () => {};
     };
@@ -31,7 +35,7 @@
 
         walls.forEach ( ( w ) =>
         {
-            g.drawRect ( w.x, w.y, size, size );
+            g.drawRect ( w.x*size, w.y*size, size, size );
         });
 
         return g;
