@@ -58,11 +58,28 @@
 
             <div id="control_panel_container">
 
-                <button class="tablinks" onclick="traverse.activate_tab(event, 'play_tab')">Play</button>
-                <button class="tablinks" onclick="traverse.activate_tab(event, 'create_tab')">Create</button>
+                <button class="tablinks" 
+                        onclick="traverse.activate_tab(event, 'play_tab')">
+                    Play
+                </button>
+                <button class="tablinks"
+                        onclick="traverse.activate_tab(event, 'create_tab')">
+                    Create
+                </button>
 
                 <div id="play_tab" class="tabcontent" >
-                    <h3>Play</h3>
+                    <button class="dir_button" id="up_button">
+                        Up
+                    </button>
+                    <button class="dir_button" id="down_button">
+                        Down
+                    </button>
+                    <button class="dir_button" id="left_button">
+                        Left
+                    </button>
+                    <button class="dir_button" id="right_button">
+                        Right
+                    </button>
                 </div>
 
                 <div id="create_tab" class="tabcontent" >
