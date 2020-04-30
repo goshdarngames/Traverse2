@@ -1,6 +1,29 @@
-/***********************
+/****************************************************************************
+ * Control Play Arrow Buttons
+ ***************************************************************************/
+
+.direction_panel
+{
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    gap: 1px 1px;
+    grid-template-areas: ". u ." 
+                         "l . r" 
+                         ". d .";
+}
+
+.direction_panel .up { grid-area: u; }
+
+.direction_panel .down { grid-area: d; }
+
+.direction_panel .left { grid-area: l; }
+
+.direction_panel .right { grid-area: r; }
+
+/****************************************************************************
  * Control Panel Tabs
- **********************/
+ ***************************************************************************/
 
 /* Style the tab */
 .tab 

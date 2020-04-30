@@ -58,7 +58,7 @@
 
             <div id="control_panel_container">
 
-                <button class="tablinks" 
+                <button class="tablinks" id="defaultOpen"
                         onclick="traverse.activate_tab(event, 'play_tab')">
                     Play
                 </button>
@@ -67,25 +67,31 @@
                     Create
                 </button>
 
-                <div id="play_tab" class="tabcontent" >
-                    <button class="dir_button" id="up_button">
-                        Up
-                    </button>
-                    <button class="dir_button" id="down_button">
-                        Down
-                    </button>
-                    <button class="dir_button" id="left_button">
-                        Left
-                    </button>
-                    <button class="dir_button" id="right_button">
-                        Right
-                    </button>
+                <div id="play_tab"  class="tabcontent" >
+                    <div class="direction_panel">
+                        <button class="dir_button up">
+                            Up
+                        </button>
+                        <button class="dir_button down">
+                            Down
+                        </button>
+                        <button class="dir_button left">
+                            Left
+                        </button>
+                        <button class="dir_button right">
+                            Right
+                        </button>
+                    </div>
                 </div>
 
                 <div id="create_tab" class="tabcontent" >
                     <h3>Create</h3>
                 </div>
 
+            <script>
+                // Open play by default
+                document.getElementById("defaultOpen").click();
+            </script>
             </div>
 
             <div id="footer_conatiner" >
