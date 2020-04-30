@@ -12,6 +12,10 @@
         <script src="javascript/game_states/traverse_load_state.js"></script>
         <script src="javascript/game_states/traverse_play_state.js"></script>
 
+        <link rel="stylesheet" type="text/css" href="style.css" />
+
+        <title>Traverse 2 - GoshDarnGames</title>
+
     </head>
 
     <body>
@@ -39,6 +43,28 @@
             };
 
         </script>
+
+        <div id="root_container">
+
+            <div id="header_conatiner" >
+                <h1>Traverse 2</h1>
+            </div>
+
+            <div id="game_conatiner" >
+                <canvas id="pixi_canvas"></canvas>
+            </div>
+
+            <div id="control_panel_container">
+
+                <button class="tablinks" onclick="cp_tab(event, 'Play')">Play</button>
+                <button class="tablinks" onclick="openCity(event, 'Create')">Create</button>
+
+            </div>
+
+            <div id="footer_conatiner" >
+                <p>Additional information...</p>
+            </div>
+        </div>
 
     </body>
 </html>
