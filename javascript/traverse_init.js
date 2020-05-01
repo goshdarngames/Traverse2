@@ -16,6 +16,7 @@
             width  : 800,
             height : 800,
             view   : document.getElementById ( "pixi_canvas" ),
+            resizeTo   : document.getElementById ( "game_canvas_container" ),
             transparent : false,
             backgroundColor : 0x000000,
         });
