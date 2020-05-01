@@ -48,59 +48,56 @@
 
         <div id="root_container">
 
-            <div id="header_conatiner" >
+            <div id="header_container" >
                 <h1>Traverse 2</h1>
             </div>
 
-            <div id="game_container" >
 
-                <div id="game_canvas_container" class="padded_container" >
+            <div id="game_canvas_container" class="padded_container" >
 
-                    <canvas id="pixi_canvas"></canvas>
-
-                </div>
-
-                <div id="control_panel_container" class="padded_container" >
-
-                    <button class="tablinks" id="defaultOpen"
-                            onclick="traverse.activate_tab(event, 'play_tab')">
-                        Play
-                    </button>
-                    <button class="tablinks"
-                            onclick="traverse.activate_tab(event, 'create_tab')">
-                        Create
-                    </button>
-
-                    <div id="play_tab"  class="tabcontent" >
-                        <div class="direction_panel centered">
-                            <button class="dir_button up">
-                                Up
-                            </button>
-                            <button class="dir_button down">
-                                Down
-                            </button>
-                            <button class="dir_button left">
-                                Left
-                            </button>
-                            <button class="dir_button right">
-                                Right
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="create_tab" class="tabcontent" >
-                        <h3>Create</h3>
-                    </div>
-
-                    <script>
-                        // Open play by default
-                        document.getElementById("defaultOpen").click();
-                    </script>
-                </div>
+                <canvas id="pixi_canvas"></canvas>
 
             </div>
 
-            <div id="footer_conatiner" >
+            <div id="control_panel_container" class="padded_container" >
+
+                <button class="tablinks" id="defaultOpen"
+                        onclick="traverse.activate_tab(event, 'play_tab')">
+                    Play
+                </button>
+                <button class="tablinks"
+                        onclick="traverse.activate_tab(event, 'create_tab')">
+                    Create
+                </button>
+
+                <div id="play_tab"  class="tabcontent" >
+                    <div class="direction_panel centered">
+                        <button class="dir_button up">
+                            &#x1F881;
+                        </button>
+                        <button class="dir_button down">
+                            &#x1F883;
+                        </button>
+                        <button class="dir_button left">
+                            &#x1F880;
+                        </button>
+                        <button class="dir_button right">
+                            &#x1F882;
+                        </button>
+                    </div>
+                </div>
+
+                <div id="create_tab" class="tabcontent" >
+                    <h3>Create</h3>
+                </div>
+
+                <script>
+                    // Open play by default
+                    document.getElementById("defaultOpen").click();
+                </script>
+            </div>
+
+            <div id="footer_container" >
                 <p>Additional information...</p>
             </div>
         </div>
