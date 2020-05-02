@@ -61,40 +61,20 @@
 
             <div id="control_panel_container" class="padded_container" >
 
-                <button class="tablinks" id="defaultOpen"
-                        onclick="traverse.activate_tab(event, 'play_tab')">
-                    Play
-                </button>
-                <button class="tablinks"
-                        onclick="traverse.activate_tab(event, 'create_tab')">
-                    Create
-                </button>
-
-                <div id="play_tab"  class="tabcontent" >
-                    <div class="direction_panel centered">
-                        <button class="dir_button up">
-                            &#x1F881;
-                        </button>
-                        <button class="dir_button down">
-                            &#x1F883;
-                        </button>
-                        <button class="dir_button left">
-                            &#x1F880;
-                        </button>
-                        <button class="dir_button right">
-                            &#x1F882;
-                        </button>
-                    </div>
+                <div id="control_panel_header" >
+                    <span id="cp_title">Control Panel</span>
                 </div>
 
-                <div id="create_tab" class="tabcontent" >
-                    <h3>Create</h3>
+                <div id="control_panel_content" >
+                    Javascript is required.
                 </div>
 
-                <script>
-                    // Open play by default
-                    document.getElementById("defaultOpen").click();
-                </script>
+                <div id="control_panel_footer" >
+                    <button id="mute_button" class="cp_footer_button" >
+                        Mute
+                    </button>
+                </div>
+
             </div>
 
             <div id="footer_container" >
