@@ -39,4 +39,14 @@
         el.textContent = text;
     };
 
+    traverse.clear_control_panel_content = function ()
+    {
+        const cp = document.getElementById ( "control_panel_content" );
+
+        while ( cp.hasChildNodes () )
+        {
+            cp.removeChild ( cp.lastChild );
+        }
+    };
+
 } ( window.traverse = window.traverse || {} ))
