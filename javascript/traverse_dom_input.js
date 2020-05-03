@@ -31,4 +31,12 @@
 
         event.currentTarget.className += "active";
     };
+
+    traverse.set_control_panel_title = function ( text )
+    {
+        let el = document.getElementById ( "cp_title" );
+
+        el.textContent = text;
+    };
+
 } ( window.traverse = window.traverse || {} ))
