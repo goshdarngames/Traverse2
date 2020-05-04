@@ -18,7 +18,8 @@
 
         let cp_footer = document.getElementById ( "control_panel_footer" );
 
-        e.control_panel = new ControlPanel ( cp_root, -1, cp_content, -1 );
+        e.control_panel = new ControlPanel ( cp_root, cp_title, 
+                                             cp_content, cp_footer );
 
         return e;
     };
