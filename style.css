@@ -29,8 +29,6 @@
     min-width : 300px;
     min-height : 300px;
 
-    display : flex;
-    flex-flow : column;
 }
 
 #control_panel_header
@@ -46,6 +44,12 @@
 #control_panel_content
 {
     flex : 1;
+}
+
+.content_pane
+{
+    width  : 100%;
+    height : 100%;
 }
 
 #control_panel_footer
@@ -111,6 +115,52 @@
     align-items : center;
     justify-content : center;
     padding : 0px;
+}
+
+.flex_column
+{
+    display : flex;
+    flex-flow : column;
+}
+
+.flex_centered
+{
+    justify-content : space-evenly;
+    align-items     : center;
+}
+
+.column_button
+{
+    background-color : green;
+
+    height : 90px;
+    width : 60%;
+
+    margin : 20px;
+
+    flex : 1 0 auto;
+    background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+    background-color:#7892c2;
+    border-radius:9px;
+    border:2px solid #1e1f21;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:19px;
+    padding:12px 37px;
+    text-decoration:none;
+    text-shadow:3px 3px 2px #283966;
+}
+.column_button:hover 
+{
+    background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+    background-color:#476e9e;
+}
+.column_button:active 
+{
+    position:relative;
+    top:1px;
 }
 
 /****************************************************************************
