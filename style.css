@@ -24,6 +24,32 @@
 
 #control_panel_container
 {
+    border: 5px double #1C6EA4;
+    border-radius: 11px;
+    min-width : 300px;
+    min-height : 300px;
+
+    display : flex;
+    flex-flow : column;
+}
+
+#control_panel_header
+{
+    border-bottom: 2px solid #1C6EA4;
+    background-color : #BBCEDF;
+    height : 5%;
+}
+
+#control_panel_content
+{
+    flex : 1;
+}
+
+#control_panel_footer
+{
+    border-top: 2px solid #1C6EA4;
+    background-color : #BBCEDF;
+    height : 5%;
 }
 
 #footer_container
