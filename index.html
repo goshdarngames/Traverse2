@@ -38,11 +38,11 @@
                 traverse_data.pixi_app =  
                     window.traverse.init_pixi ( PIXI, document );
 
-                traverse_data.game_state = new traverse.LoadState ();
+                traverse.change_state ( new traverse.LoadState () );
 
                 traverse_data.pixi_app.ticker.add ( () =>
                 {
-                    traverse.mainLoop ( traverse_data );
+                    traverse.main_loop ( traverse_data );
                 });
 
                 console.log ( "Runtime loaded." );

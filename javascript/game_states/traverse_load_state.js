@@ -55,7 +55,7 @@
             {
                 console.log ( "All assets loaded." );
 
-                traverse_data.game_state = new traverse.TitleState ();
+                traverse.change_state ( new traverse.TitleState () );
             }
         };
 

@@ -1,8 +1,15 @@
 ( function ( traverse, undefined )
 {
-    traverse.mainLoop = function ( traverse_data )
+    let current_state = undefined;
+
+    traverse.main_loop = function ( traverse_data )
     {
-        traverse_data.game_state.tick ( traverse_data );
+        current_state.tick ( traverse_data );
+    };
+
+    traverse.change_state = function ( new_state )
+    {
+        current_state = new_state;
     };
 
 } ( window.traverse = window.traverse || {} ))
