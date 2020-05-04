@@ -10,10 +10,17 @@
 
             cp.clear_content ();
 
-            let play_button = document.createElement ( "BUTTON" );
-            play_button.innerHTML = "Play";
+            let add_menu_button = ( cp, text ) =>
+            {
+                let button = document.createElement ( "BUTTON" );
+                
+                button.innerHTML = text;
 
-            cp.add_content ( play_button );
+                cp.add_content ( button );
+            };
+
+            add_menu_button ( cp, "Play" );
+            add_menu_button ( cp, "Create" );
 
             this.tick = () => {};
 
