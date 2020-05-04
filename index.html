@@ -40,6 +40,8 @@
 
                 traverse.change_state ( new traverse.LoadState () );
 
+                traverse_data.dom_elements = traverse.get_dom_elements ();
+
                 traverse_data.pixi_app.ticker.add ( () =>
                 {
                     traverse.main_loop ( traverse_data );

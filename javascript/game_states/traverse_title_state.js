@@ -4,9 +4,16 @@
     {
         let start = function ( traverse_data )
         {
-            traverse.set_control_panel_title ( "Main Menu" );
+            let cp = traverse_data.dom_elements.control_panel;
+            
+            cp.set_title ( "Main Menu" );
 
-            traverse.clear_control_panel_content ();
+            cp.clear_content ();
+
+            let play_button = document.createElement ( "BUTTON" );
+            play_button.innerHTML = "Play";
+
+            cp.add_content ( play_button );
 
             this.tick = () => {};
 

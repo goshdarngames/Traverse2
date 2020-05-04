@@ -2,51 +2,54 @@
 
 ( function ( traverse, undefined )
 {
-    traverse.activate_tab = function ( event, tab_name )
+    /**
+     * Finds the dom elements that are expected to be on the html page
+     * when init is called
+     */
+    traverse.get_dom_elements = function () 
     {
-        let control_panel = 
-            document.getElementById ( "control_panel_container" );
-
-        //hide all content
-
-        let content = control_panel.getElementsByClassName ( "tabcontent" );
-
-        Array.from ( content ).forEach ( ( el ) =>
-        {
-            el.style.display = "none";
-        });
-
-        //set all tab header links as inactive (remove CSS class)
+        e = {};
         
-        let tablinks = control_panel.getElementsByClassName ( "tablinks" );
+        let cp_root = document.getElementById ( "control_panel_container" );
 
-        Array.from ( tablinks ).forEach ( ( el ) =>
-        {
-            el.className = el.className.replace ( " active", "" );
-        });
+        let cp_title = document.getElementById ( "cp_title" );
 
-        //show the selected content and set the button to 'active'
+        let cp_content = document.getElementById ( "control_panel_content" );
 
-        document.getElementById ( tab_name ).style.display = "block";
+        let cp_footer = document.getElementById ( "control_panel_footer" );
 
-        event.currentTarget.className += "active";
+        e.control_panel = new ControlPanel ( cp_root, -1, cp_content, -1 );
+
+        return e;
     };
 
-    traverse.set_control_panel_title = function ( text )
+    let ControlPanel = function ( root, title, content, footer )
     {
-        let el = document.getElementById ( "cp_title" );
+        this.root = root;
 
-        el.textContent = text;
-    };
+        this.title = title;
 
-    traverse.clear_control_panel_content = function ()
-    {
-        const cp = document.getElementById ( "control_panel_content" );
+        this.content = content;
 
-        while ( cp.hasChildNodes () )
+        this.footer = footer;
+
+        this.set_title = function ( text )
         {
-            cp.removeChild ( cp.lastChild );
-        }
+            this.title.textContent = text;
+        };
+
+        this.clear_content = function ()
+        {
+            while ( this.content.hasChildNodes () )
+            {
+                this.content.removeChild ( this.content.lastChild );
+            }
+        };
+
+        this.add_content = function ( item )
+        {
+            this.content.appendChild ( item );
+        };
     };
 
 } ( window.traverse = window.traverse || {} ))

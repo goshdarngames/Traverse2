@@ -20,8 +20,6 @@
 
         this.waiting = false;
 
-        traverse.set_control_panel_title ( "Loading..." );
-
         this.tick = function ( traverse_data )
         {
             if ( traverse_data.assets == undefined )
