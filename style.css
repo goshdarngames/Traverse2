@@ -37,7 +37,11 @@
 {
     border-bottom: 2px solid #1C6EA4;
     background-color : #BBCEDF;
-    height : 5%;
+    height : 10%;
+
+    font-family : Verdana, Geneva, sans-serif;
+    font-size : large;
+    text-align : center;
 }
 
 #control_panel_content
