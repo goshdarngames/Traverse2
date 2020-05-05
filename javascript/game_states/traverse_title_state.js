@@ -20,17 +20,19 @@
 
             let button_cb = function ( next_scene )
             {
-                //traverse.change_state ( next_scene );
-                
-                console.log ( next_scene );
+                traverse.change_state ( next_scene );
             };
 
             traverse.add_menu_button ( 
-                div, "Play", () => button_cb ( "Play_B" ) );
+                div, "Play", () => button_cb ( new traverse.PlayState () ) );
 
             traverse.add_menu_button ( 
                 div, "Create", () => button_cb ( "Create_B" ) );
 
+            traverse.add_menu_button ( 
+                div, "Level Select", () => button_cb ( "Create_B" ) );
+
+            //TODO Animated title screen
             this.tick = () => {};
 
         };

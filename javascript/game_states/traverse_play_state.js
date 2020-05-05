@@ -22,6 +22,12 @@
 
         traverse_data.pixi_app.stage.addChild ( play_data.wall_graphics );
 
+        let cp = traverse_data.dom_elements.control_panel;
+        
+        cp.set_title ( "Play" );
+
+        cp.clear_content ();
+
         play_data.tick = () => {};
     };
 
