@@ -22,11 +22,30 @@
 
         traverse_data.pixi_app.stage.addChild ( play_data.wall_graphics );
 
+
         let cp = traverse_data.dom_elements.control_panel;
-        
+
         cp.set_title ( "Play" );
 
         cp.clear_content ();
+
+        let col = traverse.create_flex_column_div ();
+
+        cp.add_content ( col );
+
+        let direction_controls = traverse.create_direction_controls ();
+
+        col.appendChild ( direction_controls.container );
+
+        let ghost_a = traverse.create_menu_button ( 
+            col, "Ghost A", () => console.log( "OOhhh! A" ) );
+
+        col.appendChild ( ghost_a  );
+
+        let ghost_b = traverse.create_menu_button ( 
+            col, "Ghost B", () => console.log( "OOhhh! B" ) );
+
+        col.appendChild ( ghost_b  );
 
         play_data.tick = () => {};
     };

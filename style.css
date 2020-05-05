@@ -100,13 +100,13 @@
 
 }
 
-.direction_panel .up { grid-area: u; }
+.direction_panel .u { grid-area: u; }
 
-.direction_panel .down { grid-area: d; }
+.direction_panel .d { grid-area: d; }
 
-.direction_panel .left { grid-area: l; }
+.direction_panel .l { grid-area: l; }
 
-.direction_panel .right { grid-area: r; }
+.direction_panel .r { grid-area: r; }
 
 .dir_button
 {

@@ -10,27 +10,29 @@
 
             cp.clear_content ();
 
-            let div = document.createElement ( "DIV" );
+            let col = traverse.create_flex_column_div ();
 
-            div.classList.add ( "flex_column" );
-            div.classList.add ( "flex_centered" );
-            div.classList.add ( "content_pane" );
-
-            cp.add_content ( div );
+            cp.add_content ( col );
 
             let button_cb = function ( next_scene )
             {
                 traverse.change_state ( next_scene );
             };
 
-            traverse.add_menu_button ( 
-                div, "Play", () => button_cb ( new traverse.PlayState () ) );
+            let play_button = traverse.create_menu_button ( 
+                col, "Play", () => button_cb ( new traverse.PlayState () ) );
 
-            traverse.add_menu_button ( 
-                div, "Create", () => button_cb ( "Create_B" ) );
+            col.appendChild ( play_button );
 
-            traverse.add_menu_button ( 
-                div, "Level Select", () => button_cb ( "Create_B" ) );
+            let create_button = traverse.create_menu_button ( 
+                col, "Create", () => button_cb ( "Create_B" ) );
+
+            col.appendChild ( create_button  );
+
+            let level_select_button = traverse.create_menu_button ( 
+                col, "Level Select", () => button_cb ( "LS" ) );
+            
+            col.appendChild ( level_select_button  );
 
             //TODO Animated title screen
             this.tick = () => {};

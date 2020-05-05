@@ -24,7 +24,7 @@
         return e;
     };
 
-    traverse.add_menu_button = function ( div, text, click_cb )
+    traverse.create_menu_button = function ( container, text, click_cb )
     {
         let button = document.createElement ( "BUTTON" );
         
@@ -34,9 +34,50 @@
 
         button.onclick = click_cb;
 
-        div.appendChild ( button );
-
         return button;
+    };
+    
+    traverse.create_direction_controls = function ()
+    {
+        let controls = {};
+
+        let create_menu_button = ( grid_div, dir, controls ) =>
+        {
+            let button = document.createElement ( "BUTTON" );
+            
+            button.innerHTML = dir;
+
+            button.classList.add ( dir );
+
+            grid_div.appendChild ( button );
+
+            controls [ dir ] = button;
+        };
+
+        let grid_div = document.createElement ( "DIV" );
+
+        grid_div.classList.add ( "direction_panel" );
+
+        [ 'u', 'd', 'l', 'r' ].forEach ( 
+            ( d ) => create_menu_button ( grid_div, d, controls ) );
+
+
+        controls.container = grid_div;
+
+
+        return controls;
+
+    };
+
+    traverse.create_flex_column_div = function ()
+    {
+        let col = document.createElement ( "DIV" );
+
+        col.classList.add ( "flex_column" );
+        col.classList.add ( "flex_centered" );
+        col.classList.add ( "content_pane" );
+
+        return col;
     };
 
     let ControlPanel = function ( root, title, content, footer )
