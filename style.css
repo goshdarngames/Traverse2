@@ -12,6 +12,11 @@
     flex-basis : 100%;
 }
 
+#header_container h1
+{
+    text-align : center;
+}
+
 #game_container
 {
 }
