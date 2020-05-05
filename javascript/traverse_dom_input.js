@@ -24,6 +24,21 @@
         return e;
     };
 
+    traverse.add_menu_button = function ( div, text, click_cb )
+    {
+        let button = document.createElement ( "BUTTON" );
+        
+        button.innerHTML = text;
+
+        button.classList.add ( "column_button" );
+
+        button.onclick = click_cb;
+
+        div.appendChild ( button );
+
+        return button;
+    };
+
     let ControlPanel = function ( root, title, content, footer )
     {
         this.root = root;

@@ -18,21 +18,6 @@
 
             cp.add_content ( div );
 
-            let add_menu_button = ( div, text, click_cb ) =>
-            {
-                let button = document.createElement ( "BUTTON" );
-                
-                button.innerHTML = text;
-
-                button.classList.add ( "column_button" );
-
-                button.onclick = click_cb;
-
-                div.appendChild ( button );
-
-                return button;
-            };
-
             let button_cb = function ( next_scene )
             {
                 //traverse.change_state ( next_scene );
@@ -40,9 +25,11 @@
                 console.log ( next_scene );
             };
 
-            add_menu_button ( div, "Play", () => button_cb ( "Play_B" ) );
+            traverse.add_menu_button ( 
+                div, "Play", () => button_cb ( "Play_B" ) );
 
-            add_menu_button ( div, "Create", () => button_cb ( "Create_B" ) );
+            traverse.add_menu_button ( 
+                div, "Create", () => button_cb ( "Create_B" ) );
 
             this.tick = () => {};
 
