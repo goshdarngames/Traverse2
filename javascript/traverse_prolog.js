@@ -6,7 +6,7 @@
 
         let request = new XMLHttpRequest ();
 
-        request.open ( 'GET', 'prolog/traverse.pl' );
+        request.open ( 'GET', url );
 
         request.responseType = 'text';
 

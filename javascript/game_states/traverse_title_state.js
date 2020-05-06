@@ -20,12 +20,14 @@
             };
 
             let play_button = traverse.create_menu_button ( 
-                col, "Play", () => button_cb ( new traverse.PlayState () ) );
+                col, "Play", () => button_cb ( 
+                    new traverse.PlayState () ) );
 
             col.appendChild ( play_button );
 
             let create_button = traverse.create_menu_button ( 
-                col, "Create", () => button_cb ( "Create_B" ) );
+                col, "Create", () => button_cb ( 
+                    new traverse.CreateState () ) );
 
             col.appendChild ( create_button  );
 
