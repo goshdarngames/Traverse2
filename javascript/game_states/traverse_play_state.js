@@ -15,6 +15,8 @@
 
     let start_tick = function ( play_data, traverse_data )
     {
+        init_dom ( play_data, traverse_data );
+
         let walls = [ { x : 0, y : 0}, { x : 1, y : 1 } ];
 
         play_data.wall_graphics = 
@@ -23,6 +25,27 @@
         traverse_data.pixi_app.stage.addChild ( play_data.wall_graphics );
 
 
+        play_data.tick = () => {};
+    };
+
+    //TODO - Add a function to create wall graphics from prolog rules
+
+    let create_wall_graphics = function ( pixi, walls, size )
+    {
+        let g = new pixi.Graphics ();
+
+        g.beginFill ( 0xFF0000 );
+
+        walls.forEach ( ( w ) =>
+        {
+            g.drawRect ( w.x*size, w.y*size, size, size );
+        });
+
+        return g;
+    };
+
+    let init_dom = function ( play_data, traverse_data )
+    {
         let cp = traverse_data.dom_elements.control_panel;
 
         cp.set_title ( "Play" );
@@ -47,23 +70,8 @@
 
         col.appendChild ( ghost_b  );
 
-        play_data.tick = () => {};
-    };
+        //TODO - add middle square, add action handlers
 
-    //TODO - Add a function to create wall graphics from prolog rules
-
-    let create_wall_graphics = function ( pixi, walls, size )
-    {
-        let g = new pixi.Graphics ();
-
-        g.beginFill ( 0xFF0000 );
-
-        walls.forEach ( ( w ) =>
-        {
-            g.drawRect ( w.x*size, w.y*size, size, size );
-        });
-
-        return g;
     };
 
 } ( window.traverse = window.traverse || {} ))
