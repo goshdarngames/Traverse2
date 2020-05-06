@@ -8,9 +8,7 @@ object( wall ).
 object( goal ).
 object( player ).
 
-
-object_position( O, X, Y ) :-
-    object(O),
+position( [ X, Y ] ) :-
     width(W),
     height(H),
     X>=0,
@@ -18,18 +16,23 @@ object_position( O, X, Y ) :-
     Y>=0,
     Y<H.
 
-gamestate( [] ).
-gamestate( [Ob] ) :-
-    Ob=[O,X1,Y1],
-    object_position(O,X1,Y1),
-gamestate( [Ob|Obs] ) :-
-    ( 
-        %Obs is empty
-        Obs=[];
-        
-        %OR no other object at same position
-        ( Ob=[O|P1],
-          Obs=[[_|P2]|_],
-          P1\==P2 )
-    ),
-    gamestate(Obs).
+
+%object_position( O, P ) :-
+%    object(O),
+%    position(P).
+%
+%gamestate( [] ).
+%gamestate( [Ob] ) :-
+%    Ob=[O,X1,Y1],
+%    object_position(O,X1,Y1),
+%gamestate( [Ob|Obs] ) :-
+%    ( 
+%        %Obs is empty
+%        Obs=[];
+%        
+%        %OR no other object at same position
+%        ( Ob=[O|P1],
+%          Obs=[[_|P2]|_],
+%          P1\==P2 )
+%    ),
+%    gamestate(Obs).
