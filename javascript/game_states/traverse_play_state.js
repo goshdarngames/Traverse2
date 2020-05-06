@@ -61,12 +61,12 @@
         col.appendChild ( direction_controls.container );
 
         let ghost_a = traverse.create_menu_button ( 
-            col, "Ghost A", () => console.log( "OOhhh! A" ) );
+            "Ghost A", () => console.log( "OOhhh! A" ) );
 
         col.appendChild ( ghost_a  );
 
         let ghost_b = traverse.create_menu_button ( 
-            col, "Ghost B", () => console.log( "OOhhh! B" ) );
+            "Ghost B", () => console.log( "OOhhh! B" ) );
 
         col.appendChild ( ghost_b  );
 

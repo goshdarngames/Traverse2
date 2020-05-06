@@ -28,6 +28,43 @@
         cp.set_title ( "Create" );
 
         cp.clear_content ();
+
+        let root_div = traverse.create_flex_column_div ();
+        
+        cp.add_content ( root_div );
+
+        let build_div = document.createElement ( "DIV" );
+
+        build_div.classList.add ( "flex_row" );
+        build_div.classList.add ( "flex_centered" );
+
+        root_div.appendChild ( build_div );
+
+
+        [ "wall", "boo", "bogey" ].forEach ( ( name ) =>
+        {
+            let button = document.createElement ( "BUTTON" );
+            
+            button.innerHTML = name;
+
+            button.classList.add ( "create_object_button" );
+
+            //button.onclick = click_cb;
+
+            build_div.appendChild ( button );
+
+        });
+
+        let test_button = 
+            traverse.create_menu_button ( "Test", ()=>{} );
+
+        root_div.appendChild ( test_button );
+
+        let share_button = 
+            traverse.create_menu_button ( "Share", ()=>{} );
+
+        root_div.appendChild ( share_button );
+
     };
 
 

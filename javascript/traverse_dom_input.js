@@ -24,7 +24,7 @@
         return e;
     };
 
-    traverse.create_menu_button = function ( container, text, click_cb )
+    traverse.create_menu_button = function ( text, click_cb )
     {
         let button = document.createElement ( "BUTTON" );
         
