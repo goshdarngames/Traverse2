@@ -13,12 +13,12 @@
 
         pixi_app = new pixi.Application (
         {
-            width  : 800,
-            height : 800,
+            width  : 1024,
+            height : 1024,
             view   : document.getElementById ( "pixi_canvas" ),
             resizeTo   : document.getElementById ( "game_canvas_container" ),
             transparent : false,
-            backgroundColor : 0x000000,
+            backgroundColor : 0xBBCFDD,
         });
 
         return pixi_app;
