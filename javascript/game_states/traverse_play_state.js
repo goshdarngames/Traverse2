@@ -19,30 +19,22 @@
 
         let walls = [ { x : 0, y : 0}, { x : 1, y : 1 } ];
 
-        play_data.wall_graphics = 
-            create_wall_graphics ( traverse_data.pixi, walls,  40 );
+        walls.forEach ( ( w ) =>
+        {
+            let wall_sprite = 
+                new PIXI.Sprite ( traverse_data.assets.wall_texture );
 
-        traverse_data.pixi_app.stage.addChild ( play_data.wall_graphics );
+            wall_sprite.position.x = w.x * 64;
+            wall_sprite.position.y = w.y * 64;
 
+            traverse_data.pixi_app.stage.addChild ( wall_sprite );
+        });
 
         play_data.tick = () => {};
     };
 
     //TODO - Add a function to create wall graphics from prolog rules
 
-    let create_wall_graphics = function ( pixi, walls, size )
-    {
-        let g = new pixi.Graphics ();
-
-        g.beginFill ( 0xFF0000 );
-
-        walls.forEach ( ( w ) =>
-        {
-            g.drawRect ( w.x*size, w.y*size, size, size );
-        });
-
-        return g;
-    };
 
     let init_dom = function ( play_data, traverse_data )
     {

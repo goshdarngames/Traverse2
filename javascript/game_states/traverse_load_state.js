@@ -12,6 +12,33 @@
             }
         },
 
+        {
+            asset_name : "boo_texture",
+
+            fetch_fun :  function ( callback )
+            {
+                callback ( PIXI.Texture.from ( "assets/boo.png" ));
+            }
+        },
+
+        {
+            asset_name : "bogey_texture",
+
+            fetch_fun :  function ( callback )
+            {
+                callback ( PIXI.Texture.from ( "assets/bogey.png" ));
+            }
+        },
+
+        {
+            asset_name : "wall_texture",
+
+            fetch_fun :  function ( callback )
+            {
+                callback ( PIXI.Texture.from ( "assets/wall.png" ));
+            }
+        },
+
     ];
 
     traverse.LoadState = function ()
@@ -43,9 +70,9 @@
                     this.waiting = false;
                 };
 
-                a.fetch_fun ( cb );
-                
                 this.waiting = true;
+
+                a.fetch_fun ( cb );
 
                 this.next_asset += 1;
             }
