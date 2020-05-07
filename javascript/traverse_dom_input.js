@@ -72,6 +72,14 @@
             grid_div.appendChild ( button );
 
             controls [ dir ] = button;
+
+            switch ( dir )
+            {
+                case 'u' : button.innerHTML = "&#x1F881"; break;
+                case 'd' : button.innerHTML = "&#x1F883;"; break;
+                case 'l' : button.innerHTML = "&#x1F880"; break;
+                case 'r' : button.innerHTML = "&#x1F882"; break;
+            }
         };
 
         let grid_div = document.createElement ( "DIV" );

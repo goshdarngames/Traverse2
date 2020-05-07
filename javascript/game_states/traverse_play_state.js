@@ -17,18 +17,40 @@
     {
         init_dom ( play_data, traverse_data );
 
-        let walls = [ { x : 0, y : 0}, { x : 1, y : 1 } ];
+        let walls = [ { x : 0, y : 0}, 
+                      { x : 1, y : 5 },
+                      { x : 8, y : 1 },
+                      { x : 5, y : 3 },
+                      { x : 6, y : 4 },
+                      { x : 4, y : 4 },
+                      { x : 6, y : 8 },
+                      { x : 12, y : 14 },
+                      { x : 9, y : 11 },
+                      { x : 9, y : 11 },
+                      { x : 9, y : 8 },
+                      { x : 3, y : 18 },
+                      { x : 1, y : 8 },
+        ];
+
+        //TODO - move this to a shared objects function
+        let add_sprite = ( texture, x, y ) =>
+        {
+            let sprite = new PIXI.Sprite ( texture );
+
+            sprite.position.x = x * 64;
+            sprite.position.y = y * 64;
+
+            traverse_data.pixi_app.stage.addChild ( sprite );
+        };
 
         walls.forEach ( ( w ) =>
         {
-            let wall_sprite = 
-                new PIXI.Sprite ( traverse_data.assets.wall_texture );
-
-            wall_sprite.position.x = w.x * 64;
-            wall_sprite.position.y = w.y * 64;
-
-            traverse_data.pixi_app.stage.addChild ( wall_sprite );
+             add_sprite ( traverse_data.assets.wall_texture, w.x, w.y );
         });
+
+        add_sprite ( traverse_data.assets.boo_texture, 10, 10 );
+
+        add_sprite ( traverse_data.assets.bogey_texture, 3, 4 );
 
         play_data.tick = () => {};
     };
