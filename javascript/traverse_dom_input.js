@@ -36,6 +36,26 @@
 
         return button;
     };
+
+    /**
+     * ob_name - used for png and passed to callback
+     */
+    traverse.create_object_button = function ( ob_name, callback )
+    {
+        let button = document.createElement ( "INPUT" );
+
+        button.type = "image";
+        
+        button.alt = ob_name;
+
+        button.classList.add ( "create_object_button" );
+
+        button.src = `assets/${ob_name}.png`;
+
+        button.onclick = () => { callback ( ob_name ) };
+
+        return button;
+    }
     
     traverse.create_direction_controls = function ()
     {

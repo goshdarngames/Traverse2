@@ -41,20 +41,10 @@
         root_div.appendChild ( build_div );
 
 
-        //TODO - move object button creation to dom input file
         [ "wall", "boo", "bogey" ].forEach ( ( name ) =>
         {
-            let button = document.createElement ( "INPUT" );
-
-            button.type = "image";
-            
-            button.alt = name;
-
-            button.classList.add ( "create_object_button" );
-
-            button.src = `assets/${name}.png`;
-
-            //button.onclick = click_cb;
+            let button = traverse.create_object_button ( name,
+                ( n ) => { console.log ( n ); } );
 
             build_div.appendChild ( button );
 
