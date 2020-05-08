@@ -65,8 +65,8 @@
         this.create_event.stage_clicked = 
             function ( e, create_data, traverse_data )
         {
-            let x = e.data.global.x;
-            let y = e.data.global.y;
+            let x = traverse_data.scale_screen_pos ( e.data.global.x );
+            let y = traverse_data.scale_screen_pos ( e.data.global.y );
 
             console.log ( `Click ${x} ${y}` );
         };

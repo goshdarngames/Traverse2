@@ -32,9 +32,10 @@
             {
                 let traverse_data = 
                 {
-                    canvas_size : 1024,
-                    grid_size   : 16,
-                    scale_coord : ( c ) => c * 64,
+                    canvas_size      : 1024,
+                    grid_size        : 16,
+                    scale_coord      : ( c ) => c * 64,
+                    scale_screen_pos : ( c ) => Math.floor ( c / 64 ),
                 };
 
                 //initialize pixi
