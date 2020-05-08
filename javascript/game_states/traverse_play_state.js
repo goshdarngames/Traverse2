@@ -38,6 +38,7 @@
                       { x : 9, y : 8 },
                       { x : 3, y : 18 },
                       { x : 1, y : 8 },
+                      { x : 15, y : 15 },
         ];
 
         //TODO - move this to a shared objects function
@@ -45,8 +46,8 @@
         {
             let sprite = new PIXI.Sprite ( texture );
 
-            sprite.position.x = x * 64;
-            sprite.position.y = y * 64;
+            sprite.position.x = traverse_data.scale_coord ( x );
+            sprite.position.y = traverse_data.scale_coord ( y );
 
             traverse_data.pixi_app.stage.addChild ( sprite );
         };

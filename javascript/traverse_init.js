@@ -1,6 +1,6 @@
 ( function ( traverse, undefined )
 {
-    traverse.init_pixi = function ( pixi, document )
+    traverse.init_pixi = function ( pixi, document, traverse_data )
     {
         let type="WebGL";
         
@@ -13,10 +13,9 @@
 
         pixi_app = new pixi.Application (
         {
-            width  : 1024,
-            height : 1024,
+            width  : traverse_data.canvas_size,
+            height : traverse_data.canvas_size,
             view   : document.getElementById ( "pixi_canvas" ),
-            resizeTo   : document.getElementById ( "game_canvas_container" ),
             transparent : false,
             backgroundColor : 0xBBCFDD,
         });

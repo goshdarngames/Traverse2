@@ -30,14 +30,20 @@
 
             window.onload = function ()
             {
-                let traverse_data = {};
+                let traverse_data = 
+                {
+                    canvas_size : 1024,
+                    grid_size   : 16,
+                    scale_coord : ( c ) => c * 64,
+                };
 
                 //initialize pixi
 
                 traverse_data.pixi = PIXI;
 
                 traverse_data.pixi_app =  
-                    window.traverse.init_pixi ( PIXI, document );
+                    window.traverse.init_pixi 
+                        ( PIXI, document, traverse_data );
 
                 traverse.change_state ( new traverse.LoadState () );
 
