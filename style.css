@@ -31,8 +31,6 @@
 {
     border: 5px double #1C6EA4;
     border-radius: 11px;
-    min-width : 400px;
-    min-height : 300px;
 
 }
 
@@ -90,8 +88,8 @@
 .direction_panel
 {
     display: grid;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 100px 100px 100px;
+    grid-template-columns: 64px 64px 64px;
+    grid-template-rows: 64px 64px 64px;
     gap: 1px 1px;
     grid-template-areas: ". u ." 
                          "l . r" 
@@ -110,9 +108,6 @@
 
 .dir_button
 {
-    display : flex;
-    width : 100%;
-    height : 100%;
 
     background-color : Transparent;
     background-repeat:no-repeat;
