@@ -4,24 +4,53 @@
     {
         this.create_data = {};
 
-        this.create_data.tick = start_tick;
+        this.create_data.state = new StartState ();
 
         this.tick = function ( traverse_data )
         {
-            this.create_data.tick ( this.create_data, traverse_data );
+            this.create_data.state.create_event
+                .tick ( this.create_data, traverse_data );
         };
 
+        //TODO - create stage click event callback
 
     };
 
-    let start_tick = function ( create_data, traverse_data )
+    let CreateEvent = function ()
     {
-        init_dom ( create_data, traverse_data );
+        this.enter = ( create_data, traverse_data ) => {};
 
-        create_data.tick = () => {};
+        this.tick = ( create_data, traverse_data ) => {};
+
+        this.stage_clicked = ( create_data, traverse_data ) => {};
+
+        this.sprite_clicked = ( create_data, traverse_data ) => {};
     };
 
-    let init_dom = function ( play_data, traverse_data )
+    let StartState = function ()
+    {
+        this.create_event = new CreateEvent ();
+
+        this.create_event.tick = function ( create_data, traverse_data )
+        {
+            init_dom ( create_data, traverse_data );
+
+            create_data.state = new WaitState ();
+        }
+    };
+
+    let WaitState = function ()
+    {
+        this.create_event = new CreateEvent ();
+
+        this.create_event.stage_clicked = 
+            function ( create_data, traverse_data )
+        {
+            console.log ( "Click" );
+        };
+    };
+
+    let init_dom = function ( create_data, traverse_data )
     {
         let cp = traverse_data.dom_elements.control_panel;
 
@@ -44,7 +73,10 @@
         [ "wall", "boo", "bogey" ].forEach ( ( name ) =>
         {
             let button = traverse.create_object_button ( name,
-                ( n ) => { console.log ( n ); } );
+            ( n ) => 
+            { 
+                //TODO select object
+            } );
 
             build_div.appendChild ( button );
 
