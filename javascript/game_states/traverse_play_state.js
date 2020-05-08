@@ -11,6 +11,14 @@
             this.play_data.tick ( this.play_data, traverse_data );
         };
 
+        this.enter_state = function ( traverse_data )
+        {
+        };
+
+        this.exit_state = function ( traverse_data )
+        {
+        };
+
     };
 
     let start_tick = function ( play_data, traverse_data )

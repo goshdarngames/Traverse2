@@ -6,6 +6,14 @@
         {
         };
 
+        this.enter_state = function ( traverse_data )
+        {
+        };
+
+        this.exit_state = function ( traverse_data )
+        {
+        };
+
     };
 
 } ( window.traverse = window.traverse || {} ))

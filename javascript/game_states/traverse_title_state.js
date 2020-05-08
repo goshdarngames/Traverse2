@@ -16,7 +16,7 @@
 
             let button_cb = function ( next_scene )
             {
-                traverse.change_state ( next_scene );
+                traverse.change_state ( next_scene, traverse_data );
             };
 
             let play_button = traverse.create_menu_button ( 
@@ -42,6 +42,14 @@
         };
 
         this.tick = start;
+
+        this.enter_state = function ( traverse_data )
+        {
+        };
+
+        this.exit_state = function ( traverse_data )
+        {
+        };
 
     };
 

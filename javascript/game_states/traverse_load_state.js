@@ -47,6 +47,14 @@
 
         this.waiting = false;
 
+        this.enter_state = function ( traverse_data )
+        {
+        };
+
+        this.exit_state = function ( traverse_data )
+        {
+        };
+
         this.tick = function ( traverse_data )
         {
             if ( traverse_data.assets == undefined )
@@ -80,7 +88,8 @@
             {
                 console.log ( "All assets loaded." );
 
-                traverse.change_state ( new traverse.TitleState () );
+                traverse.change_state ( new traverse.TitleState (), 
+                                        traverse_data );
             }
         };
 

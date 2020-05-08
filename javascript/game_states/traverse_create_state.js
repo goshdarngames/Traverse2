@@ -12,7 +12,20 @@
                 .tick ( this.create_data, traverse_data );
         };
 
-        //TODO - create stage click event callback
+        let stage_clicked = function ()
+        {
+            this.create_data.state.create_event.stage_clicked ();
+        };
+
+        this.enter_state = function ( traverse_data )
+        {
+        };
+
+        this.exit_state = function ( traverse_data )
+        {
+        };
+
+        //traverse_data.pixi_app.stage.on ( 'pointerdown', stage_clicked );
 
     };
 
