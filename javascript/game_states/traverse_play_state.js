@@ -66,23 +66,31 @@
 
         cp.clear_content ();
 
-        let col = traverse.create_flex_column_div ();
+        let root_div = traverse.create_flex_column_div ();
 
-        cp.add_content ( col );
+        cp.add_content ( root_div );
 
         let direction_controls = traverse.create_direction_controls ();
 
-        col.appendChild ( direction_controls.container );
+        root_div.appendChild ( direction_controls.container );
 
-        let ghost_a = traverse.create_menu_button ( 
-            "Ghost A", () => console.log( "OOhhh! A" ) );
+        let obj_div = document.createElement ( "DIV" );
 
-        col.appendChild ( ghost_a  );
+        obj_div.classList.add ( "flex_row" );
+        obj_div.classList.add ( "flex_centered" );
 
-        let ghost_b = traverse.create_menu_button ( 
-            "Ghost B", () => console.log( "OOhhh! B" ) );
+        root_div.appendChild ( obj_div );
 
-        col.appendChild ( ghost_b  );
+        [ "boo", "bogey" ].forEach ( ( name ) =>
+        {
+            let button = traverse.create_object_button ( name,
+                ( n ) => { console.log ( n ); } );
+
+            obj_div.appendChild ( button );
+
+        });
+
+    
 
         //TODO - add middle square, add action handlers
 
