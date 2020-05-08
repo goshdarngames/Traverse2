@@ -21,13 +21,13 @@
 
             let play_button = traverse.create_menu_button ( 
                 "Play", () => button_cb ( 
-                    new traverse.PlayState () ) );
+                    new traverse.PlayState ( traverse_data ) ) );
 
             col.appendChild ( play_button );
 
             let create_button = traverse.create_menu_button ( 
                 "Create", () => button_cb ( 
-                    new traverse.CreateState () ) );
+                    new traverse.CreateState ( traverse_data ) ) );
 
             col.appendChild ( create_button  );
 

@@ -21,8 +21,6 @@
             backgroundColor : 0xBBCFDD,
         });
 
-        pixi_app.stage.interactive = true;
-
         return pixi_app;
     };
 

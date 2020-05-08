@@ -2,6 +2,8 @@
 {
     traverse.CreateState = function ( traverse_data )
     {
+        this.traverse_data = traverse_data;
+
         this.create_data = {};
 
         this.create_data.state = new StartState ();
@@ -12,21 +14,25 @@
                 .tick ( this.create_data, traverse_data );
         };
 
-        let stage_clicked = function ()
+        this.stage_clicked = function ( e )
         {
-            this.create_data.state.create_event.stage_clicked ();
+            this.create_data.state.create_event
+                .stage_clicked ( e, this.create_data, this.traverse_data );
         };
 
         this.enter_state = function ( traverse_data )
         {
+            traverse_data.pixi_app.renderer.plugins.interaction
+                .on ( 'pointerdown', 
+                    ( e ) => 
+                    { 
+                        this.stage_clicked ( e ); 
+                    });
         };
 
         this.exit_state = function ( traverse_data )
         {
         };
-
-        //traverse_data.pixi_app.stage.on ( 'pointerdown', stage_clicked );
-
     };
 
     let CreateEvent = function ()
@@ -35,7 +41,7 @@
 
         this.tick = ( create_data, traverse_data ) => {};
 
-        this.stage_clicked = ( create_data, traverse_data ) => {};
+        this.stage_clicked = ( e, create_data, traverse_data ) => {};
 
         this.sprite_clicked = ( create_data, traverse_data ) => {};
     };
@@ -57,9 +63,12 @@
         this.create_event = new CreateEvent ();
 
         this.create_event.stage_clicked = 
-            function ( create_data, traverse_data )
+            function ( e, create_data, traverse_data )
         {
-            console.log ( "Click" );
+            let x = e.data.global.x;
+            let y = e.data.global.y;
+
+            console.log ( `Click ${x} ${y}` );
         };
     };
 
