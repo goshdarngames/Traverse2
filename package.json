@@ -1,0 +1,32 @@
+{
+  "name": "traverse2",
+  "version": "1.0.0",
+  "description": "Puzzle game for browsers.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "jest": "^26.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goshdarngames/Traverse2.git"
+  },
+  "keywords": [
+    "game",
+    "html",
+    "javascript",
+    "prolog"
+  ],
+  "author": "Gosh Darn Games",
+  "license": "GNUv3",
+  "bugs": {
+    "url": "https://github.com/goshdarngames/Traverse2/issues"
+  },
+  "homepage": "https://github.com/goshdarngames/Traverse2#readme"
+}
