@@ -50,7 +50,7 @@
     {
         this.create_event = new CreateEvent ();
 
-        this.create_event.tick = function ( create_data, traverse_data )
+        this.create_event.tick = ( create_data, traverse_data ) =>
         {
             init_dom ( create_data, traverse_data );
 
@@ -61,14 +61,23 @@
     let WaitState = function ()
     {
         this.create_event = new CreateEvent ();
+    };
+
+    let ObjectSelectedState = function ( type )
+    {
+        this.type = type;
+
+        this.create_event = new CreateEvent ();
 
         this.create_event.stage_clicked = 
-            function ( e, create_data, traverse_data )
+            ( e, create_data, traverse_data ) =>
         {
             let x = traverse_data.scale_screen_pos ( e.data.global.x );
             let y = traverse_data.scale_screen_pos ( e.data.global.y );
 
-            console.log ( `Click ${x} ${y}` );
+            console.log ( `${this.type} ${x} ${y}` );
+
+            create_data.state = new WaitState ();
         };
     };
 
@@ -92,12 +101,12 @@
         root_div.appendChild ( build_div );
 
 
-        [ "wall", "boo", "bogey" ].forEach ( ( name ) =>
+        [ "wall", "boo", "bogey" ].forEach ( ( type ) =>
         {
-            let button = traverse.create_object_button ( name,
-            ( n ) => 
+            let button = traverse.create_object_button ( type,
+            () => 
             { 
-                //TODO select object
+                create_data.state = new ObjectSelectedState ( type );
             } );
 
             build_div.appendChild ( button );
