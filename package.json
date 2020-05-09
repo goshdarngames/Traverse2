@@ -9,7 +9,12 @@
   "dependencies": {
     "jest": "^26.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "^1.1.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-run": "^0.8.1"
+  },
   "scripts": {
     "test": "jest"
   },
