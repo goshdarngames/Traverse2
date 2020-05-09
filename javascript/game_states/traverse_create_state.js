@@ -54,6 +54,8 @@
         {
             init_dom ( create_data, traverse_data );
 
+            create_data.puzzle_state = new traverse.PuzzleState ( [] );
+
             create_data.state = new WaitState ();
         }
     };
