@@ -9,20 +9,19 @@
 
     traverse.PuzzleState = function ( object_list )
     {
-        //TODO store lookup { x : { y : type } }
         this.object_list = object_list;
 
         this.position_index = {};
 
-//        object_list.forEach ( ( o ) =>
-//        {
-//            if ( this.position_index [ o.x ] == undefined )
-//            {
-//                this.position_index [ o.x ] = { o.x : {} };
-//            }
-//
-//            this.position_index [ o.x ] [ o.y ] = o.type;
-//        });
+        object_list.forEach ( ( o ) =>
+        {
+            if ( this.position_index [ o.x ] == undefined )
+            {
+                this.position_index [ o.x ] = {};
+            }
+
+            this.position_index [ o.x ] [ o.y ] = o.type;
+        });
 
         this.get_object_type_at = function ( x, y )
         {
