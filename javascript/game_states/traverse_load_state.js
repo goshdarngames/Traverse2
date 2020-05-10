@@ -1,49 +1,58 @@
 ( function ( traverse, undefined )
 {
-    let assets =
+    let loading_jobs =
     [
+        ( traverse_data, callback ) =>
         {
-            asset_name : "rules_pl",
+            traverse.read_prolog_file ( "prolog/traverse_rules.pl",
+                ( session ) => 
+                {
+                    traverse_data.assets.rules_pl = session;
+                    callback ();
+                });
+        },
+
+        ( traverse_data, callback ) =>
+        {
+            traverse_data.assets.boo_texture =
+                PIXI.Texture.from ( "assets/boo.png" );
+
+            callback ();
+        },
+
+        ( traverse_data, callback ) =>
+        {
+            traverse_data.assets.bogey_texture =
+                PIXI.Texture.from ( "assets/bogey.png" );
+
+            callback ();
+        },
+
+        ( traverse_data, callback ) =>
+        {
+            traverse_data.assets.wall_texture =
+                PIXI.Texture.from ( "assets/wall.png" );
+
+            callback ();
+        },
+/*
+        {
+            asset_name : "wall_sprite_pool",
 
             fetch_fun :  function ( callback )
             {
-                traverse.read_prolog_file ( "prolog/traverse_rules.pl",
-                                            callback );
+                let make_sprite = 
+                    () => new PIXI.Sprite ( traverse.assets.wall_texture );
+
+                callback ( new traverse.ObjectPool ( make_sprite, 128 ) );
             }
         },
-
-        {
-            asset_name : "boo_texture",
-
-            fetch_fun :  function ( callback )
-            {
-                callback ( PIXI.Texture.from ( "assets/boo.png" ));
-            }
-        },
-
-        {
-            asset_name : "bogey_texture",
-
-            fetch_fun :  function ( callback )
-            {
-                callback ( PIXI.Texture.from ( "assets/bogey.png" ));
-            }
-        },
-
-        {
-            asset_name : "wall_texture",
-
-            fetch_fun :  function ( callback )
-            {
-                callback ( PIXI.Texture.from ( "assets/wall.png" ));
-            }
-        },
-
+*/
     ];
 
     traverse.LoadState = function ()
     {
-        this.next_asset = 0;
+        this.next_job = 0;
 
         this.waiting = false;
 
@@ -68,21 +77,17 @@
                 return;
             }
 
-            if ( this.next_asset < assets.length )
+            if ( this.next_job < loading_jobs.length )
             {
-                let a = assets [ this.next_asset ];
+                let job = loading_jobs [ this.next_job ];
 
-                let cb = ( fetched_data ) =>
-                {
-                    traverse_data.assets [ a.asset_name ] = fetched_data;
-                    this.waiting = false;
-                };
+                let cb = () => this.waiting = false;
 
                 this.waiting = true;
 
-                a.fetch_fun ( cb );
+                job ( traverse_data, cb );
 
-                this.next_asset += 1;
+                this.next_job += 1;
             }
             else
             {
