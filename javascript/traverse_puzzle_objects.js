@@ -25,6 +25,10 @@
 
         this.get_object_type_at = function ( x, y )
         {
+            if ( this.position_index [ x ] != undefined )
+            {
+                return this.position_index [ x ][ y ];
+            }
         };
     };
 
