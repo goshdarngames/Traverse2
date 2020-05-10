@@ -35,19 +35,18 @@
 
             callback ();
         },
-/*
+
+        ( traverse_data, callback ) =>
         {
-            asset_name : "wall_sprite_pool",
+            let make_sprite = 
+                () => new PIXI.Sprite ( traverse_data.assets.wall_texture );
 
-            fetch_fun :  function ( callback )
-            {
-                let make_sprite = 
-                    () => new PIXI.Sprite ( traverse.assets.wall_texture );
+            traverse_data.wall_sprite_pool = 
+                 new traverse.ObjectPool ( make_sprite, 128 ) 
 
-                callback ( new traverse.ObjectPool ( make_sprite, 128 ) );
-            }
+            callback ();
         },
-*/
+
     ];
 
     traverse.LoadState = function ()
