@@ -1,4 +1,4 @@
-const sum = require('./traverse_puzzle_objects');
+require('./traverse_puzzle_objects');
 
 test('empty puzzle', () => 
 {
