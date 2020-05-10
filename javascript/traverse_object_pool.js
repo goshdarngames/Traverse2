@@ -7,6 +7,11 @@
 {
     traverse.PoolItem = function ( constructor, initial_capacity )
     {
-        this.pool = [ 10,10,10,10,10,10,10,10,10,10 ];
+        this.pool = [];
+
+        for ( let i = 0; i < 10; i++ )
+        {
+            this.pool.push ( constructor () );
+        }
     };
 } ( window.traverse = window.traverse || {} ))
