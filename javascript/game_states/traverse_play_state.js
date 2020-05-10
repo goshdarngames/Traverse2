@@ -54,7 +54,13 @@
 
         walls.forEach ( ( w ) =>
         {
-             add_sprite ( traverse_data.assets.wall_texture, w.x, w.y );
+            //TODO - this sprite creation method is for testing only
+            let sprite = traverse_data.wall_sprite_pool.pop ();
+
+            sprite.position.x = traverse_data.scale_coord ( w.x );
+            sprite.position.y = traverse_data.scale_coord ( w.y );
+
+            traverse_data.pixi_app.stage.addChild ( sprite );
         });
 
         add_sprite ( traverse_data.assets.boo_texture, 10, 10 );
