@@ -5,13 +5,30 @@
 //TODO - Pool User
 ( function ( traverse, undefined )
 {
-    traverse.PoolItem = function ( constructor, initial_capacity )
+    traverse.PoolItem = function ( make_item, initial_capacity )
     {
-        this.pool = [];
+        let pool = [];
 
-        for ( let i = 0; i < 10; i++ )
+        for ( let i = 0; i < initial_capacity; i++ )
         {
-            this.pool.push ( constructor () );
+            pool.push ( make_item () );
+        }
+
+        this.pop = function ()
+        {
+            if ( pool.length > 0 )
+            {
+                return pool.pop ();
+            }
+            else
+            {
+                return make_item ();
+            }
+        }
+
+        this.push = function ( o )
+        {
+            pool.push ( o );
         }
     };
 } ( window.traverse = window.traverse || {} ))
