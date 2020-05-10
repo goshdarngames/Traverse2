@@ -1,10 +1,10 @@
 require('./traverse_object_pool');
 
-test('create PoolItem', () => 
+test('create ObjectPool', () => 
 {
     let TestObject = function () {};
 
-    let pi = new traverse.PoolItem ( () => new TestObject (), 10 );
+    let pi = new traverse.ObjectPool ( () => new TestObject (), 10 );
 
     let initial_objects = new Set ();
 
