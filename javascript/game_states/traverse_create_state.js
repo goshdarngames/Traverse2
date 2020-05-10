@@ -79,7 +79,16 @@
 
             console.log ( `${this.type} ${x} ${y}` );
 
-            create_data.state = new WaitState ();
+            let sprite = traverse_data.wall_sprite_pool.pop ();
+
+            traverse_data.pixi_app.stage.addChild ( sprite );
+
+            sprite.position.x = traverse_data.scale_coord ( x );
+            sprite.position.y = traverse_data.scale_coord ( y );
+
+            //TODO - add objects to puzzle state.  Only allow one obj
+            //       per tile and push objects back to pool
+
         };
     };
 
