@@ -97,29 +97,16 @@
                 traverse_data.scale_screen_pos ( e.data.global.y );
 
             let puzzle_ob = 
-                new traverse.PuzzleObject ( type, grid_x, grid_y );
+                new traverse.StaticPuzzleObject ( type, grid_x, grid_y );
 
-            create_object ( puzzle_ob, create_data, traverse_data );
 
+            let po_graphics = puzzle_ob.puzzle_ob.get_graphics ( traverse_data );
+
+            po_graphics.enable ( 
+                traverse_data.scale_coord ( puzzle_ob.x ),
+                traverse_data.scale_coord ( puzzle_ob.y ));
 
         };
-    };
-
-    let create_object = 
-        function ( puzzle_object, create_data, traverse_data )
-    {
-        let sprite = traverse_data.wall_sprite_pool.pop ();
-
-        traverse_data.pixi_app.stage.addChild ( sprite );
-
-        sprite.position.x =
-            traverse_data.scale_coord ( puzzle_object.x );
-        sprite.position.y =
-            traverse_data.scale_coord ( puzzle_object.y );
-
-        //TODO - add objects to puzzle state.  Only allow one obj
-        //       per tile and push objects back to pool
-
     };
 
     let init_dom = function ( create_data, traverse_data )
