@@ -51,6 +51,8 @@
     /**
      * These objects are to be associated with a puzzle object in order
      * to draw it on screen.
+     *
+     * TODO - Add support for animation ticks and state-based systems
      */
     let PuzzleObjectGraphics = function ( enable_fun, disable_fun, move_fun )
     {
