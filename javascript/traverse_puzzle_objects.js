@@ -9,7 +9,7 @@
 
     traverse.PuzzleState = function ()
     {
-        let position_index = {};
+        let position_index = new Map ();
 
         this.add_object = function ( o )
         {
@@ -18,12 +18,12 @@
                 throw `Object already exists at ${o.x} ${o.y}`
             }
 
-            if ( position_index [ o.x ] == undefined )
+            if ( position_index.get ( o.x ) == undefined )
             {
-                position_index [ o.x ] = {};
+                position_index.set ( o.x, new Map () );
             }
             
-            position_index [ o.x ] [ o.y ] = o;
+            position_index.get ( o.x ) .set ( o.y, o );
             
         };
 
@@ -34,20 +34,20 @@
                 throw `Nothing exists at ${x} ${y}`
             }
 
-            delete ( position_index [ x ] [ y ] );
+            position_index.get ( x ) .delete ( y );
 
-            if ( Object.keys ( position_index [ x ] ).length <= 0 )
+            if ( position_index.get ( x ).size <= 0 )
             {
-                delete ( position_index [ x ] );
+                position_index.delete ( x );
             }
 
         };
 
         this.get_object_at_pos = function ( x, y )
         {
-            if ( position_index [ x ] != undefined )
+            if ( position_index.get ( x ) != undefined )
             {
-                return position_index [ x ][ y ];
+                return position_index.get ( x ).get ( y );
             }
         };
     };
