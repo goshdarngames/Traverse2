@@ -7,27 +7,31 @@
         this.y = y;
     };
 
-    traverse.PuzzleState = function ( object_list )
+    traverse.PuzzleState = function ()
     {
-        this.object_list = object_list;
+        let position_index = {};
 
-        this.position_index = {};
-
-        object_list.forEach ( ( o ) =>
+        this.add_object = function ( o )
         {
-            if ( this.position_index [ o.x ] == undefined )
+            if ( this.get_object_at_pos ( o.x, o.y ) )
             {
-                this.position_index [ o.x ] = {};
+                throw `Object already exists at ${o.x} ${o.y}`
+            }
+
+            if ( position_index [ o.x ] == undefined )
+            {
+                position_index [ o.x ] = {};
             }
             
-            this.position_index [ o.x ] [ o.y ] = o;
-        });
+            position_index [ o.x ] [ o.y ] = o;
+            
+        };
 
         this.get_object_at_pos = function ( x, y )
         {
-            if ( this.position_index [ x ] != undefined )
+            if ( position_index [ x ] != undefined )
             {
-                return this.position_index [ x ][ y ];
+                return position_index [ x ][ y ];
             }
         };
     };
