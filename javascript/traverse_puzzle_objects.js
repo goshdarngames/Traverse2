@@ -19,11 +19,11 @@
             {
                 this.position_index [ o.x ] = {};
             }
-
-            this.position_index [ o.x ] [ o.y ] = o.type;
+            
+            this.position_index [ o.x ] [ o.y ] = o;
         });
 
-        this.get_object_type_at = function ( x, y )
+        this.get_object_at_pos = function ( x, y )
         {
             if ( this.position_index [ x ] != undefined )
             {
