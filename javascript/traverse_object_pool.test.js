@@ -6,6 +6,7 @@ test('create ObjectPool', () =>
 
     let pi = new traverse.ObjectPool ( () => new TestObject (), 10 );
 
+    //pop out ten items ( initial capacity ) and store refs in this set
     let initial_objects = new Set ();
 
     for ( let i = 0; i < 10; i++ )
@@ -20,6 +21,7 @@ test('create ObjectPool', () =>
     //set membership asserts all objects are different
     expect ( initial_objects.size ).toBe ( 10 );
 
+    //popping should cause a new object to be created
     let extra = pi.pop ();
 
     expect ( extra ).toBeInstanceOf ( TestObject );
@@ -27,6 +29,9 @@ test('create ObjectPool', () =>
     expect ( initial_objects.has ( extra ) ).toBeFalsy ();
      
     pi.push ( extra );
+
+    //push all objects back in and pop again to check we get the same
+    //objects
 
     initial_objects.forEach ( ( o ) => pi.push ( o ) );
 
