@@ -58,5 +58,21 @@
         return false;
     };
 
+    traverse.PuzzleObjectGraphics = function ( puzzle_ob )
+    {
+        let clean_up = () => {};
+
+        this.enable = function ( traverse_data )
+        {
+            //todo create sprites and store an arrow function to clean
+            //them up.
+        };
+
+        this.disable = function ( traverse_data )
+        {
+            clean_up ();
+        };
+    };
+
 } ( window.traverse = window.traverse || {} ))
 
