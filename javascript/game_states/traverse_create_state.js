@@ -44,6 +44,9 @@
         this.stage_clicked = ( e, create_data, traverse_data ) => {};
 
         this.sprite_clicked = ( create_data, traverse_data ) => {};
+
+        this.build_obj_button_clicked = 
+            ( type, create_data, traverse_data ) => {};
     };
 
     let StartState = function ()
@@ -54,7 +57,7 @@
         {
             init_dom ( create_data, traverse_data );
 
-            create_data.puzzle_state = new traverse.PuzzleState ( [] );
+            create_data.puzzle_state = new traverse.PuzzleState ();
 
             create_data.state = new WaitState ();
         }
@@ -63,6 +66,11 @@
     let WaitState = function ()
     {
         this.create_event = new CreateEvent ();
+
+        this.create_event.build_obj_button_clicked =
+            ( type, create_data, traverse_data ) =>
+        {
+        };
     };
 
     let ObjectSelectedState = function ( type )
@@ -74,17 +82,17 @@
         this.create_event.stage_clicked = 
             ( e, create_data, traverse_data ) =>
         {
-            let x = traverse_data.scale_screen_pos ( e.data.global.x );
-            let y = traverse_data.scale_screen_pos ( e.data.global.y );
-
-            console.log ( `${this.type} ${x} ${y}` );
+            let grid_x = 
+                traverse_data.scale_screen_pos ( e.data.global.grid_x );
+            let grid_y = 
+                traverse_data.scale_screen_pos ( e.data.global.grid_y );
 
             let sprite = traverse_data.wall_sprite_pool.pop ();
 
             traverse_data.pixi_app.stage.addChild ( sprite );
 
-            sprite.position.x = traverse_data.scale_coord ( x );
-            sprite.position.y = traverse_data.scale_coord ( y );
+            sprite.position.x = traverse_data.scale_coord ( grid_x );
+            sprite.position.y = traverse_data.scale_coord ( grid_y );
 
             //TODO - add objects to puzzle state.  Only allow one obj
             //       per tile and push objects back to pool
@@ -117,7 +125,9 @@
             let button = traverse.create_object_button ( type,
             () => 
             { 
-                create_data.state = new ObjectSelectedState ( type );
+                create_data.state.create_event
+                    .build_obj_button_clicked ( type );
+
             } );
 
             build_div.appendChild ( button );
