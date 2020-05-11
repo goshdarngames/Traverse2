@@ -1,5 +1,23 @@
 ( function ( traverse, undefined )
 {
+    traverse.PuzzleObjects = 
+    {
+        wall :
+        {
+            name : "wall",
+        },
+
+        bogey :
+        {
+            name : "bogey",
+        },
+
+        boo :
+        {
+            name : "boo",
+        },
+
+    };
     traverse.PuzzleObject = function ( type, x, y )
     {
         this.type = type;

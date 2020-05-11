@@ -55,11 +55,17 @@
 
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
-            init_dom ( create_data, traverse_data );
 
             create_data.puzzle_state = new traverse.PuzzleState ();
 
             create_data.puzzle_ob_graphics = new Map ();
+
+            create_data.build_objects = 
+                new Set ( [ traverse.PuzzleObjects.wall,
+                            traverse.PuzzleObjects.bogey,
+                            traverse.PuzzleObjects.boo ] );
+
+            init_dom ( create_data, traverse_data );
 
             create_data.state = new WaitState ();
         }
@@ -86,9 +92,9 @@
             ( e, create_data, traverse_data ) =>
         {
             let grid_x = 
-                traverse_data.scale_screen_pos ( e.data.global.grid_x );
+                traverse_data.scale_screen_pos ( e.data.global.x );
             let grid_y = 
-                traverse_data.scale_screen_pos ( e.data.global.grid_y );
+                traverse_data.scale_screen_pos ( e.data.global.y );
 
             let puzzle_ob = 
                 new traverse.PuzzleObject ( type, grid_x, grid_y );
@@ -106,8 +112,10 @@
 
         traverse_data.pixi_app.stage.addChild ( sprite );
 
-        sprite.position.x = traverse_data.scale_coord ( grid_x );
-        sprite.position.y = traverse_data.scale_coord ( grid_y );
+        sprite.position.x =
+            traverse_data.scale_coord ( puzzle_object.x );
+        sprite.position.y =
+            traverse_data.scale_coord ( puzzle_object.y );
 
         //TODO - add objects to puzzle state.  Only allow one obj
         //       per tile and push objects back to pool
@@ -134,13 +142,14 @@
         root_div.appendChild ( build_div );
 
 
-        [ "wall", "boo", "bogey" ].forEach ( ( type ) =>
+        create_data.build_objects.forEach ( ( o ) =>
         {
-            let button = traverse.create_object_button ( type,
+            let button = traverse.create_object_button ( o,
             () => 
             { 
                 create_data.state.create_event
-                    .build_obj_button_clicked ( type );
+                    .build_obj_button_clicked ( 
+                        o, create_data, traverse_data );
 
             } );
 
