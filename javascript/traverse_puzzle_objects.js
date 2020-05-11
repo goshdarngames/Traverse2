@@ -13,7 +13,7 @@
 
         this.add_object = function ( o )
         {
-            if ( this.get_object_at_pos ( o.x, o.y ) )
+            if ( this.get_object_at_pos ( o.x, o.y ) != undefined )
             {
                 throw `Object already exists at ${o.x} ${o.y}`
             }
@@ -25,6 +25,22 @@
             
             position_index [ o.x ] [ o.y ] = o;
             
+        };
+
+        this.remove_object_at_pos = function ( x, y )
+        {
+            if ( this.get_object_at_pos ( x, y ) == undefined )
+            {
+                throw `Nothing exists at ${x} ${y}`
+            }
+
+            delete ( position_index [ x ] [ y ] );
+
+            if ( Object.keys ( position_index [ x ] ).length <= 0 )
+            {
+                delete ( position_index [ x ] );
+            }
+
         };
 
         this.get_object_at_pos = function ( x, y )
