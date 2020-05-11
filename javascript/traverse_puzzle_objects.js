@@ -105,6 +105,9 @@
         this.puzzle_ob = puzzle_ob;
         this.x = x;
         this.y = y;
+
+        //TODO - replace x/y with state - e.g. state: staic(x,y)
+        //                                     state: moving ( x, y, dx, dy )
     };
 
     traverse.PuzzleState = function ()
