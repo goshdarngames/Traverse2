@@ -97,15 +97,24 @@
                 traverse_data.scale_screen_pos ( e.data.global.y );
 
             let puzzle_ob = 
-                new traverse.StaticPuzzleObject ( type, grid_x, grid_y );
+                new traverse.StaticPuzzleObject ( 
+                    this.type, grid_x, grid_y );
 
 
             let po_graphics = puzzle_ob.puzzle_ob.get_graphics ( traverse_data );
 
             po_graphics.enable ( 
                 traverse_data.scale_coord ( puzzle_ob.x ),
-                traverse_data.scale_coord ( puzzle_ob.y ));
+                traverse_data.scale_coord ( puzzle_ob.y ),
+                traverse_data
+            );
 
+        };
+
+        this.create_event.build_obj_button_clicked =
+            ( type, create_data, traverse_data ) =>
+        {
+            this.type = type;
         };
     };
 

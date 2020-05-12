@@ -2,99 +2,37 @@
 {
     traverse.PuzzleObjects = 
     {
+        //Puzzle object definitions
+
         wall :
         {
             name : "wall",
 
             get_graphics : function ( traverse_data )
             {
-                enable_fun = ( x, y ) => 
-                {
-                    let data = {};
-
-                    data.sprite = traverse_data.wall_sprite_pool.pop ();
-
-                    traverse_data.pixi_app.stage.addChild ( data.sprite );
-
-                    return data;
-                }; 
-
-                disable_fun = () => {}; 
-
-                move_fun = ( data, x, y ) => 
-                {
-                    data.sprite.position.x = x;
-                    data.sprite.position.y = y;
-                };
-
-                let g = new PuzzleObjectGraphics ( 
-                    enable_fun, disable_fun, move_fun );
-
-                return g;
+                return new traverse.puzzle_object_graphics.WallGraphics ();
             },
         },
 
         bogey :
         {
             name : "bogey",
-
+            get_graphics : function ( traverse_data )
+            {
+                return new traverse.puzzle_object_graphics.BogeyGraphics ();
+            },
         },
 
         boo :
         {
             name : "boo",
+            get_graphics : function ( traverse_data )
+            {
+                return new traverse.puzzle_object_graphics.BooGraphics ();
+            },
 
         },
 
-    };
-
-    /**
-     * These objects are to be associated with a puzzle object in order
-     * to draw it on screen.
-     *
-     * TODO - Add support for animation ticks and state-based systems
-     */
-    let PuzzleObjectGraphics = function ( enable_fun, disable_fun, move_fun )
-    {
-        this.enabled = false;
-
-        this.data = undefined;
-
-        this.enable = function ( screen_x, screen_y )
-        {
-            if ( this.enabled )
-            {
-                throw "Already enabled.";
-            }
-
-            this.data = enable_fun ();
-
-            this.enabled = true;
-
-            this.move ( screen_x, screen_y );
-        };
-
-        this.disable = function ()
-        {
-            if ( !this.enabled )
-            {
-                throw "Not enabled.";
-            }
-
-            disable_fun ( this.data );
-
-        };
-
-        this.move = function ( screen_x, screen_y )
-        {
-            if ( !this.enabled )
-            {
-                throw "Not enabled.";
-            }
-
-            move_fun ( this.data, screen_x, screen_y );
-
-        };
     };
 
     /**
