@@ -8,6 +8,8 @@
         {
             name : "wall",
 
+            unique : false,
+
             get_graphics : function ( traverse_data )
             {
                 return new traverse.puzzle_object_graphics.WallGraphics ();
@@ -17,6 +19,9 @@
         bogey :
         {
             name : "bogey",
+
+            unique : true,
+
             get_graphics : function ( traverse_data )
             {
                 return new traverse.puzzle_object_graphics.BogeyGraphics ();
@@ -26,6 +31,9 @@
         boo :
         {
             name : "boo",
+
+            unique : true,
+
             get_graphics : function ( traverse_data )
             {
                 return new traverse.puzzle_object_graphics.BooGraphics ();
