@@ -4,14 +4,13 @@
 
     traverse.puzzle_object_graphics.WallGraphics = function ()
     {
-        let enable_fun = ( graphics_data, traverse_data ) => 
-        {
-            graphics_data.sprite = traverse_data.wall_sprite_pool.pop ();
+        let enable_fun = ( graphics_data, traverse_data ) =>
+            add_pooled_sprite ( traverse_data.wall_sprite_pool,
+                                graphics_data, traverse_data );
 
-            traverse_data.pixi_app.stage.addChild ( graphics_data.sprite );
-        }; 
-
-        let disable_fun = () => {}; 
+        let disable_fun = ( graphics_data, traverse_data ) => 
+            return_pooled_sprite ( traverse_data.wall_sprite_pool,
+                                   graphics_data, traverse_data );
 
         let move_fun = move_sprite;
 
@@ -21,14 +20,14 @@
 
     traverse.puzzle_object_graphics.BogeyGraphics = function ()
     {
-        let enable_fun = ( graphics_data, traverse_data ) => 
-        {
-            graphics_data.sprite = traverse_data.bogey_sprite_pool.pop ();
 
-            traverse_data.pixi_app.stage.addChild ( graphics_data.sprite );
-        }; 
+        let enable_fun = ( graphics_data, traverse_data ) =>
+            add_pooled_sprite ( traverse_data.bogey_sprite_pool,
+                                graphics_data, traverse_data );
 
-        let disable_fun = () => {}; 
+        let disable_fun = ( graphics_data, traverse_data ) => 
+            return_pooled_sprite ( traverse_data.bogey_sprite_pool,
+                                   graphics_data, traverse_data );
 
         let move_fun = move_sprite;
 
@@ -38,14 +37,13 @@
 
     traverse.puzzle_object_graphics.BooGraphics = function ()
     {
-        let enable_fun = ( graphics_data, traverse_data ) => 
-        {
-            graphics_data.sprite = traverse_data.boo_sprite_pool.pop ();
+        let enable_fun = ( graphics_data, traverse_data ) =>
+            add_pooled_sprite ( traverse_data.boo_sprite_pool,
+                                graphics_data, traverse_data );
 
-            traverse_data.pixi_app.stage.addChild ( graphics_data.sprite );
-        }; 
-
-        let disable_fun = () => {}; 
+        let disable_fun = ( graphics_data, traverse_data ) => 
+            return_pooled_sprite ( traverse_data.boo_sprite_pool,
+                                   graphics_data, traverse_data );
 
         let move_fun = move_sprite;
 
@@ -99,17 +97,31 @@
                 throw "Not enabled.";
             }
 
-            move_fun ( this.data, screen_x, screen_y, traverse_data );
+            move_fun ( screen_x, screen_y, this.data,traverse_data );
 
         };
     };
 
     //utility functions used in multiple objects
 
-    let move_sprite = ( data, x, y, traverse_data ) =>
+    let move_sprite = ( x, y, data, traverse_data ) =>
     {
         data.sprite.position.x = x;
         data.sprite.position.y = y;
+    };
+
+    let add_pooled_sprite = ( pool, graphics_data, traverse_data ) =>
+    {
+        graphics_data.sprite = pool.pop ();
+
+        traverse_data.pixi_app.stage.addChild ( graphics_data.sprite );
+    };
+
+    let return_pooled_sprite = ( pool, graphics_data, traverse_data ) =>
+    {
+        pool.push ( graphics_data.sprite );
+
+        traverse_data.pixi_app.stage.removeChild ( graphics_data.sprite );
     };
 
 
