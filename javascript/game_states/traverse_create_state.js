@@ -169,8 +169,8 @@
             let grid_y = 
                 traverse_data.scale_screen_pos ( e.data.global.y );
 
-        let puzzle_ob = 
-            new traverse.PuzzleObject ( this.template, grid_x, grid_y );
+            let puzzle_ob = 
+                new traverse.PuzzleObject ( this.template, grid_x, grid_y );
 
             add_puzzle_object ( puzzle_ob, create_data, traverse_data );
         }
@@ -182,8 +182,15 @@
         };
     };
 
-    let add_puzzle_object = function ( puzzle_ob, create_data, traverse_data )
+    /************************************************************************
+     * Puzzle State Management
+     ***********************************************************************/
+
+    let add_puzzle_object =
+        function ( puzzle_ob, create_data, traverse_data )
     {
+        remove_puzzle_object_at ( puzzle_ob.x, puzzle_ob.y, 
+                                  create_data, traverse_data );
 
         let po_graphics = puzzle_ob.get_graphics ( traverse_data );
 
@@ -193,7 +200,30 @@
             traverse_data
         );
 
+        create_data.puzzle_object_graphics.set ( puzzle_ob, po_graphics );
+
+        create_data.puzzle_state.add_object ( puzzle_ob ); 
     };
+
+    let remove_puzzle_object_at =
+        function ( x, y, create_data, traverse_data )
+    {
+        let puzzle_ob = create_data.puzzle_state.get_object_at_pos ( x, y );
+
+        if ( puzzle_ob == undefined )
+        {
+            return;
+        }
+
+        create_data.puzzle_state.remove_object_at_pos (
+            puzzle_ob.x, puzzle_ob.y );  
+
+        let graphics = create_data.puzzle_object_graphics.get ( puzzle_ob );
+
+        graphics.disable ( traverse_data );
+
+        create_data.puzzle_object_graphics.delete ( puzzle_ob );
+    }
 
 } ( window.traverse = window.traverse || {} ))
 
