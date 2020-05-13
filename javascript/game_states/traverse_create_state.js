@@ -79,6 +79,9 @@
 
             init_dom ( create_data, traverse_data );
 
+            //associate puzzle objects with their graphics systems
+            create_data.puzzle_object_graphics = new Map ();
+
             create_data.state = new WaitState ();
         }
     };
