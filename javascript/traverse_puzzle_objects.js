@@ -63,7 +63,12 @@
      */
     traverse.PuzzleState = function ()
     {
+        // { x -> { y -> ob }
         let position_index = new Map ();
+
+        // { name -> o }
+        let unique_objects = new Map ();
+
 
         //TODO - add moving object set
 
