@@ -4,8 +4,8 @@ test('PuzzleState insert and remove', () =>
 {
     let ps = new traverse.PuzzleState ();
 
-    let o = new traverse.StaticPuzzleObject ( "o", 1, 1 );
-    let p = new traverse.StaticPuzzleObject ( "p", 1, 1 );
+    let o = new traverse.PuzzleObject ( "o", 1, 1 );
+    let p = new traverse.PuzzleObject ( "p", 1, 1 );
 
     ps.add_object ( o );
 

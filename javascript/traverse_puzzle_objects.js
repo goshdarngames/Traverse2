@@ -46,7 +46,7 @@
     /**
      * Puzzle object that is not moving.
      */
-    traverse.StaticPuzzleObject = function ( puzzle_ob, x, y )
+    traverse.PuzzleObject = function ( puzzle_ob, x, y )
     {
         this.puzzle_ob = puzzle_ob;
         this.x = x;

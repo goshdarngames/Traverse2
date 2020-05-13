@@ -72,8 +72,6 @@
 
             create_data.puzzle_state = new traverse.PuzzleState ();
 
-            create_data.puzzle_ob_graphics = new Map ();
-
             create_data.build_objects = 
                 new Set ( [ traverse.PuzzleObjects.wall,
                             traverse.PuzzleObjects.bogey,
@@ -184,7 +182,7 @@
     let add_puzzle_object = function ( new_obj, create_data, traverse_data )
     {
         let puzzle_ob = 
-            new traverse.StaticPuzzleObject (
+            new traverse.PuzzleObject (
                 new_obj.type, new_obj.grid_x, new_obj.grid_y );
 
 
@@ -195,8 +193,6 @@
             traverse_data.scale_coord ( puzzle_ob.y ),
             traverse_data
         );
-
-        create_data.puzzle_ob_graphics.set ( puzzle_ob, po_graphics );
 
     };
 
