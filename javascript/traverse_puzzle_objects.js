@@ -4,40 +4,40 @@
     {
         //Puzzle object definitions
 
-        wall :
+        Wall : function ()
         {
-            name : "wall",
+            this.name = "wall";
 
-            unique : false,
+            this.unique = false;
 
-            get_graphics : function ( traverse_data )
+            this.get_graphics = function ( traverse_data )
             {
                 return new traverse.puzzle_object_graphics.WallGraphics ();
-            },
+            };
         },
 
-        bogey :
+        Bogey : function ()
         {
-            name : "bogey",
+            this.name = "bogey";
 
-            unique : true,
+            this.unique = true;
 
-            get_graphics : function ( traverse_data )
+            this.get_graphics = function ( traverse_data )
             {
                 return new traverse.puzzle_object_graphics.BogeyGraphics ();
-            },
+            };
         },
 
-        boo :
+        Boo : function ()
         {
-            name : "boo",
+            this.name = "boo";
 
-            unique : true,
+            this.unique = true;
 
-            get_graphics : function ( traverse_data )
+            this.get_graphics = function ( traverse_data )
             {
                 return new traverse.puzzle_object_graphics.BooGraphics ();
-            },
+            };
 
         },
 
@@ -46,9 +46,9 @@
     /**
      * Puzzle object that is not moving.
      */
-    traverse.PuzzleObject = function ( puzzle_ob, x, y )
+    traverse.PuzzleObject = function ( template, x, y )
     {
-        this.puzzle_ob = puzzle_ob;
+        template.call ( this );
         this.x = x;
         this.y = y;
 

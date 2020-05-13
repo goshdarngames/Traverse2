@@ -54,7 +54,7 @@
         this.sprite_clicked = ( create_data, traverse_data ) => {};
 
         this.build_obj_button_clicked = 
-            ( type, create_data, traverse_data ) => {};
+            ( template, create_data, traverse_data ) => {};
     };
 
 
@@ -73,9 +73,9 @@
             create_data.puzzle_state = new traverse.PuzzleState ();
 
             create_data.build_objects = 
-                new Set ( [ traverse.PuzzleObjects.wall,
-                            traverse.PuzzleObjects.bogey,
-                            traverse.PuzzleObjects.boo ] );
+                new Set ( [ traverse.PuzzleObjects.Wall,
+                            traverse.PuzzleObjects.Bogey,
+                            traverse.PuzzleObjects.Boo ] );
 
             init_dom ( create_data, traverse_data );
 
@@ -106,14 +106,14 @@
         root_div.appendChild ( build_div );
 
 
-        create_data.build_objects.forEach ( ( o ) =>
+        create_data.build_objects.forEach ( ( template ) =>
         {
-            let button = traverse.create_object_button ( o,
+            let button = traverse.create_object_button ( template,
             () => 
             { 
                 create_data.state.create_event
                     .build_obj_button_clicked ( 
-                        o, create_data, traverse_data );
+                        template, create_data, traverse_data );
 
             } );
 
@@ -143,9 +143,9 @@
         this.create_event = new CreateEvent ();
 
         this.create_event.build_obj_button_clicked =
-            ( type, create_data, traverse_data ) =>
+            ( template, create_data, traverse_data ) =>
         {
-            create_data.state = new ObjectSelectedState ( type );
+            create_data.state = new ObjectSelectedState ( template );
         };
     };
 
@@ -155,9 +155,9 @@
      *  input on the stage
      ***********************************************************************/
 
-    let ObjectSelectedState = function ( type )
+    let ObjectSelectedState = function ( template )
     {
-        this.type = type;
+        this.template = template;
 
         this.create_event = new CreateEvent ();
 
@@ -170,15 +170,15 @@
             new_obj.grid_y = 
                 traverse_data.scale_screen_pos ( e.data.global.y );
 
-            new_obj.type = this.type;
+            new_obj.template = this.template;
 
             add_puzzle_object ( new_obj, create_data, traverse_data );
         }
 
         this.create_event.build_obj_button_clicked =
-            ( type, create_data, traverse_data ) =>
+            ( template, create_data, traverse_data ) =>
         {
-            this.type = type;
+            this.template = template;
         };
     };
 
@@ -186,10 +186,10 @@
     {
         let puzzle_ob = 
             new traverse.PuzzleObject (
-                new_obj.type, new_obj.grid_x, new_obj.grid_y );
+                new_obj.template, new_obj.grid_x, new_obj.grid_y );
 
 
-        let po_graphics = puzzle_ob.puzzle_ob.get_graphics ( traverse_data );
+        let po_graphics = puzzle_ob.get_graphics ( traverse_data );
 
         po_graphics.enable ( 
             traverse_data.scale_coord ( puzzle_ob.x ),

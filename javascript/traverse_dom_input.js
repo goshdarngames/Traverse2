@@ -40,8 +40,10 @@
     /**
      * ob_name - used for png and passed to callback
      */
-    traverse.create_object_button = function ( ob, callback )
+    traverse.create_object_button = function ( template, callback )
     {
+        let ob = new template ();
+
         let button = document.createElement ( "INPUT" );
 
         button.type = "image";
