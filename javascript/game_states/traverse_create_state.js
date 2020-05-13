@@ -60,6 +60,7 @@
 
     /************************************************************************
      * Start State
+     * - Initialize data and DOM interface
      ***********************************************************************/
 
     let StartState = function ()
@@ -162,33 +163,41 @@
         this.create_event.stage_clicked = 
             ( e, create_data, traverse_data ) =>
         {
-            let grid_x = 
+            let new_obj = {};
+            new_obj.grid_x = 
                 traverse_data.scale_screen_pos ( e.data.global.x );
-            let grid_y = 
+            new_obj.grid_y = 
                 traverse_data.scale_screen_pos ( e.data.global.y );
 
-            let puzzle_ob = 
-                new traverse.StaticPuzzleObject ( 
-                    this.type, grid_x, grid_y );
+            new_obj.type = this.type;
 
-
-            let po_graphics = puzzle_ob.puzzle_ob.get_graphics ( traverse_data );
-
-            po_graphics.enable ( 
-                traverse_data.scale_coord ( puzzle_ob.x ),
-                traverse_data.scale_coord ( puzzle_ob.y ),
-                traverse_data
-            );
-
-            create_data.puzzle_ob_graphics = new Map ();
-
-        };
+            add_puzzle_object ( new_obj, create_data, traverse_data );
+        }
 
         this.create_event.build_obj_button_clicked =
             ( type, create_data, traverse_data ) =>
         {
             this.type = type;
         };
+    };
+
+    let add_puzzle_object = function ( new_obj, create_data, traverse_data )
+    {
+        let puzzle_ob = 
+            new traverse.StaticPuzzleObject (
+                new_obj.type, new_obj.grid_x, new_obj.grid_y );
+
+
+        let po_graphics = puzzle_ob.puzzle_ob.get_graphics ( traverse_data );
+
+        po_graphics.enable ( 
+            traverse_data.scale_coord ( puzzle_ob.x ),
+            traverse_data.scale_coord ( puzzle_ob.y ),
+            traverse_data
+        );
+
+        create_data.puzzle_ob_graphics.set ( puzzle_ob, po_graphics );
+
     };
 
 } ( window.traverse = window.traverse || {} ))
