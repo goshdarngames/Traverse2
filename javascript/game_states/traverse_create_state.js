@@ -164,15 +164,15 @@
         this.create_event.stage_clicked = 
             ( e, create_data, traverse_data ) =>
         {
-            let new_obj = {};
-            new_obj.grid_x = 
+            let grid_x = 
                 traverse_data.scale_screen_pos ( e.data.global.x );
-            new_obj.grid_y = 
+            let grid_y = 
                 traverse_data.scale_screen_pos ( e.data.global.y );
 
-            new_obj.template = this.template;
+        let puzzle_ob = 
+            new traverse.PuzzleObject ( this.template, grid_x, grid_y );
 
-            add_puzzle_object ( new_obj, create_data, traverse_data );
+            add_puzzle_object ( puzzle_ob, create_data, traverse_data );
         }
 
         this.create_event.build_obj_button_clicked =
@@ -182,12 +182,8 @@
         };
     };
 
-    let add_puzzle_object = function ( new_obj, create_data, traverse_data )
+    let add_puzzle_object = function ( puzzle_ob, create_data, traverse_data )
     {
-        let puzzle_ob = 
-            new traverse.PuzzleObject (
-                new_obj.template, new_obj.grid_x, new_obj.grid_y );
-
 
         let po_graphics = puzzle_ob.get_graphics ( traverse_data );
 
