@@ -23,9 +23,7 @@
     {
         let enable_fun = ( graphics_data, traverse_data ) => 
         {
-            let texture = traverse_data.assets.bogey_texture;
-
-            graphics_data.sprite = new PIXI.Sprite ( texture );
+            graphics_data.sprite = traverse_data.bogey_sprite_pool.pop ();
 
             traverse_data.pixi_app.stage.addChild ( graphics_data.sprite );
         }; 
@@ -42,9 +40,7 @@
     {
         let enable_fun = ( graphics_data, traverse_data ) => 
         {
-            let texture = traverse_data.assets.boo_texture;
-
-            graphics_data.sprite = new PIXI.Sprite ( texture );
+            graphics_data.sprite = traverse_data.boo_sprite_pool.pop ();
 
             traverse_data.pixi_app.stage.addChild ( graphics_data.sprite );
         }; 

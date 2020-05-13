@@ -47,6 +47,28 @@
             callback ();
         },
 
+        ( traverse_data, callback ) =>
+        {
+            let make_sprite = 
+                () => new PIXI.Sprite ( traverse_data.assets.bogey_texture );
+
+            traverse_data.bogey_sprite_pool = 
+                 new traverse.ObjectPool ( make_sprite, 8 ) 
+
+            callback ();
+        },
+
+        ( traverse_data, callback ) =>
+        {
+            let make_sprite = 
+                () => new PIXI.Sprite ( traverse_data.assets.boo_texture );
+
+            traverse_data.boo_sprite_pool = 
+                 new traverse.ObjectPool ( make_sprite, 8 ) 
+
+            callback ();
+        },
+
     ];
 
     traverse.LoadState = function ()
