@@ -1,9 +1,11 @@
 ( function ( traverse, undefined )
 {
+    /**
+     * Stores a set of template constructors that are passed to the
+     * PuzzleObject constructor in order to define its behaviour.
+     */
     traverse.PuzzleObjects = 
     {
-        //Puzzle object definitions
-
         Wall : function ()
         {
             this.name = "wall";
@@ -44,7 +46,7 @@
     };
 
     /**
-     * Puzzle object that is not moving.
+     * Instantiated when a puzzle object is needed in game.
      */
     traverse.PuzzleObject = function ( template, x, y )
     {
@@ -56,6 +58,9 @@
         //                                     state: moving ( x, y, dx, dy )
     };
 
+    /**
+     * Keeps track of the position of puzzle pieces in a level.
+     */
     traverse.PuzzleState = function ()
     {
         let position_index = new Map ();
