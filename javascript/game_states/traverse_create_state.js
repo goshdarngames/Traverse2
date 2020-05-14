@@ -122,7 +122,14 @@
         });
 
         let test_button = 
-            traverse.create_menu_button ( "Test", ()=>{} );
+            traverse.create_menu_button ( "Test", 
+            ()=>
+            {
+                let test_state = 
+                    new traverse.TestState ( create_data, traverse_data );
+
+                traverse.change_state ( test_state );
+            } );
 
         root_div.appendChild ( test_button );
 
