@@ -18,6 +18,7 @@ test('PuzzleState insert and remove standard', () =>
 
     let o = new traverse.PuzzleObject ( MockOb, 1, 1 );
     let p = new traverse.PuzzleObject ( MockOb, 1, 1 );
+    let q = new traverse.PuzzleObject ( MockOb, 1, 2 );
 
     ps.add_object ( o );
 
@@ -32,6 +33,13 @@ test('PuzzleState insert and remove standard', () =>
     ps.add_object ( p );
 
     expect( ps.get_object_at_pos ( 1, 1 ) ).toBe ( p );
+
+    ps.remove_object ( p );
+
+    expect( ps.get_object_at_pos ( 1, 1 ) ).toBeUndefined ();
+
+    ps.add_object ( o );
+    ps.add_object ( q );
 });
 
 test('PuzzleState insert unique', () => 
@@ -40,9 +48,6 @@ test('PuzzleState insert unique', () =>
 
     let o = new traverse.PuzzleObject ( MockUnique, 1, 1 );
     let p = new traverse.PuzzleObject ( MockUnique, 1, 3 );
-
-    console.log ( o );
-    console.log ( p );
 
     ps.add_object ( o );
 

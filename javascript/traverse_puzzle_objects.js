@@ -63,6 +63,9 @@
      */
     traverse.PuzzleState = function ()
     {
+        //set of all puzzle objects
+        let objects = new Set ();
+
         // { x -> { y -> ob }
         let position_index = new Map ();
 
@@ -74,6 +77,11 @@
 
         this.add_object = function ( o )
         {
+            if ( objects.has ( o ) )
+            {
+                throw "Object already in puzzle state.";
+            }
+
             if ( this.get_object_at_pos ( o.x, o.y ) != undefined )
             {
                 throw `Object already exists at ${o.x} ${o.y}`
@@ -96,28 +104,7 @@
             
             position_index.get ( o.x ) .set ( o.y, o );
 
-        };
-
-        this.remove_object_at_pos = function ( x, y )
-        {
-            let o = this.get_object_at_pos ( x, y );
-
-            if ( o == undefined )
-            {
-                throw `Nothing exists at ${x} ${y}`
-            }
-
-            position_index.get ( x ) .delete ( y );
-
-            if ( position_index.get ( x ).size <= 0 )
-            {
-                position_index.delete ( x );
-            }
-
-            if ( o.unique )
-            {
-                unique_objects.delete ( o.name );
-            }
+            objects.add ( o );
         };
 
         this.get_object_at_pos = function ( x, y )
@@ -133,7 +120,48 @@
             return unique_objects.get ( name );
         };
 
-        //TODO - remove_unique_object
+        this.remove_object = function ( o )
+        {
+            if ( o == undefined )
+            {
+                throw "Remove undefined object.";
+            }
+
+            if ( !objects.has ( o ) )
+            {
+                throw "Object not in puzzle state.";
+            }
+
+            objects.delete ( o );
+
+            position_index.get ( o.x ) .delete ( o.y );
+
+            if ( position_index.get ( o.x ).size <= 0 )
+            {
+                position_index.delete ( o.x );
+            }
+
+            if ( o.unique )
+            {
+                unique_objects.delete ( o.name );
+            }
+
+        };
+
+        this.remove_object_at_pos = function ( x, y )
+        {
+            let o = this.get_object_at_pos ( x, y );
+
+            this.remove_object ( o );
+        };
+    
+        this.remove_unique_object = function ( name )
+        {
+            let o = this.get_unique_object ( name );
+
+            this.remove_object ( o );
+        };
+
     };
 
     traverse.valid_puzzle_state = function ( s )
