@@ -41,11 +41,14 @@ test('PuzzleState insert unique', () =>
     let o = new traverse.PuzzleObject ( MockUnique, 1, 1 );
     let p = new traverse.PuzzleObject ( MockUnique, 1, 3 );
 
+    console.log ( o );
+    console.log ( p );
+
     ps.add_object ( o );
 
     expect( ps.get_object_at_pos ( 1, 1 ) ).toBe ( o );
 
-    expect ( ps.get_unique_object ( "mock_unique" ).toBe ( o ) );
+    expect ( ps.get_unique_object ( "mock_unique" )).toBe ( o );
 
     expect ( () => ps.add_object ( p ) ).toThrow ();
 
@@ -53,12 +56,12 @@ test('PuzzleState insert unique', () =>
 
     expect( ps.get_object_at_pos ( 1, 1 ) ).toBeUndefined ();
     
-    expect ( ps.get_unique_object ( "mock_unique" ).toBeUndefined () );
+    expect ( ps.get_unique_object ( "mock_unique" ) ).toBeUndefined ();
 
     ps.add_object ( p );
 
     expect( ps.get_object_at_pos ( 1, 3 ) ).toBe ( p );
 
-    expect ( ps.get_unique_object ( "mock_unique" ).toBe ( p ) );
+    expect ( ps.get_unique_object ( "mock_unique" ) ).toBe ( p );
 });
 

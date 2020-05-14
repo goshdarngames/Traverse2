@@ -79,18 +79,30 @@
                 throw `Object already exists at ${o.x} ${o.y}`
             }
 
+            if ( o.unique )
+            {
+                if ( unique_objects.has ( o.name ) )
+                {
+                    throw `Unique object ${o.name} already exists`
+                }
+
+                unique_objects.set ( o.name, o );
+            }
+            
             if ( position_index.get ( o.x ) == undefined )
             {
                 position_index.set ( o.x, new Map () );
             }
             
             position_index.get ( o.x ) .set ( o.y, o );
-            
+
         };
 
         this.remove_object_at_pos = function ( x, y )
         {
-            if ( this.get_object_at_pos ( x, y ) == undefined )
+            let o = this.get_object_at_pos ( x, y );
+
+            if ( o == undefined )
             {
                 throw `Nothing exists at ${x} ${y}`
             }
@@ -102,6 +114,10 @@
                 position_index.delete ( x );
             }
 
+            if ( o.unique )
+            {
+                unique_objects.delete ( o.name );
+            }
         };
 
         this.get_object_at_pos = function ( x, y )
@@ -111,6 +127,13 @@
                 return position_index.get ( x ).get ( y );
             }
         };
+
+        this.get_unique_object = function ( name )
+        {
+            return unique_objects.get ( name );
+        };
+
+        //TODO - remove_unique_object
     };
 
     traverse.valid_puzzle_state = function ( s )
