@@ -192,6 +192,9 @@
         remove_puzzle_object_at ( puzzle_ob.x, puzzle_ob.y, 
                                   create_data, traverse_data );
 
+        remove_existing_unique ( puzzle_ob.name, 
+                                 create_data, traverse_data );
+
         let po_graphics = puzzle_ob.get_graphics ( traverse_data );
 
         po_graphics.enable ( 
@@ -205,6 +208,17 @@
         create_data.puzzle_state.add_object ( puzzle_ob ); 
     };
 
+    let remove_puzzle_ob = function ( puzzle_ob, create_data, traverse_data )
+    {
+        create_data.puzzle_state.remove_object ( puzzle_ob );
+
+        let graphics = create_data.puzzle_object_graphics.get ( puzzle_ob );
+
+        graphics.disable ( traverse_data );
+
+        create_data.puzzle_object_graphics.delete ( puzzle_ob );
+    };
+
     let remove_puzzle_object_at =
         function ( x, y, create_data, traverse_data )
     {
@@ -215,15 +229,22 @@
             return;
         }
 
-        create_data.puzzle_state.remove_object_at_pos (
-            puzzle_ob.x, puzzle_ob.y );  
+        remove_puzzle_ob ( puzzle_ob, create_data, traverse_data );
 
-        let graphics = create_data.puzzle_object_graphics.get ( puzzle_ob );
+    };
 
-        graphics.disable ( traverse_data );
+    let remove_existing_unique = function ( name, 
+                                            create_data, traverse_data )
+    {
+        let puzzle_ob = create_data.puzzle_state.get_unique_object ( name );
 
-        create_data.puzzle_object_graphics.delete ( puzzle_ob );
-    }
+        if ( puzzle_ob == undefined )
+        {
+            return;
+        }
+
+        remove_puzzle_ob ( puzzle_ob, create_data, traverse_data );
+    };
 
 } ( window.traverse = window.traverse || {} ))
 
