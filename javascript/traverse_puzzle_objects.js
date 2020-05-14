@@ -148,20 +148,6 @@
 
         };
 
-        this.remove_object_at_pos = function ( x, y )
-        {
-            let o = this.get_object_at_pos ( x, y );
-
-            this.remove_object ( o );
-        };
-    
-        this.remove_unique_object = function ( name )
-        {
-            let o = this.get_unique_object ( name );
-
-            this.remove_object ( o );
-        };
-
     };
 
     traverse.valid_puzzle_state = function ( s )

@@ -26,7 +26,7 @@ test('PuzzleState insert and remove standard', () =>
 
     expect ( () => ps.add_object ( p ) ).toThrow ();
 
-    ps.remove_object_at_pos ( 1, 1 );
+    ps.remove_object ( o );
 
     expect( ps.get_object_at_pos ( 1, 1 ) ).toBeUndefined ();
     
@@ -57,7 +57,9 @@ test('PuzzleState insert unique', () =>
 
     expect ( () => ps.add_object ( p ) ).toThrow ();
 
-    ps.remove_unique_object ( "mock_unique" );
+    let u = ps.get_unique_object ( "mock_unique" );
+
+    ps.remove_object ( u );
 
     expect( ps.get_object_at_pos ( 1, 1 ) ).toBeUndefined ();
     
