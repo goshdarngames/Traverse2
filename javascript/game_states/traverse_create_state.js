@@ -229,10 +229,25 @@
 
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
-            //TODO verify puzzle using prolog
-            create_data.verify_text_div.textContent = "Good puzzle!";
+            traverse_data.assets.rules_pl.query ("puzzle_problem([],X)." );
 
-            create_data.verify_text_div.classList.add ( "verify_good" );
+            traverse_data.assets.rules_pl.answer ( ( a ) =>
+            {
+                //TODO move prolog queries to the prolog js file
+
+                let msg_array = a.lookup ("X").toJavaScript();
+
+                let msg = msg_array.map ( c => String.fromCharCode ( c ) )
+                    .join ( "" );
+
+                create_data.verify_text_div.textContent = msg;
+
+                create_data.verify_text_div.classList.add ( "verify_bad" );
+
+            } );
+
+            //TODO verify puzzle using prolog
+            this.create_event.tick = () => {};
         };
     };
 

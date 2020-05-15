@@ -5,8 +5,8 @@ height(H) :-
     H=20.
 
 object( wall ).
-object( goal ).
-object( player ).
+object( bogey ).
+object( boo ).
 
 position( [ X, Y ] ) :-
     width(W),
@@ -15,6 +15,8 @@ position( [ X, Y ] ) :-
     X<W,
     Y>=0,
     Y<H.
+
+puzzle_problem(_,"Prolog said no.").
 
 
 %object_position( O, P ) :-
