@@ -157,11 +157,11 @@
         
         root_div.appendChild ( verify_button );
 
-        create_data.verify_text_span = document.createElement ( "SPAN" );
+        create_data.verify_text_div = document.createElement ( "DIV" );
 
-        create_data.verify_text_span.classList.add ( "verify_text" );
+        create_data.verify_text_div.classList.add ( "verify_text" );
 
-        root_div.appendChild ( create_data.verify_text_span );
+        root_div.appendChild ( create_data.verify_text_div );
 
         let share_button = 
             traverse.create_menu_button ( "Share", ()=>{} );
@@ -229,7 +229,10 @@
 
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
-            create_data.verify_text_span.textContent = "Bad puzzle!";
+            //TODO verify puzzle using prolog
+            create_data.verify_text_div.textContent = "Good puzzle!";
+
+            create_data.verify_text_div.classList.add ( "verify_good" );
         };
     };
 

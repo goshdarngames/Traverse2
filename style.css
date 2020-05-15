@@ -189,3 +189,28 @@
     padding : 6 px;
 }
 
+.verify_text
+{
+    font-weight : bold;
+    font-family: Arial, Helvetica, sans-serif;
+    outline: 10px dashed #000000;
+    outline-offset: 11px;
+
+    margin : 20px;
+
+    display : none;
+}
+
+.verify_bad
+{
+    display : block;
+    color : red;
+    outline-color: #A40000;
+}
+
+.verify_good
+{
+    display : block;
+    color : green;
+    outline-color: #00A400;
+}
