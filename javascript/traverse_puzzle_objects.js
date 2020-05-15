@@ -14,7 +14,7 @@
 
             this.get_graphics = function ( traverse_data )
             {
-                return new traverse.puzzle_object_graphics.WallGraphics ();
+                return traverse_data.wall_graphics_pool.pop ();
             };
         },
 
@@ -26,7 +26,7 @@
 
             this.get_graphics = function ( traverse_data )
             {
-                return new traverse.puzzle_object_graphics.BogeyGraphics ();
+                return traverse_data.bogey_graphics_pool.pop ();
             };
         },
 
@@ -38,7 +38,7 @@
 
             this.get_graphics = function ( traverse_data )
             {
-                return new traverse.puzzle_object_graphics.BooGraphics ();
+                return traverse_data.boo_graphics_pool.pop ();
             };
 
         },

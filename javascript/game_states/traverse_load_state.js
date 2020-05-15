@@ -1,8 +1,25 @@
 ( function ( traverse, undefined )
 {
+    let make_puzzle_object_pool = 
+        function ( object_data, callback, traverse_data, )
+    {
+        let make_sprite = () => new PIXI.Sprite ( object_data.texture );
+
+        traverse_data [ object_data.sprite_pool_key ] = 
+             new traverse.ObjectPool ( make_sprite, object_data.pool_size ) 
+
+        let make_graphics = () => new object_data.graphics_constructor ();
+
+        traverse_data [ object_data.graphics_pool_key ] = 
+             new traverse.ObjectPool ( make_graphics, 
+                                       object_data.pool_size );
+
+        callback ();
+    };
+
     let loading_jobs =
     [
-        ( traverse_data, callback ) =>
+        ( callback, traverse_data ) =>
         {
             traverse.read_prolog_file ( "prolog/traverse_rules.pl",
                 ( session ) => 
@@ -12,7 +29,7 @@
                 });
         },
 
-        ( traverse_data, callback ) =>
+        ( callback, traverse_data ) =>
         {
             traverse_data.assets.boo_texture =
                 PIXI.Texture.from ( "assets/boo.png" );
@@ -20,7 +37,7 @@
             callback ();
         },
 
-        ( traverse_data, callback ) =>
+        ( callback, traverse_data ) =>
         {
             traverse_data.assets.bogey_texture =
                 PIXI.Texture.from ( "assets/bogey.png" );
@@ -28,7 +45,7 @@
             callback ();
         },
 
-        ( traverse_data, callback ) =>
+        ( callback, traverse_data ) =>
         {
             traverse_data.assets.wall_texture =
                 PIXI.Texture.from ( "assets/wall.png" );
@@ -36,37 +53,58 @@
             callback ();
         },
 
-        ( traverse_data, callback ) =>
+        ( callback, traverse_data ) =>
         {
-            let make_sprite = 
-                () => new PIXI.Sprite ( traverse_data.assets.wall_texture );
+            let object_data = 
+            {
+                texture                 : traverse_data.assets.wall_texture,
+                sprite_pool_key         : "wall_sprite_pool",
+                pool_size               : 128,
 
-            traverse_data.wall_sprite_pool = 
-                 new traverse.ObjectPool ( make_sprite, 128 ) 
+                graphics_constructor    :
+                    traverse.puzzle_object_graphics.WallGraphics,
 
-            callback ();
+                graphics_pool_key       : "wall_graphics_pool"
+
+            };
+
+            make_puzzle_object_pool ( object_data, callback, traverse_data );
         },
 
-        ( traverse_data, callback ) =>
+        ( callback, traverse_data ) =>
         {
-            let make_sprite = 
-                () => new PIXI.Sprite ( traverse_data.assets.bogey_texture );
+            let object_data = 
+            {
+                texture                 : traverse_data.assets.boo_texture,
+                sprite_pool_key         : "boo_sprite_pool",
+                pool_size               : 8,
 
-            traverse_data.bogey_sprite_pool = 
-                 new traverse.ObjectPool ( make_sprite, 8 ) 
+                graphics_constructor    :
+                    traverse.puzzle_object_graphics.BooGraphics,
 
-            callback ();
+                graphics_pool_key       : "boo_graphics_pool"
+
+            };
+
+            make_puzzle_object_pool ( object_data, callback, traverse_data );
         },
 
-        ( traverse_data, callback ) =>
+        ( callback, traverse_data ) =>
         {
-            let make_sprite = 
-                () => new PIXI.Sprite ( traverse_data.assets.boo_texture );
+            let object_data = 
+            {
+                texture                 : traverse_data.assets.bogey_texture,
+                sprite_pool_key         : "bogey_sprite_pool",
+                pool_size               : 8,
 
-            traverse_data.boo_sprite_pool = 
-                 new traverse.ObjectPool ( make_sprite, 8 ) 
+                graphics_constructor    :
+                    traverse.puzzle_object_graphics.BogeyGraphics,
 
-            callback ();
+                graphics_pool_key       : "bogey_graphics_pool"
+
+            };
+
+            make_puzzle_object_pool ( object_data, callback, traverse_data );
         },
 
     ];
@@ -102,11 +140,11 @@
             {
                 let job = loading_jobs [ this.next_job ];
 
-                let cb = () => this.waiting = false;
+                let callback = () => this.waiting = false;
 
                 this.waiting = true;
 
-                job ( traverse_data, cb );
+                job ( callback, traverse_data );
 
                 this.next_job += 1;
             }
