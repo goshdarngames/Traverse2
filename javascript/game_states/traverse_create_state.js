@@ -4,7 +4,11 @@
     {
         this.traverse_data = traverse_data;
 
+        //TODO - define puzzle_state as a parameter.  Pass {} from title
         this.create_data = {};
+
+        //associate puzzle objects with their graphics systems
+        this.create_data.puzzle_object_graphics = new Map ();
 
         this.create_data.state = new StartState ();
 
@@ -32,6 +36,13 @@
 
         this.exit_state = function ( traverse_data )
         {
+            let g_iter = this.create_data.puzzle_object_graphics.values ();
+
+            for ( const puzzle_graphics of g_iter )
+            {
+                puzzle_graphics.disable ( traverse_data );
+                traverse_data.wall_graphics_pool.push ( puzzle_graphics );
+            }
         };
     };
 
@@ -79,9 +90,6 @@
 
             init_dom ( create_data, traverse_data );
 
-            //associate puzzle objects with their graphics systems
-            create_data.puzzle_object_graphics = new Map ();
-
             create_data.state = new WaitState ();
         }
     };
@@ -128,7 +136,7 @@
                 let test_state = 
                     new traverse.TestState ( create_data, traverse_data );
 
-                traverse.change_state ( test_state );
+                traverse.change_state ( test_state, traverse_data );
             } );
 
         root_div.appendChild ( test_button );
