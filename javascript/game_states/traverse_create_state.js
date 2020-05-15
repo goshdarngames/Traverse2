@@ -66,6 +66,12 @@
 
         this.build_obj_button_clicked = 
             ( template, create_data, traverse_data ) => {};
+
+        this.verify_button_clicked = 
+            ( create_data, traverse_data ) => 
+            {
+                create_data.state = new VerifyState ();
+            };
     };
 
 
@@ -145,8 +151,8 @@
             traverse.create_menu_button ( "Verify", 
             ()=>
             {
-                //TODO make create event
-                console.log ( "Verify" ); 
+                create_data.state.create_event
+                    .verify_button_clicked ( create_data, traverse_data );
             } );
 
         root_div.appendChild ( verify_button );
@@ -205,6 +211,17 @@
         {
             this.template = template;
         };
+    };
+
+    /************************************************************************
+     * Verify State
+     ***********************************************************************/
+
+    let VerifyState = function ()
+    {
+        this.create_event = new CreateEvent ();
+
+
     };
 
     /************************************************************************
