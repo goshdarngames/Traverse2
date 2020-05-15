@@ -141,6 +141,16 @@
 
         root_div.appendChild ( test_button );
 
+        let verify_button = 
+            traverse.create_menu_button ( "Verify", 
+            ()=>
+            {
+                //TODO make create event
+                console.log ( "Verify" ); 
+            } );
+
+        root_div.appendChild ( verify_button );
+
         let share_button = 
             traverse.create_menu_button ( "Share", ()=>{} );
 
