@@ -154,8 +154,14 @@
                 create_data.state.create_event
                     .verify_button_clicked ( create_data, traverse_data );
             } );
-
+        
         root_div.appendChild ( verify_button );
+
+        create_data.verify_text_span = document.createElement ( "SPAN" );
+
+        create_data.verify_text_span.classList.add ( "verify_text" );
+
+        root_div.appendChild ( create_data.verify_text_span );
 
         let share_button = 
             traverse.create_menu_button ( "Share", ()=>{} );
@@ -221,7 +227,10 @@
     {
         this.create_event = new CreateEvent ();
 
-
+        this.create_event.tick = ( create_data, traverse_data ) =>
+        {
+            create_data.verify_text_span.textContent = "Bad puzzle!";
+        };
     };
 
     /************************************************************************
