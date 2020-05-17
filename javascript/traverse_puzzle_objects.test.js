@@ -1,24 +1,18 @@
 require('./traverse_puzzle_objects');
 
-let MockOb = function ()
-{
-    this.name = "mock";
-    this.unique = false;
-}
-
-let MockUnique = function ()
-{
-    this.name = "mock_unique";
-    this.unique = true;
-}
-
 test('PuzzleState insert and remove standard', () => 
 {
     let ps = new traverse.PuzzleState ();
 
-    let o = new traverse.PuzzleObject ( MockOb, 1, 1 );
-    let p = new traverse.PuzzleObject ( MockOb, 1, 1 );
-    let q = new traverse.PuzzleObject ( MockOb, 1, 2 );
+    let o = new traverse.PuzzleObject ( traverse.PuzzleObjects.Types,Wall, 
+                         new traverse.PuzzleObjects.States.Static ( 1, 1 ) );
+
+    let p = new traverse.PuzzleObject ( traverse.PuzzleState.Types,Wall, 
+                         new traverse.PuzzleState.States.Static ( 1, 1 ) );
+
+    let q = new traverse.PuzzleObject ( traverse.PuzzleObjects.Types,Wall, 
+                         new traverse.PuzzleObjects.States.Static ( 1, 2 ) );
+
 
     ps.add_object ( o );
 

@@ -4,58 +4,82 @@
      * Stores a set of template constructors that are passed to the
      * PuzzleObject constructor in order to define its behaviour.
      */
-    traverse.PuzzleObjects = 
+    traverse.PuzzleObjects = {};
+
+    traverse.PuzzleObjects.Types = 
     {
-        Wall : function ()
+        Wall : 
         {
-            this.name = "wall";
+            name : "wall",
 
-            this.unique = false;
+            unique : false,
 
-            this.get_graphics = function ( traverse_data )
+            get_graphics : function ( traverse_data )
             {
                 return traverse_data.wall_graphics_pool.pop ();
-            };
+            },
         },
 
-        Bogey : function ()
+        Bogey : 
         {
-            this.name = "bogey";
+            name : "bogey",
 
-            this.unique = true;
+            unique : true,
 
-            this.get_graphics = function ( traverse_data )
+            get_graphics : function ( traverse_data )
             {
                 return traverse_data.bogey_graphics_pool.pop ();
-            };
+            },
         },
 
-        Boo : function ()
+        Boo : 
         {
-            this.name = "boo";
+            name : "boo",
 
-            this.unique = true;
+            unique : true,
 
-            this.get_graphics = function ( traverse_data )
+            get_graphics : function ( traverse_data )
             {
-                return traverse_data.boo_graphics_pool.pop ();
-            };
-
+                return traverse_data.bogey_graphics_pool.pop ();
+            },
         },
 
+    };
+
+    traverse.PuzzleObjects.States = 
+    {
+        State : function ()
+        {
+            this.get_graphics = function ( type, traverse_data )
+            {
+                //TODO pass state name here?
+                return type.get_graphics ();
+            };
+        };
+
+        Static : function ( x, y )
+        {
+            this.x = x;
+            this.y = y;
+
+        };
+
+        Moving : function ( x, y, dx, dy )
+        {
+            this.x = x;
+            this.y = y;
+            this.d.x = d.x;
+            this.d.y = d.y;
+        };
     };
 
     /**
      * Instantiated when a puzzle object is needed in game.
      */
-    traverse.PuzzleObject = function ( template, x, y )
+    traverse.PuzzleObject = function ( type, state )
     {
-        template.call ( this );
-        this.x = x;
-        this.y = y;
-
-        //TODO - replace x/y with state - e.g. state: staic(x,y)
-        //                                     state: moving ( x, y, dx, dy )
+        this.type = type;
+        this.state = state;
     };
 
     /**
