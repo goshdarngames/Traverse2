@@ -229,7 +229,7 @@
 
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
-            traverse_data.assets.rules_pl.query ("puzzle_problem([],X)." );
+            traverse_data.assets.rules_pl.query ("puzzle_problem([boo,bogey],X)." );
 
             traverse_data.assets.rules_pl.answer ( ( a ) =>
             {

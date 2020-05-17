@@ -16,6 +16,7 @@ position( [ X, Y ] ) :-
     Y>=0,
     Y<H.
 
+puzzle_problem([boo, bogey], "Prolog said yes").
 puzzle_problem(_,"Prolog said no.").
 
 
