@@ -201,7 +201,7 @@
             ( e, create_data, traverse_data ) =>
         {
 
-            let puzzle_ob = create_puzzle_object ( type, 
+            let puzzle_ob = create_puzzle_object ( this.type, 
                 e.data.global.x, e.data.global.y, traverse_data );
 
             add_puzzle_object ( puzzle_ob, create_data, traverse_data );
@@ -213,19 +213,6 @@
             this.type = type;
         };
 
-    };
-
-    let create_puzzle_object = function ( 
-        type, screen_x, screen_y, traverse_data )
-    {
-        let grid_x = traverse_data.scale_screen_pos ( screen_x );
-        let grid_y = traverse_data.scale_screen_pos ( screen_y );
-
-        let pos = new traverse.PuzzleObjects.Position ( screen_x, screen_y );
-
-        let state = new traverse.PuzzleObjects.States.Static ();
-
-        let puzzle_ob = new traverse.PuzzleObject ( type, pos, state );
     };
 
     /************************************************************************
@@ -264,20 +251,35 @@
      * Puzzle State Management
      ***********************************************************************/
 
+    let create_puzzle_object = function ( 
+        type, screen_x, screen_y, traverse_data )
+    {
+        let grid_x = traverse_data.scale_screen_pos ( screen_x );
+        let grid_y = traverse_data.scale_screen_pos ( screen_y );
+
+        let pos = new traverse.PuzzleObjects.Position ( grid_x, grid_y );
+
+        let state = new traverse.PuzzleObjects.States.Static ();
+
+        let puzzle_ob = new traverse.PuzzleObject ( type, pos, state );
+
+        return puzzle_ob;
+    };
+
     let add_puzzle_object =
         function ( puzzle_ob, create_data, traverse_data )
     {
         remove_puzzle_object_at ( puzzle_ob.position, 
                                   create_data, traverse_data );
 
-        remove_existing_unique ( puzzle_ob.name, 
+        remove_existing_unique ( puzzle_ob.type.name, 
                                  create_data, traverse_data );
 
         let po_graphics = puzzle_ob.get_graphics ( traverse_data );
 
         po_graphics.enable ( 
-            traverse_data.scale_coord ( puzzle_ob.x ),
-            traverse_data.scale_coord ( puzzle_ob.y ),
+            traverse_data.scale_coord ( puzzle_ob.position.x ),
+            traverse_data.scale_coord ( puzzle_ob.position.y ),
             traverse_data
         );
 
@@ -301,7 +303,7 @@
         function ( position, create_data, traverse_data )
     {
         let puzzle_ob = 
-            create_data.puzzle_state.get_object_at_pos ( x, y );
+            create_data.puzzle_state.get_object_at_pos ( position );
 
         if ( puzzle_ob == undefined )
         {

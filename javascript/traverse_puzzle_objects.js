@@ -40,7 +40,7 @@
 
             get_graphics : function ( type, traverse_data )
             {
-                return traverse_data.bogey_graphics_pool.pop ();
+                return traverse_data.boo_graphics_pool.pop ();
             },
         },
 
@@ -74,9 +74,9 @@
         this.state = state;
         this.position = position;
 
-        this.get_graphics = function ( type, traverse_data )
+        this.get_graphics = function ( traverse_data )
         {
-            return this.type.get_graphics ( this.state );
+            return this.type.get_graphics ( this.state, traverse_data );
         };
     };
 
