@@ -14,7 +14,7 @@
 
             unique : false,
 
-            get_graphics : function ( traverse_data )
+            get_graphics : function ( type, traverse_data )
             {
                 return traverse_data.wall_graphics_pool.pop ();
             },
@@ -26,7 +26,7 @@
 
             unique : true,
 
-            get_graphics : function ( traverse_data )
+            get_graphics : function ( type, traverse_data )
             {
                 return traverse_data.bogey_graphics_pool.pop ();
             },
@@ -38,7 +38,7 @@
 
             unique : true,
 
-            get_graphics : function ( traverse_data )
+            get_graphics : function ( type, traverse_data )
             {
                 return traverse_data.bogey_graphics_pool.pop ();
             },
@@ -129,6 +129,7 @@
             objects.add ( o );
         };
 
+        //TODO - take position object instead of x,y
         this.get_object_at_pos = function ( x, y )
         {
             if ( position_index.get ( x ) != undefined )

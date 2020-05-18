@@ -40,21 +40,19 @@
     /**
      * ob_name - used for png and passed to callback
      */
-    traverse.create_object_button = function ( template, callback )
+    traverse.create_object_button = function ( type, callback )
     {
-        let ob = new template ();
-
         let button = document.createElement ( "INPUT" );
 
         button.type = "image";
         
-        button.alt = ob.name;
+        button.alt = type.name;
 
         button.classList.add ( "create_object_button" );
 
-        button.src = `assets/${ob.name}.png`;
+        button.src = `assets/${type.name}.png`;
 
-        button.onclick = () => { callback ( ob.name ) };
+        button.onclick = () => { callback ( type.name ) };
 
         return button;
     }
