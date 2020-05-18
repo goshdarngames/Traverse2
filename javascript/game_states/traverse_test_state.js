@@ -80,7 +80,8 @@
 
         root_div.appendChild ( obj_div );
 
-        [ traverse.PuzzleObjects.Bogey, traverse.PuzzleObjects.Boo ]
+        [ traverse.PuzzleObjects.Types.Bogey, 
+          traverse.PuzzleObjects.Types.Boo ]
             .forEach ( ( template ) =>
         {
             let button = traverse.create_object_button ( template,
