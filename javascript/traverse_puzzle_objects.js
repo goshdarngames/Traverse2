@@ -50,6 +50,10 @@
     {
         Static : function ()
         {
+        this.get_prolog = function ()
+        {
+            return "[static]"
+        };
         },
 
         Moving : function ( dx, dy )
@@ -63,6 +67,11 @@
     {
         this.x = x;
         this.y = y;
+
+        this.get_prolog = function ()
+        {
+            return `[${this.x},${this.y}]`
+        };
     };
 
     /**
@@ -77,6 +86,15 @@
         this.get_graphics = function ( traverse_data )
         {
             return this.type.get_graphics ( this.state, traverse_data );
+        };
+
+        this.get_prolog = function ()
+        {
+            let type_p = this.type.name;
+            let state_p = this.state.get_prolog();
+            let pos_p = this.position.get_prolog();
+
+            return `[${type_p},${pos_p},${state_p}]`
         };
     };
 

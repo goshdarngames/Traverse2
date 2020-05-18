@@ -87,3 +87,17 @@ test('PuzzleState insert unique', () =>
 
     expect ( ps.get_unique_object ( "boo" ) ).toBe ( p );
 });
+
+test ( "PuzzleState to prolog", () =>
+{
+    let o_js = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Boo, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let o_pl = "[boo,[1,1],[static]]";
+
+    expect ( o_js.get_prolog () ).toEqual ( o_pl );
+
+});
