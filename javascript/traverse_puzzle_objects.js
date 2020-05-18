@@ -48,38 +48,36 @@
 
     traverse.PuzzleObjects.States = 
     {
-        State : function ()
+        Static : function ()
         {
-            this.get_graphics = function ( type, traverse_data )
-            {
-                //TODO pass state name here?
-                return type.get_graphics ();
-            };
-        };
+        },
 
-        Static : function ( x, y )
+        Moving : function ( dx, dy )
         {
-            this.x = x;
-            this.y = y;
+            this.dx = dx;
+            this.dy = dy;
+        },
+    };
 
-        };
-
-        Moving : function ( x, y, dx, dy )
-        {
-            this.x = x;
-            this.y = y;
-            this.d.x = d.x;
-            this.d.y = d.y;
-        };
+    traverse.PuzzleObjects.Position = function ( x, y )
+    {
+        this.x = x;
+        this.y = y;
     };
 
     /**
      * Instantiated when a puzzle object is needed in game.
      */
-    traverse.PuzzleObject = function ( type, state )
+    traverse.PuzzleObject = function ( type, position, state )
     {
         this.type = type;
         this.state = state;
+        this.position = position;
+
+        this.get_graphics = function ( type, traverse_data )
+        {
+            return this.type.get_graphics ( this.state );
+        };
     };
 
     /**
@@ -106,9 +104,9 @@
                 throw "Object already in puzzle state.";
             }
 
-            if ( this.get_object_at_pos ( o.x, o.y ) != undefined )
+            if ( this.get_object_at_pos ( o.position.x, o.position.y ) )
             {
-                throw `Object already exists at ${o.x} ${o.y}`
+                throw `Object exists at ${o.position.x} ${o.position.y}`
             }
 
             if ( o.unique )
@@ -121,12 +119,12 @@
                 unique_objects.set ( o.name, o );
             }
             
-            if ( position_index.get ( o.x ) == undefined )
+            if ( position_index.get ( o.position.x ) == undefined )
             {
-                position_index.set ( o.x, new Map () );
+                position_index.set ( o.position.x, new Map () );
             }
             
-            position_index.get ( o.x ) .set ( o.y, o );
+            position_index.get ( o.position.x ) .set ( o.position.y, o );
 
             objects.add ( o );
         };
@@ -158,11 +156,11 @@
 
             objects.delete ( o );
 
-            position_index.get ( o.x ) .delete ( o.y );
+            position_index.get ( o.position.x ) .delete ( o.position.y );
 
-            if ( position_index.get ( o.x ).size <= 0 )
+            if ( position_index.get ( o.position.x ).size <= 0 )
             {
-                position_index.delete ( o.x );
+                position_index.delete ( o.position.x );
             }
 
             if ( o.unique )

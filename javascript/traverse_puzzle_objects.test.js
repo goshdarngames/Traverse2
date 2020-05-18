@@ -4,15 +4,23 @@ test('PuzzleState insert and remove standard', () =>
 {
     let ps = new traverse.PuzzleState ();
 
-    let o = new traverse.PuzzleObject ( traverse.PuzzleObjects.Types,Wall, 
-                         new traverse.PuzzleObjects.States.Static ( 1, 1 ) );
+    let o = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
 
-    let p = new traverse.PuzzleObject ( traverse.PuzzleState.Types,Wall, 
-                         new traverse.PuzzleState.States.Static ( 1, 1 ) );
+    let p = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
 
-    let q = new traverse.PuzzleObject ( traverse.PuzzleObjects.Types,Wall, 
-                         new traverse.PuzzleObjects.States.Static ( 1, 2 ) );
-
+    let q = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 2 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
 
     ps.add_object ( o );
 
@@ -36,6 +44,7 @@ test('PuzzleState insert and remove standard', () =>
     ps.add_object ( q );
 });
 
+/*
 test('PuzzleState insert unique', () => 
 {
     let ps = new traverse.PuzzleState ();
@@ -65,4 +74,4 @@ test('PuzzleState insert unique', () =>
 
     expect ( ps.get_unique_object ( "mock_unique" ) ).toBe ( p );
 });
-
+*/
