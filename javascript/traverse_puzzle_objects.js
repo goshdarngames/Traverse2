@@ -104,7 +104,7 @@
                 throw "Object already in puzzle state.";
             }
 
-            if ( this.get_object_at_pos ( o.position.x, o.position.y ) )
+            if ( this.get_object_at_pos ( o.position ) )
             {
                 throw `Object exists at ${o.position.x} ${o.position.y}`
             }
@@ -130,11 +130,11 @@
         };
 
         //TODO - take position object instead of x,y
-        this.get_object_at_pos = function ( x, y )
+        this.get_object_at_pos = function ( pos )
         {
-            if ( position_index.get ( x ) != undefined )
+            if ( position_index.get ( pos.x ) != undefined )
             {
-                return position_index.get ( x ).get ( y );
+                return position_index.get ( pos.x ).get ( pos.y );
             }
         };
 
