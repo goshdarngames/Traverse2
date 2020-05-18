@@ -109,14 +109,14 @@
                 throw `Object exists at ${o.position.x} ${o.position.y}`
             }
 
-            if ( o.unique )
+            if ( o.type.unique )
             {
-                if ( unique_objects.has ( o.name ) )
+                if ( unique_objects.has ( o.type.name ) )
                 {
-                    throw `Unique object ${o.name} already exists`
+                    throw `Unique object ${o.type.name} already exists`
                 }
 
-                unique_objects.set ( o.name, o );
+                unique_objects.set ( o.type.name, o );
             }
             
             if ( position_index.get ( o.position.x ) == undefined )
@@ -163,9 +163,9 @@
                 position_index.delete ( o.position.x );
             }
 
-            if ( o.unique )
+            if ( o.type.unique )
             {
-                unique_objects.delete ( o.name );
+                unique_objects.delete ( o.type.name );
             }
 
         };

@@ -44,34 +44,41 @@ test('PuzzleState insert and remove standard', () =>
     ps.add_object ( q );
 });
 
-/*
 test('PuzzleState insert unique', () => 
 {
     let ps = new traverse.PuzzleState ();
 
-    let o = new traverse.PuzzleObject ( MockUnique, 1, 1 );
-    let p = new traverse.PuzzleObject ( MockUnique, 1, 3 );
+    let o = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Boo, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let p = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Boo, 
+        new traverse.PuzzleObjects.Position ( 1, 3 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
 
     ps.add_object ( o );
 
     expect( ps.get_object_at_pos ( 1, 1 ) ).toBe ( o );
 
-    expect ( ps.get_unique_object ( "mock_unique" )).toBe ( o );
+    expect ( ps.get_unique_object ( "boo" )).toBe ( o );
 
     expect ( () => ps.add_object ( p ) ).toThrow ();
 
-    let u = ps.get_unique_object ( "mock_unique" );
+    let u = ps.get_unique_object ( "boo" );
 
     ps.remove_object ( u );
 
     expect( ps.get_object_at_pos ( 1, 1 ) ).toBeUndefined ();
     
-    expect ( ps.get_unique_object ( "mock_unique" ) ).toBeUndefined ();
+    expect ( ps.get_unique_object ( "boo" ) ).toBeUndefined ();
 
     ps.add_object ( p );
 
     expect( ps.get_object_at_pos ( 1, 3 ) ).toBe ( p );
 
-    expect ( ps.get_unique_object ( "mock_unique" ) ).toBe ( p );
+    expect ( ps.get_unique_object ( "boo" ) ).toBe ( p );
 });
-*/
