@@ -96,8 +96,33 @@ test ( "PuzzleState to prolog", () =>
         new traverse.PuzzleObjects.States.Static () 
     );
 
+    let p_js = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Bogey, 
+        new traverse.PuzzleObjects.Position ( 1, 2 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let q_js = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 3 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
     let o_pl = "[boo,[1,1],[static]]";
+    let p_pl = "[bogey,[1,2],[static]]";
+    let q_pl = "[wall,[1,3],[static]]";
 
     expect ( o_js.get_prolog () ).toEqual ( o_pl );
+    expect ( p_js.get_prolog () ).toEqual ( p_pl );
+    expect ( q_js.get_prolog () ).toEqual ( q_pl );
 
+    let ps = new traverse.PuzzleState ();
+
+    ps.add_object ( o_js );
+    ps.add_object ( p_js );
+    ps.add_object ( q_js );
+
+    let ps_pl = `[${o_pl},${p_pl},${q_pl}]`
+
+    expect ( ps.get_prolog () ).toEqual ( ps_pl );
 });

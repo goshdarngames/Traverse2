@@ -189,6 +189,13 @@
 
         };
 
+        this.get_prolog = function ()
+        {
+            let objects_pl = [...objects].map ( o => o.get_prolog () );
+
+            return `[${objects_pl.join()}]`
+        };
+
     };
 
     traverse.valid_puzzle_state = function ( s )
