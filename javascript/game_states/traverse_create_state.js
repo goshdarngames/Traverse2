@@ -120,7 +120,7 @@
         root_div.appendChild ( build_div );
 
 
-        create_data.build_objects.forEach ( ( type ) =>
+        for ( const type of create_data.build_objects )
         {
             let button = traverse.create_object_button ( type,
             () => 
@@ -132,7 +132,7 @@
 
             build_div.appendChild ( button );
 
-        });
+        }
 
         let test_button = 
             traverse.create_menu_button ( "Test", 

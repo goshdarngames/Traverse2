@@ -80,6 +80,7 @@
 
         root_div.appendChild ( obj_div );
 
+        //TODO move to shared dom file
         [ traverse.PuzzleObjects.Types.Bogey, 
           traverse.PuzzleObjects.Types.Boo ]
             .forEach ( ( template ) =>

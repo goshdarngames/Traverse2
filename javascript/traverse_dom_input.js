@@ -86,9 +86,10 @@
 
         grid_div.classList.add ( "direction_panel" );
 
-        [ 'u', 'd', 'l', 'r' ].forEach ( 
-            ( d ) => create_menu_button ( grid_div, d, controls ) );
-
+        for ( const d of [ 'u', 'd', 'l', 'r' ] )
+        {
+            create_menu_button ( grid_div, d, controls );
+        }
 
         controls.container = grid_div;
 

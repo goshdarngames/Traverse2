@@ -151,7 +151,7 @@
                 return;
             }
 
-            //TODO convert jobs to promises and make async
+            //TODO convert jobs to promises and make async (note for..of loop)
             if ( this.next_job < loading_jobs.length )
             {
                 let job = loading_jobs [ this.next_job ];
