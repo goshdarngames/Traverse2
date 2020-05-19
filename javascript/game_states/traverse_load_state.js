@@ -21,12 +21,27 @@
     [
         ( callback, traverse_data ) =>
         {
-            traverse.read_prolog_file ( "prolog/traverse_rules.pl",
-                ( session ) => 
-                {
-                    traverse_data.assets.rules_pl = session;
-                    callback ();
-                });
+            let url = "prolog/traverse_rules.pl";
+
+            window.console.log ( `Read prolog: ${url}` );
+
+            let request = new XMLHttpRequest ();
+
+            request.open ( 'GET', url );
+
+            request.responseType = 'text';
+
+            request.onload = function ()
+            {
+                let session = pl.create ();
+                session.consult ( request.response );
+
+                traverse_data.assets.rules_pl = session;
+
+                callback ( );
+            };
+
+            request.send ();
         },
 
         ( callback, traverse_data ) =>
