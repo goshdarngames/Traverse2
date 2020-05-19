@@ -2,6 +2,8 @@
 {
     traverse.read_prolog_file = function ( url, callback )
     {
+        //TODO - load state should make AJAX request - this func should
+        //       only accept a string
         window.console.log ( `Read prolog: ${url}` );
 
         let request = new XMLHttpRequest ();
