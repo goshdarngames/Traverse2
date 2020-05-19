@@ -225,24 +225,26 @@
 
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
-            traverse_data.assets.rules_pl.query ("puzzle_problem([boo,bogey],X)." );
-
-            traverse_data.assets.rules_pl.answer ( ( a ) =>
+            let succ = () =>
             {
-                //TODO move prolog queries to the prolog js file
+                create_data.verify_text_div.textContent = "Good Puzzle!";
 
-                let msg_array = a.lookup ("X").toJavaScript();
+                create_data.verify_text_div.classList.remove ( "verify_bad" );
+                create_data.verify_text_div.classList.add ( "verify_good" );
+            };
 
-                let msg = msg_array.map ( c => String.fromCharCode ( c ) )
-                    .join ( "" );
-
+            let fail = ( msg ) =>
+            {
                 create_data.verify_text_div.textContent = msg;
 
+                create_data.verify_text_div.classList
+                    .remove ( "verify_good" );
                 create_data.verify_text_div.classList.add ( "verify_bad" );
+            };
 
-            } );
+            traverse.prolog_verify_puzzle_state ( 
+                create_data.puzzle_state, succ, fail, traverse_data );
 
-            //TODO verify puzzle using prolog
             this.create_event.tick = () => {};
         };
     };
