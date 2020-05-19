@@ -56,11 +56,19 @@
         };
         },
 
-        Moving : function ( dx, dy )
+        //Moving towards dest
+        Moving : function ( dest_x, dest_y )
         {
-            this.dx = dx;
-            this.dy = dy;
+            this.dest_x = dest_x;
+            this.dest_y = dest_y;
         },
+
+        //leaving the screen
+        Exit : function ( last_x, last_y )
+        {
+            this.last_x = last_x;
+            this.last_y = last_y;
+        }
     };
 
     traverse.PuzzleObjects.Position = function ( x, y )
