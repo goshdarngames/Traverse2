@@ -1,12 +1,19 @@
-width(W) :-
-    W=20.
+%gridsize
+width(16).
+height(16).
 
-height(H) :-
-    H=20.
-
+%puzzle objects
 object( wall ).
 object( bogey ).
 object( boo ).
+
+%only allowed one of these in each puzzle
+unique( boo ).
+unique( bodey ).
+
+%must be at least one of these in each puzzle
+required( boo ).
+required( bogey ).
 
 position( [ X, Y ] ) :-
     width(W),

@@ -24,7 +24,11 @@
     traverse.prolog_verify_puzzle_state = 
         function ( ps, success_cb, fail_cb, traverse_data )
     {
-        traverse_data.assets.rules_pl.query ("puzzle_problem([boo,bogey],X)." );
+        let ps_pl = ps.get_prolog ();
+
+        let query = `puzzle_problem(${ps_pl},X).`;
+
+        traverse_data.assets.rules_pl.query ( query );
 
         traverse_data.assets.rules_pl.answer ( ( a ) =>
         {
