@@ -4,13 +4,6 @@ let fs = require("fs").promises;
 
 require ( "../javascript/traverse_prolog" );
 
-//Wrapping the prolog answer in a promise allows jest to wait on the
-//asynchronous code from the prolog system
-let answer_promise = ( session ) => new Promise ( resolve =>
-{
-    session.answer ( ( a ) => resolve ( a ) );
-});
-
 test ( "Get libs", async () =>
 {
     expect ( pl ).toBeDefined ();
@@ -24,10 +17,19 @@ test ( "Get libs", async () =>
 
     let answer = undefined;
 
+    //Wrapping the prolog answer in a promise allows jest to wait on the
+    //asynchronous code from the prolog system
+    let answer_promise = ( session ) => new Promise ( resolve =>
+    {
+        session.answer ( ( a ) => resolve ( a ) );
+    });
+
     session.consult ( pl_data );
 
     session.query ( "object(bad_object)." );
     answer = await answer_promise ( session );
+
+    expect ( answer ).toBeFalsy ();
 
     for ( const query of [ "boo", "bogey", "wall" ] )
     {
