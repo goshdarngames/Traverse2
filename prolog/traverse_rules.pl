@@ -34,6 +34,9 @@ puzzle_problem( [], "No objects").
 puzzle_problem( P, "Boo Missing"):-
     not_member([boo|_],P).
 
+puzzle_problem( P, "Bogey Missing"):-
+    not_member([bogey|_],P).
+
 puzzle_problem(_,"None").
 
 

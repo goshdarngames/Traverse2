@@ -101,4 +101,18 @@ test ( "Prolog puzzle_problem", async () =>
 
     expect ( a ).toEqual ( "Boo Missing" );
 
+    ps.remove_object ( bogey );
+    ps.add_object ( boo );
+    
+    a = await traverse.prolog_verify_puzzle_state ( ps, traverse_data );
+
+    expect ( a ).toEqual ( "Bogey Missing" );
+
+    ps.add_object ( bogey );
+    
+    a = await traverse.prolog_verify_puzzle_state ( ps, traverse_data );
+
+    //TODO - Should say puzzle can't be solved
+    expect ( a ).toEqual ( "None" );
+
 });
