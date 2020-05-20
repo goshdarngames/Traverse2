@@ -23,8 +23,18 @@ position( [ X, Y ] ) :-
     Y>=0,
     Y<H.
 
-puzzle_problem([boo, bogey], "Prolog said yes").
-puzzle_problem(_,"Prolog said no.").
+not_member(_,[]).
+
+not_member(X,[Head|Tail]) :-
+    X \= Head,
+    not_member( X, Tail ).
+
+puzzle_problem( [], "No objects").
+
+puzzle_problem( P, "Boo Missing"):-
+    not_member([boo|_],P).
+
+puzzle_problem(_,"None").
 
 
 %object_position( O, P ) :-

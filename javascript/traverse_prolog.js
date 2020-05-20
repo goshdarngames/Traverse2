@@ -11,10 +11,13 @@
 
             let query = `puzzle_problem(${ps_pl},X).`;
 
+            console.log ( query );
+
             traverse_data.assets.rules_pl.query ( query );
 
             traverse_data.assets.rules_pl.answer ( ( a ) =>
             {
+                console.log ( a );
                 let msg_array = a.lookup ("X").toJavaScript();
 
                 let msg = convert_prolog_string ( msg_array );

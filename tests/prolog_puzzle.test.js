@@ -6,6 +6,7 @@
  */
 
 let pl = require ( "tau-prolog" );
+require( "tau-prolog/modules/lists" )( pl );
 
 let fs = require("fs").promises;
 
@@ -82,5 +83,22 @@ test ( "Prolog puzzle_problem", async () =>
 
     let a = await traverse.prolog_verify_puzzle_state ( ps, traverse_data );
 
-    expect ( a ).toEqual ( "Prolog said no." );
+    expect ( a ).toEqual ( "No objects" );
+
+    let boo = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Boo,
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static ()  );
+
+    let bogey = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Bogey,
+        new traverse.PuzzleObjects.Position ( 1, 2 ),
+        new traverse.PuzzleObjects.States.Static ()  );
+
+    ps.add_object ( bogey );
+    
+    a = await traverse.prolog_verify_puzzle_state ( ps, traverse_data );
+
+    expect ( a ).toEqual ( "Boo Missing" );
+
 });
