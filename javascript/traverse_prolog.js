@@ -3,7 +3,7 @@
     //TODO - rules prolog could be run inside a web worker
     //       This would prevent the execution blocking rendering
 
-    traverse.prolog_verify_puzzle_state = function ( ps, traverse_data )
+    traverse.prolog_verify_puzzle_state = function ( ps, session )
     {
         return new Promise ( ( resolve, reject ) =>
         {
@@ -11,9 +11,9 @@
 
             let query = `puzzle_problem(${ps_pl},X).`;
 
-            traverse_data.assets.rules_pl.query ( query );
+            session.query ( query );
 
-            traverse_data.assets.rules_pl.answer ( ( a ) =>
+            session.answer ( ( a ) =>
             {
                 let msg_array = a.lookup ("X").toJavaScript();
 

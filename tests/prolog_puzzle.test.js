@@ -28,7 +28,7 @@ let read_pl_data = async function ()
     return pl_data;
 }
 
-let get_traverse_data = async function ()
+let get_prolog_session = async function ()
 {
     let session = pl.create ();
 
@@ -36,15 +36,7 @@ let get_traverse_data = async function ()
 
     session.consult ( pl_data );
 
-    let traverse_data = 
-    {
-        assets :
-        {
-            rules_pl : session,
-        },
-    };
-
-    return traverse_data;
+    return session;
 };
 
 test ( "Prolog objects defined", async () =>
@@ -53,9 +45,7 @@ test ( "Prolog objects defined", async () =>
     
     expect ( traverse ).toBeDefined ();
 
-    let traverse_data = await get_traverse_data ();
-
-    let session = traverse_data.assets.rules_pl;
+    let session = await get_prolog_session ();
 
     let answer = undefined;
 
@@ -78,10 +68,11 @@ test ( "Prolog objects defined", async () =>
 
 test ( "Prolog puzzle_problem", async () =>
 {
-    let traverse_data = await get_traverse_data ();
+    let session = await get_prolog_session ();
+
     let ps = new traverse.PuzzleState ();
 
-    let a = await traverse.prolog_verify_puzzle_state ( ps, traverse_data );
+    let a = await traverse.prolog_verify_puzzle_state ( ps, session );
 
     expect ( a ).toEqual ( "No objects" );
 
@@ -97,20 +88,20 @@ test ( "Prolog puzzle_problem", async () =>
 
     ps.add_object ( bogey );
     
-    a = await traverse.prolog_verify_puzzle_state ( ps, traverse_data );
+    a = await traverse.prolog_verify_puzzle_state ( ps, session );
 
     expect ( a ).toEqual ( "Boo Missing" );
 
     ps.remove_object ( bogey );
     ps.add_object ( boo );
     
-    a = await traverse.prolog_verify_puzzle_state ( ps, traverse_data );
+    a = await traverse.prolog_verify_puzzle_state ( ps, session );
 
     expect ( a ).toEqual ( "Bogey Missing" );
 
     ps.add_object ( bogey );
     
-    a = await traverse.prolog_verify_puzzle_state ( ps, traverse_data );
+    a = await traverse.prolog_verify_puzzle_state ( ps, session );
 
     //TODO - Should say puzzle can't be solved
     expect ( a ).toEqual ( "None" );
