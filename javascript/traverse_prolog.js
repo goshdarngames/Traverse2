@@ -1,5 +1,8 @@
 ( function ( traverse, undefined )
 {
+    //TODO - rules prolog could be run inside a web worker
+    //       This would prevent the execution blocking rendering
+
     traverse.prolog_verify_puzzle_state = function ( ps, traverse_data )
     {
         return new Promise ( ( resolve, reject ) =>
