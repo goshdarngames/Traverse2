@@ -56,8 +56,6 @@
      */
     let CreateEvent = function ()
     {
-        this.enter = ( create_data, traverse_data ) => {};
-
         this.tick = ( create_data, traverse_data ) => {};
 
         this.stage_clicked = ( e, create_data, traverse_data ) => {};
@@ -225,25 +223,8 @@
 
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
-            let succ = () =>
-            {
-                create_data.verify_text_div.textContent = "Good Puzzle!";
-
-                create_data.verify_text_div.classList.remove ( "verify_bad" );
-                create_data.verify_text_div.classList.add ( "verify_good" );
-            };
-
-            let fail = ( msg ) =>
-            {
-                create_data.verify_text_div.textContent = msg;
-
-                create_data.verify_text_div.classList
-                    .remove ( "verify_good" );
-                create_data.verify_text_div.classList.add ( "verify_bad" );
-            };
-
-            traverse.prolog_verify_puzzle_state ( 
-                create_data.puzzle_state, succ, fail, traverse_data );
+            traverse_data.prolog_worker.postMessage ( 
+                create_data.puzzle_state.get_prolog () );
 
             this.create_event.tick = () => {};
         };

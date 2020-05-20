@@ -3,6 +3,11 @@
     //TODO - rules prolog could be run inside a web worker
     //       This would prevent the execution blocking rendering
 
+    //TODO - receive prolog string rather than puzzle state object
+    
+    //TODO - move this code to the worker - only access prolog through
+    //       worker
+
     traverse.prolog_verify_puzzle_state = function ( ps, session )
     {
         return new Promise ( ( resolve, reject ) =>
