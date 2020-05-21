@@ -8,13 +8,11 @@
     //TODO - move this code to the worker - only access prolog through
     //       worker
 
-    traverse_pl.prolog_verify_puzzle_state = function ( ps, session )
+    traverse_pl.verify_puzzle_state = function ( ps, session )
     {
         return new Promise ( ( resolve, reject ) =>
         {
-            let ps_pl = ps.get_prolog ();
-
-            let query = `puzzle_problem(${ps_pl},X).`;
+            let query = `puzzle_problem(${ps},X).`;
 
             session.query ( query );
 

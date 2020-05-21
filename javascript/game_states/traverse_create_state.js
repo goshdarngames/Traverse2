@@ -223,10 +223,21 @@
 
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
-            traverse_data.prolog_worker.postMessage ( 
-                { func : "prolog_test", args : [1,2,3] }
-                //create_data.puzzle_state.get_prolog () 
-            );
+            let e = 
+            {
+                command : "verify_puzzle_state",
+
+                ps : create_data.puzzle_state.get_prolog (),
+            };
+
+
+            traverse_data.prolog_worker.onmessage = ( e ) =>
+            {
+                console.log ( "Received: "+ e.data );
+                traverse_data.prolog_worker.onmessage = () => {};
+            };
+
+            traverse_data.prolog_worker.postMessage ( e );
 
             this.create_event.tick = () => {};
         };

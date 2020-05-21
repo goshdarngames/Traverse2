@@ -15,17 +15,30 @@ self.importScripts('traverse_prolog.js');
 
         console.log ( "Prolog rules loaded in web worker." );
 
-        self.onmessage = ( e ) => expect_verify_puzzle ( e );
+        self.onmessage = ( e ) => traverse_pl.expect_command ( e );
     };
 
-    traverse_pl.expect_verify_puzzle = async function ( e )
+    traverse_pl.expect_command = function ( e )
     {
-        console.log ( e.data );
+        switch ( e.data.command )
+        {
+            case ( "verify_puzzle_state" ) :
 
-        let query = e.query;
+                verify_puzzle_state ( e.data.ps );
+                break;
 
-        //let answer = await ...
+            default :
 
+                throw "Unknown command.";
+                break;
+        }
+    };
+
+    let verify_puzzle_state = async function ( ps )
+    {
+        let answer = await traverse_pl.verify_puzzle_state ( ps, session );
+
+        self.postMessage ( answer );
     };
 
 
