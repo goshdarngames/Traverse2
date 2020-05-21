@@ -30,23 +30,27 @@
 
             request.onload = function ()
             {
-                let session = pl.create ();
-                session.consult ( request.response );
+                let s  = pl.create ();
 
-                traverse_data.assets.rules_pl = session;
+                s.consult ( request.response );
 
-                resolve();
+                let prolog_data = request.response;
+
+                resolve ( prolog_data );
             };
 
-            //TODO chain promises together to create prolog thread
-            //initialize prolog worker
-
-            //traverse_data.prolog_worker = new Worker ( "javascript/traverse_prolog_worker.js" );
-
-            //traverse_data.prolog_worker.onmessage = (e) => console.log ( e.data );
-
             request.send ();
-        }).then( x => console.log("Prolog load pt 2") ),
+        })
+        .then( prolog_data =>  
+        {
+            traverse_data.prolog_worker = 
+                new Worker ( "prolog/traverse_prolog_worker.js" );
+
+
+            traverse_data.prolog_worker.onmessage = (e) => console.log ( e.data );
+
+            traverse_data.prolog_worker.postMessage ( prolog_data );
+        }),
 
         ( traverse_data ) => new Promise ( ( resolve, reject ) =>
         {
