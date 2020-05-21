@@ -72,7 +72,7 @@ test ( "Prolog puzzle_problem", async () =>
 
     let ps = new traverse.PuzzleState ();
 
-    let a = await traverse.prolog_verify_puzzle_state ( ps, session );
+    let a = await traverse_pl.prolog_verify_puzzle_state ( ps, session );
 
     expect ( a ).toEqual ( "No objects" );
 
@@ -88,20 +88,20 @@ test ( "Prolog puzzle_problem", async () =>
 
     ps.add_object ( bogey );
     
-    a = await traverse.prolog_verify_puzzle_state ( ps, session );
+    a = await traverse_pl.prolog_verify_puzzle_state ( ps, session );
 
     expect ( a ).toEqual ( "Boo Missing" );
 
     ps.remove_object ( bogey );
     ps.add_object ( boo );
     
-    a = await traverse.prolog_verify_puzzle_state ( ps, session );
+    a = await traverse_pl.prolog_verify_puzzle_state ( ps, session );
 
     expect ( a ).toEqual ( "Bogey Missing" );
 
     ps.add_object ( bogey );
     
-    a = await traverse.prolog_verify_puzzle_state ( ps, session );
+    a = await traverse_pl.prolog_verify_puzzle_state ( ps, session );
 
     //TODO - Should say puzzle can't be solved
     expect ( a ).toEqual ( "None" );

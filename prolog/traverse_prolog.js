@@ -1,4 +1,4 @@
-( function ( traverse, undefined )
+( function ( traverse_pl, undefined )
 {
     //TODO - rules prolog could be run inside a web worker
     //       This would prevent the execution blocking rendering
@@ -8,7 +8,7 @@
     //TODO - move this code to the worker - only access prolog through
     //       worker
 
-    traverse.prolog_verify_puzzle_state = function ( ps, session )
+    traverse_pl.prolog_verify_puzzle_state = function ( ps, session )
     {
         return new Promise ( ( resolve, reject ) =>
         {
@@ -29,12 +29,8 @@
             });
         });
 
-        traverse.prolog_test = function ( a, b, c ) 
-        { 
-            return console.log ( `${a} ${b} ${c}` );
-        };
     };
 
     let convert_prolog_string = 
         a => a.map ( c => String.fromCharCode ( c ) ).join ( "" );
-} ( self.traverse = self.traverse || {} ))
+} ( self.traverse_pl = self.traverse_pl || {} ))

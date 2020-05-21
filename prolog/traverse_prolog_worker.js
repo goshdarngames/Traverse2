@@ -1,34 +1,34 @@
 self.importScripts('tau-prolog.min.js');
+self.importScripts('traverse_prolog.js');
 
-( function ( traverse, undefined )
+( function ( traverse_pl, undefined )
 {
-    traverse.prolog_worker_message = function ( e )
+    let session = undefined;
+
+    //When the worker is created it expects the first message to be
+    //a string containing prolog rules.
+    traverse_pl.expect_rules = function ( e )
     {
-        console.log ( "Thread received message" );
+        session = self.pl.create ();
 
-        let s = self.pl.create ();
+        session.consult ( e.data );
 
-        s.consult ( e.data );
+        console.log ( "Prolog rules loaded in web worker." );
 
+        self.onmessage = ( e ) => expect_verify_puzzle ( e );
+    };
+
+    traverse_pl.expect_verify_puzzle = function ( e )
+    {
         console.log ( e.data );
-        let query = "puzzle_problem([],X).";
+        let query = e.query;
 
-        s.query ( query );
-
-        s.answer ( ( a ) =>
-        {
-            let msg_array = a.lookup ("X").toJavaScript();
-
-            let msg = convert_prolog_string ( msg_array );
-
-            console.log ( msg );
-
-        });
     };
 
     let convert_prolog_string = 
         a => a.map ( c => String.fromCharCode ( c ) ).join ( "" );
-} ( self.traverse = self.traverse || {} ))
 
-onmessage = ( e ) => traverse.prolog_worker_message ( e );
+} ( self.traverse_pl = self.traverse_pl || {} ))
+
+self.onmessage = ( e ) => traverse_pl.expect_rules ( e );
 
