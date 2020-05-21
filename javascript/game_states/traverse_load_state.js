@@ -46,7 +46,7 @@
             //traverse_data.prolog_worker.onmessage = (e) => console.log ( e.data );
 
             request.send ();
-        }),
+        }).then( x => console.log("Prolog load pt 2") ),
 
         ( traverse_data ) => new Promise ( ( resolve, reject ) =>
         {
