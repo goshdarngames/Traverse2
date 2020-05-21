@@ -37,4 +37,4 @@
 
     let convert_prolog_string = 
         a => a.map ( c => String.fromCharCode ( c ) ).join ( "" );
-} ( self.traverse = self.traverse || {} ))
+} ( window.traverse = window.traverse || {} ))

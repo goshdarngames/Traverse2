@@ -212,5 +212,5 @@
         return false;
     };
 
-} ( self.traverse = self.traverse || {} ))
+} ( window.traverse = window.traverse || {} ))
 
