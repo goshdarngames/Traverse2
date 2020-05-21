@@ -19,5 +19,5 @@
         new_state.enter_state ( traverse_data );
     };
 
-} ( window.traverse = window.traverse || {} ))
+} ( self.traverse = self.traverse || {} ))
 

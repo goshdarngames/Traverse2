@@ -28,4 +28,4 @@
             pool.push ( o );
         }
     };
-} ( window.traverse = window.traverse || {} ))
+} ( self.traverse = self.traverse || {} ))
