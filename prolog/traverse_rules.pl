@@ -40,22 +40,3 @@ puzzle_problem( P, "Bogey Missing"):-
 puzzle_problem(_,"None").
 
 
-%object_position( O, P ) :-
-%    object(O),
-%    position(P).
-%
-%gamestate( [] ).
-%gamestate( [Ob] ) :-
-%    Ob=[O,X1,Y1],
-%    object_position(O,X1,Y1),
-%gamestate( [Ob|Obs] ) :-
-%    ( 
-%        %Obs is empty
-%        Obs=[];
-%        
-%        %OR no other object at same position
-%        ( Ob=[O|P1],
-%          Obs=[[_|P2]|_],
-%          P1\==P2 )
-%    ),
-%    gamestate(Obs).

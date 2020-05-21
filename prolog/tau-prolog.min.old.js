@@ -207,7 +207,7 @@
 		get: function( length, _ ) {
 			var text;
 			while( tau_user_input.buffer.length < length ) {
-				text = self.prompt();
+				text = window.prompt();
 				if( text ) {
 					tau_user_input.buffer += text;
 				}
@@ -2307,8 +2307,14 @@
 			string = program;
 			var len = string.length;
 			// script id
+			if( this.get_flag("nodejs").indicator === "false/0" && program != "" && document.getElementById( string ) ) {
+				var script = document.getElementById( string );
+				var type = script.getAttribute( "type" );
+				if( type !== null && type.replace( / /g, "" ).toLowerCase() === "text/prolog" ) {
+					string = script.text;
+				}
 			// file (node.js)
-			if( this.get_flag("nodejs").indicator === "true/0" ) {
+			} else if( this.get_flag("nodejs").indicator === "true/0" ) {
 				var fs = require("fs");
 				const isFile = fs.existsSync(program);
 				if(isFile) string = fs.readFileSync( program ).toString();
@@ -2921,7 +2927,7 @@
 	var pl = {
 		
 		// Environment
-		__env: nodejs_flag ? global : self,
+		__env: nodejs_flag ? global : window,
 		
 		// Modules
 		module: {},
@@ -7091,7 +7097,7 @@
 	if( typeof module !== 'undefined' ) {
 		module.exports = pl;
 	} else {
-		self.pl = pl;
+		window.pl = pl;
 	}
 	
 })();
