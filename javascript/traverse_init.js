@@ -24,4 +24,4 @@
     };
 
     
-} ( window.traverse = window.traverse || {} ))
+} ( self.traverse = self.traverse || {} ))
