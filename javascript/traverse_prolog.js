@@ -28,6 +28,11 @@
 
             });
         });
+
+        traverse.prolog_test = function ( a, b, c ) 
+        { 
+            return console.log ( `${a} ${b} ${c}` );
+        };
     };
 
     let convert_prolog_string = 
