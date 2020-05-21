@@ -38,6 +38,7 @@
                 resolve();
             };
 
+            //TODO chain promises together to create prolog thread
             //initialize prolog worker
 
             //traverse_data.prolog_worker = new Worker ( "javascript/traverse_prolog_worker.js" );
