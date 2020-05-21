@@ -1,3 +1,5 @@
+self.importScripts('tau-prolog.min.js');
+
 ( function ( traverse, undefined )
 {
     traverse.prolog_worker_message = function ( e )
