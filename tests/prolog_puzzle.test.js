@@ -11,7 +11,7 @@ require( "tau-prolog/modules/lists" )( pl );
 let fs = require("fs").promises;
 
 require ( "../javascript/traverse_puzzle_objects" );
-require ( "../javascript/traverse_prolog" );
+require ( "../prolog/traverse_prolog" );
 
 //Wrapping the prolog answer in a promise allows jest to wait on the
 //asynchronous code from the prolog system
