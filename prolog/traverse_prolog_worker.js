@@ -18,15 +18,16 @@ self.importScripts('traverse_prolog.js');
         self.onmessage = ( e ) => expect_verify_puzzle ( e );
     };
 
-    traverse_pl.expect_verify_puzzle = function ( e )
+    traverse_pl.expect_verify_puzzle = async function ( e )
     {
         console.log ( e.data );
+
         let query = e.query;
+
+        //let answer = await ...
 
     };
 
-    let convert_prolog_string = 
-        a => a.map ( c => String.fromCharCode ( c ) ).join ( "" );
 
 } ( self.traverse_pl = self.traverse_pl || {} ))
 
