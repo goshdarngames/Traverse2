@@ -224,7 +224,9 @@
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
             traverse_data.prolog_worker.postMessage ( 
-                create_data.puzzle_state.get_prolog () );
+                { func : "prolog_test", args : [1,2,3] }
+                //create_data.puzzle_state.get_prolog () 
+            );
 
             this.create_event.tick = () => {};
         };
