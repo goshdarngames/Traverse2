@@ -65,11 +65,12 @@
         this.build_obj_button_clicked = 
             ( template, create_data, traverse_data ) => {};
 
-        this.verify_button_clicked = 
-            ( create_data, traverse_data ) => 
-            {
-                create_data.state = new VerifyState ();
-            };
+        this.verify_button_clicked = default_verify_handler;
+    };
+
+    let default_verify_handler =  ( create_data, traverse_data ) => 
+    {
+        create_data.state = new VerifyState ();
     };
 
 
@@ -221,6 +222,9 @@
     {
         this.create_event = new CreateEvent ();
 
+        //prevent multiple clicks
+        this.create_event.verify_button_clicked = () => {};
+
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
             let e = 
@@ -231,15 +235,33 @@
             };
 
 
-            traverse_data.prolog_worker.onmessage = ( e ) =>
-            {
-                console.log ( "Received: "+ e.data );
-                traverse_data.prolog_worker.onmessage = () => {};
-            };
+            traverse_data.prolog_worker.onmessage = 
+                ( e ) => receive_answer ( e, create_data, traverse_data  );
 
             traverse_data.prolog_worker.postMessage ( e );
 
             this.create_event.tick = () => {};
+        };
+
+        //TODO some mechanism to cancel the verification
+        let receive_answer = ( e, create_data, traverse_data ) =>
+        {
+            let answer = e.data;
+
+            //expect answer to be a string describing puzzle problem
+            if ( answer === "None" )
+            {
+                create_data.verify_text_div.textContent = "Good puzzle!";
+
+                create_data.verify_text_div.classList.add ( "verify_good" );
+            }
+            else
+            {
+                create_data.verify_text_div.textContent = answer;
+
+                create_data.verify_text_div.classList.add ( "verify_bad" );
+            }
+            traverse_data.prolog_worker.onmessage = () => {};
         };
     };
 
