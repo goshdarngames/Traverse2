@@ -40,12 +40,6 @@
                     scale_screen_pos : ( c ) => Math.floor ( c / 64 ),
                 };
 
-                //initialize prolog worker
-
-                traverse_data.prolog_worker = new Worker ( "javascript/traverse_prolog_worker.js" );
-
-                traverse_data.prolog_worker.onmessage = (e) => console.log ( e.data );
-
                 //initialize pixi
 
                 traverse_data.pixi = PIXI;

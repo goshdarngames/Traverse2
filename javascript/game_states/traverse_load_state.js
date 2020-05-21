@@ -1,7 +1,6 @@
 ( function ( traverse, undefined )
 {
-    let make_puzzle_object_pool = 
-        function ( object_data, callback, traverse_data, )
+    let make_puzzle_object_pool = function ( object_data, traverse_data, )
     {
         let make_sprite = () => new PIXI.Sprite ( object_data.texture );
 
@@ -13,13 +12,11 @@
         traverse_data [ object_data.graphics_pool_key ] = 
              new traverse.ObjectPool ( make_graphics, 
                                        object_data.pool_size );
-
-        callback ();
     };
 
     let loading_jobs =
     [
-        ( callback, traverse_data ) =>
+        ( traverse_data ) => new Promise ( ( resolve, reject ) =>
         {
             let url = "prolog/traverse_rules.pl";
 
@@ -38,37 +35,43 @@
 
                 traverse_data.assets.rules_pl = session;
 
-                callback ( );
+                resolve();
             };
 
-            request.send ();
-        },
+            //initialize prolog worker
 
-        ( callback, traverse_data ) =>
+            //traverse_data.prolog_worker = new Worker ( "javascript/traverse_prolog_worker.js" );
+
+            //traverse_data.prolog_worker.onmessage = (e) => console.log ( e.data );
+
+            request.send ();
+        }),
+
+        ( traverse_data ) => new Promise ( ( resolve, reject ) =>
         {
             traverse_data.assets.boo_texture =
                 PIXI.Texture.from ( "assets/boo.png" );
 
-            callback ();
-        },
+            resolve();
+        }),
 
-        ( callback, traverse_data ) =>
+        ( traverse_data ) => new Promise ( ( resolve, reject ) =>
         {
             traverse_data.assets.bogey_texture =
                 PIXI.Texture.from ( "assets/bogey.png" );
 
-            callback ();
-        },
+            resolve();
+        }),
 
-        ( callback, traverse_data ) =>
+        ( traverse_data ) => new Promise ( ( resolve, reject ) =>
         {
             traverse_data.assets.wall_texture =
                 PIXI.Texture.from ( "assets/wall.png" );
 
-            callback ();
-        },
+            resolve();
+        }),
 
-        ( callback, traverse_data ) =>
+        ( traverse_data ) => new Promise ( ( resolve, reject ) =>
         {
             let object_data = 
             {
@@ -83,10 +86,12 @@
 
             };
 
-            make_puzzle_object_pool ( object_data, callback, traverse_data );
-        },
+            make_puzzle_object_pool ( object_data, traverse_data );
 
-        ( callback, traverse_data ) =>
+            resolve();
+        }),
+
+        ( traverse_data ) => new Promise ( ( resolve, reject ) =>
         {
             let object_data = 
             {
@@ -101,10 +106,12 @@
 
             };
 
-            make_puzzle_object_pool ( object_data, callback, traverse_data );
-        },
+            make_puzzle_object_pool ( object_data, traverse_data );
 
-        ( callback, traverse_data ) =>
+            resolve();
+        }),
+
+        ( traverse_data ) => new Promise ( ( resolve, reject ) =>
         {
             let object_data = 
             {
@@ -119,8 +126,10 @@
 
             };
 
-            make_puzzle_object_pool ( object_data, callback, traverse_data );
-        },
+            make_puzzle_object_pool ( object_data, traverse_data );
+
+            resolve();
+        }),
 
     ];
 
@@ -154,13 +163,11 @@
             //TODO convert jobs to promises and make async (note for..of loop)
             if ( this.next_job < loading_jobs.length )
             {
-                let job = loading_jobs [ this.next_job ];
-
-                let callback = () => this.waiting = false;
+                let job = loading_jobs [ this.next_job ] ( traverse_data );
 
                 this.waiting = true;
 
-                job ( callback, traverse_data );
+                job.then ( () => this.waiting = false );
 
                 this.next_job += 1;
             }
