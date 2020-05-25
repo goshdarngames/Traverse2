@@ -36,14 +36,18 @@
 
         this.exit_state = function ( traverse_data )
         {
-            let g_iter = this.create_data.puzzle_object_graphics.values ();
-
-            for ( const puzzle_graphics of g_iter )
-            {
-                puzzle_graphics.disable ( traverse_data );
-                traverse_data.wall_graphics_pool.push ( puzzle_graphics );
-            }
+            clear_graphics ( this.create_data, traverse_data );
         };
+    };
+    
+    let clear_graphics = function ( create_data, traverse_data )
+    {
+        let g_iter = create_data.puzzle_object_graphics.values ();
+
+        for ( const puzzle_graphics of g_iter )
+        {
+            puzzle_graphics.disable ( traverse_data );
+        }
     };
 
     /**
@@ -136,7 +140,8 @@
             ()=>
             {
                 let test_state = 
-                    new traverse.TestState ( create_data, traverse_data );
+                    new traverse.TestState ( create_data.puzzle_state,
+                                             traverse_data );
 
                 traverse.change_state ( test_state, traverse_data );
             } );

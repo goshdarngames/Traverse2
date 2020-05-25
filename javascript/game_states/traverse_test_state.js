@@ -1,6 +1,6 @@
 ( function ( traverse, undefined )
 {
-    traverse.TestState = function ( create_data, traverse_data )
+    traverse.TestState = function ( initial_puzzle_state, traverse_data )
     {
         let test_data = {};
 
