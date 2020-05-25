@@ -63,16 +63,10 @@
         this.sprite_clicked = ( create_data, traverse_data ) => {};
 
         this.build_obj_button_clicked = 
-            ( template, create_data, traverse_data ) => {};
+            ( type, button, create_data, traverse_data ) => {};
 
-        this.verify_button_clicked = default_verify_handler;
+        this.verify_button_clicked = () => {};
     };
-
-    let default_verify_handler =  ( create_data, traverse_data ) => 
-    {
-        create_data.state = new VerifyState ();
-    };
-
 
     /************************************************************************
      * Start State
@@ -128,12 +122,12 @@
             { 
                 create_data.state.create_event
                     .build_obj_button_clicked ( 
-                        type, create_data, traverse_data );
+                        type, button, create_data, traverse_data );
             } );
 
             build_div.appendChild ( button );
 
-            create_data.build_object_buttons.set ( tyoe, button );
+            create_data.build_object_buttons.set ( type, button );
 
         }
 
@@ -181,10 +175,21 @@
     {
         this.create_event = new CreateEvent ();
 
-        this.create_event.build_obj_button_clicked =
-            ( type, create_data, traverse_data ) =>
+        this.create_event
+            .verify_button_clicked = ( create_data, traverse_data ) => 
         {
-            create_data.state = new ObjectSelectedState ( type );
+            create_data.state = new VerifyState ();
+        };
+
+
+        this.create_event.build_obj_button_clicked =
+            ( type, button, create_data, traverse_data ) =>
+        {
+            create_data.state = new ObjectSelectedState ();
+
+            //pass the click event through to the object selected state
+            create_data.state.create_event.build_obj_button_clicked 
+                ( type, button, create_data, traverse_data );
         };
     };
 
@@ -194,10 +199,8 @@
      *  input on the stage
      ***********************************************************************/
 
-    let ObjectSelectedState = function ( type )
+    let ObjectSelectedState = function ()
     {
-        this.type = type;
-
         this.create_event = new CreateEvent ();
 
         this.create_event.stage_clicked = 
@@ -210,10 +213,17 @@
             add_puzzle_object ( puzzle_ob, create_data, traverse_data );
         }
 
+        this.create_event
+            .verify_button_clicked = ( create_data, traverse_data ) => 
+        {
+            create_data.state = new VerifyState ();
+        };
+
         this.create_event.build_obj_button_clicked =
-            ( type, create_data, traverse_data ) =>
+            ( type, button, create_data, traverse_data ) =>
         {
             this.type = type;
+            this.button = button;
         };
 
     };
@@ -225,9 +235,6 @@
     let VerifyState = function ()
     {
         this.create_event = new CreateEvent ();
-
-        //prevent multiple clicks
-        this.create_event.verify_button_clicked = () => {};
 
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
