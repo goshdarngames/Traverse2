@@ -93,6 +93,9 @@
                             traverse.PuzzleObjects.Types.Bogey,
                             traverse.PuzzleObjects.Types.Boo ] );
 
+            //Type -> button element
+            create_data.build_object_buttons = new Map ();
+
             init_dom ( create_data, traverse_data );
 
             create_data.state = new WaitState ();
@@ -118,7 +121,6 @@
 
         root_div.appendChild ( build_div );
 
-
         for ( const type of create_data.build_objects )
         {
             let button = traverse.create_object_button ( type,
@@ -130,6 +132,8 @@
             } );
 
             build_div.appendChild ( button );
+
+            create_data.build_object_buttons.set ( tyoe, button );
 
         }
 
