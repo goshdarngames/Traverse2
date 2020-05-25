@@ -201,6 +201,13 @@
     display : none;
 }
 
+.verify_wait
+{
+    display : block;
+    color : grey;
+    outline-color: #A40000;
+}
+
 .verify_bad
 {
     display : block;

@@ -234,6 +234,9 @@
                 ps : create_data.puzzle_state.get_prolog (),
             };
 
+            create_data.verify_text_div.textContent = "Verifying...";
+
+            create_data.verify_text_div.classList.add ( "verify_wait" );
 
             traverse_data.prolog_worker.onmessage = 
                 ( e ) => receive_answer ( e, create_data, traverse_data  );
@@ -261,7 +264,10 @@
 
                 create_data.verify_text_div.classList.add ( "verify_bad" );
             }
+
             traverse_data.prolog_worker.onmessage = () => {};
+
+            create_data.state = new WaitState ();
         };
     };
 
