@@ -50,24 +50,27 @@
     {
         Static : function ()
         {
-        this.get_prolog = function ()
-        {
-            return "[static]"
-        };
+            this.get_prolog = function ()
+            {
+                return "[static]"
+            };
         },
 
         //Moving towards dest
-        Moving : function ( dest_x, dest_y )
+        Moving : function ( dest )
         {
-            this.dest_x = dest_x;
-            this.dest_y = dest_y;
+            this.dest = dest;
+
+            this.get_prolog = function ()
+            {
+                return `[moving,${this.dest.get_prolog()}]`
+            };
         },
 
         //leaving the screen
-        Exit : function ( last_x, last_y )
+        Exit : function ( d )
         {
-            this.last_x = last_x;
-            this.last_y = last_y;
+            this.direction = d;
         }
     };
 
@@ -80,6 +83,14 @@
         {
             return `[${this.x},${this.y}]`
         };
+    };
+
+    traverse.PuzzleObjects.Direction = 
+    {
+        Up : {},
+        Down : {},
+        Left : {},
+        Right : {},
     };
 
     /**

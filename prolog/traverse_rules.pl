@@ -42,8 +42,8 @@ direction(right).
  */
 
 state([static]).
-state([moving,Dir]):-
-    direction(Dir).
+state([moving,Dest]):-
+    position(Dest).
 
 /**
  * This tuple represents each object in a puzzle state.
