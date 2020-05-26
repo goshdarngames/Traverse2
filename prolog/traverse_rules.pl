@@ -70,25 +70,16 @@ input( Ob, Dir ) :-
 input(none). 
 
 /**
- * Utility: True if element is not member of list
- */
-
-not_member(_,[]).
-not_member(X,[Head|Tail]) :-
-    X \= Head,
-    not_member( X, Tail ).
-
-/**
  * Relates a puzzle state with a string describing a problem
  * that prevents the state from being valid.
  */
 puzzle_problem( [], "No objects").
 
 puzzle_problem( P, "Boo Missing"):-
-    not_member([boo|_],P).
+    \+ member([boo|_],P).
 
 puzzle_problem( P, "Bogey Missing"):-
-    not_member([bogey|_],P).
+    \+ member([bogey|_],P).
 
 puzzle_problem( P, "Object out of bounds."):-
     member( [_,Pos,_], P ),
