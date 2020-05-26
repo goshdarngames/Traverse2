@@ -138,3 +138,30 @@ test ( "Prolog puzzle_problem both ghosts moving", async () =>
 
     expect ( a ).toEqual ( "Both ghosts moving." );
 });
+
+test ( "Prolog puzzle_problem both ghosts moving", async () =>
+{
+    let session = await get_prolog_session ();
+
+    let ps = new traverse.PuzzleState ();
+
+    let dest = new traverse.PuzzleObjects.Position ( 1, 8 );
+
+    let boo = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Boo,
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static ()  );
+
+    let bogey = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Bogey,
+        new traverse.PuzzleObjects.Position ( -1, 2 ),
+        new traverse.PuzzleObjects.States.Static ()  );
+
+    ps.add_object ( bogey );
+    ps.add_object ( boo );
+
+    let a = await traverse_pl
+        .verify_puzzle_state ( ps.get_prolog (), session );
+
+    expect ( a ).toEqual ( "Object out of bounds." );
+});

@@ -90,6 +90,10 @@ puzzle_problem( P, "Boo Missing"):-
 puzzle_problem( P, "Bogey Missing"):-
     not_member([bogey|_],P).
 
+puzzle_problem( P, "Object out of bounds."):-
+    member( [_,Pos,_], P ),
+    \+ position( Pos ).
+
 puzzle_problem( P, "Both ghosts moving."):-
     member([bogey,_,[moving|_]],P),
     member([boo,_,[moving|_]],P).
