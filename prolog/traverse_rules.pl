@@ -1,3 +1,5 @@
+:- use_module(library(lists)).
+
 /**
  * Puzzle objects
  */
@@ -89,8 +91,8 @@ puzzle_problem( P, "Bogey Missing"):-
     not_member([bogey|_],P).
 
 puzzle_problem( P, "Both ghosts moving."):-
-    state(P).
-%member(X,P).
+    member([bogey,_,[moving|_]],P),
+    member([boo,_,[moving|_]],P).
 
 puzzle_problem(_,"None").
 

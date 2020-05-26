@@ -6,7 +6,7 @@
  */
 
 let pl = require ( "tau-prolog" );
-require( "tau-prolog/modules/lists" )( pl );
+let loader = require( "tau-prolog/modules/lists" )( pl );
 
 let fs = require("fs").promises;
 
