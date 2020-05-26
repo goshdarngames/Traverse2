@@ -50,7 +50,7 @@ state([moving,Dest]):-
 /**
  * This tuple represents each object in a puzzle state.
  */
-state_position_object([Ob,Pos,State]):
+state_position_object([Ob,Pos,State]):-
     object(Ob),
     position(Pos),
     state(State).
@@ -81,9 +81,9 @@ puzzle_problem( P, "Boo Missing"):-
 puzzle_problem( P, "Bogey Missing"):-
     \+ member([bogey|_],P).
 
-puzzle_problem( P, "Object out of bounds."):-
-    member( [_,Pos,_], P ),
-    \+ position( Pos ).
+puzzle_problem( P, "Bad puzzle object"):-
+    member( O, P ),
+    \+ state_position_object( O ).
 
 puzzle_problem( P, "Both ghosts moving."):-
     member([bogey,_,[moving|_]],P),

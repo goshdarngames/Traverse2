@@ -163,26 +163,26 @@ test ( "Prolog puzzle_problem position out of bounds", async () =>
     let a = await traverse_pl
         .verify_puzzle_state ( ps.get_prolog (), session );
 
-    expect ( a ).toEqual ( "Object out of bounds." );
+    expect ( a ).toEqual ( "Bad puzzle object" );
 });
 
-test ( "Prolog puzzle_problem move dest out of bounds", async () =>
+test ( "Prolog puzzle_problem position out of bounds", async () =>
 {
     let session = await get_prolog_session ();
 
     let ps = new traverse.PuzzleState ();
 
-    let dest = new traverse.PuzzleObjects.Position ( 1, 8 );
+    let dest = new traverse.PuzzleObjects.Position ( -1, 8 );
 
     let boo = new traverse.PuzzleObject ( 
         traverse.PuzzleObjects.Types.Boo,
         new traverse.PuzzleObjects.Position ( 1, 1 ),
-        new traverse.PuzzleObjects.States.Moving  ( dest )  );
+        new traverse.PuzzleObjects.States.Static ()  );
 
     let bogey = new traverse.PuzzleObject ( 
         traverse.PuzzleObjects.Types.Bogey,
         new traverse.PuzzleObjects.Position ( 1, 2 ),
-        new traverse.PuzzleObjects.States.Moving  ( dest )  );
+        new traverse.PuzzleObjects.States.Moving ( dest )  );
 
     ps.add_object ( bogey );
     ps.add_object ( boo );
@@ -190,6 +190,6 @@ test ( "Prolog puzzle_problem move dest out of bounds", async () =>
     let a = await traverse_pl
         .verify_puzzle_state ( ps.get_prolog (), session );
 
-    expect ( a ).toEqual ( "Both ghosts moving." );
+    expect ( a ).toEqual ( "Bad puzzle object" );
 });
 
