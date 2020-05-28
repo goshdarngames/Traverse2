@@ -5,11 +5,11 @@
  * available inputs to players.
  */
 
-let pl = require ( "tau-prolog" );
-let loader = require( "tau-prolog/modules/lists" )( pl );
-
-let fs = require("fs").promises;
+let pl_utils = require ( "./prolog_testing_utils" );
 
 require ( "../javascript/traverse_puzzle_objects" );
 require ( "../prolog/traverse_prolog" );
 
+test ( "Empty test", async () =>
+{
+});
