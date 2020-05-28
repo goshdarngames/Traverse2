@@ -94,3 +94,5 @@ puzzle_problem(_,"None").
 /**
  * Relating puzzle states and inputs.
  */
+
+puzzle_input_result( P0, _, P0 ).

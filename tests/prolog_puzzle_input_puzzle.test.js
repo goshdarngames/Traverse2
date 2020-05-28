@@ -10,7 +10,7 @@ let pl_utils = require ( "./prolog_testing_utils" );
 require ( "../javascript/traverse_puzzle_objects" );
 require ( "../prolog/traverse_prolog" );
 
-test ( "Empty test", async () =>
+test ( "Input down", async () =>
 {
     let session = await pl_utils.get_prolog_session ();
 
@@ -30,6 +30,10 @@ test ( "Empty test", async () =>
         traverse.PuzzleObjects.Types.Bogey,
         new traverse.PuzzleObjects.Position ( 4, 1 ),
         new traverse.PuzzleObjects.States.Static ()  );
+
+    ps0.add_object ( boo0 );
+    ps0.add_object ( bogey0 );
+    ps0.add_object ( wall0 );
 
 
     let ps1 = new traverse.PuzzleState ();
@@ -54,7 +58,12 @@ test ( "Empty test", async () =>
         boo0, 
         traverse.PuzzleObjects.Direction.Up );
 
+    let a = await traverse_pl
+        .state_after_input ( ps0.get_prolog (), 
+                             input.get_prolog (), session );
 
-    //TODO check prolog if p0 input p1 is valid
+    console.log ( a );
+
+    expect ( a ).toBeDefined ();
 
 });

@@ -1,13 +1,5 @@
 ( function ( traverse_pl, undefined )
 {
-    //TODO - rules prolog could be run inside a web worker
-    //       This would prevent the execution blocking rendering
-
-    //TODO - receive prolog string rather than puzzle state object
-    
-    //TODO - move this code to the worker - only access prolog through
-    //       worker
-
     traverse_pl.verify_puzzle_state = function ( ps, session )
     {
         return new Promise ( ( resolve, reject ) =>
@@ -24,6 +16,25 @@
 
                 resolve ( msg );
 
+            });
+        });
+
+    };
+
+    traverse_pl.state_after_input = function ( ps, input, session )
+    {
+        return new Promise ( ( resolve, reject ) =>
+        {
+            let query = `puzzle_input_result(${ps}, ${input},X).`;
+
+            session.query ( query );
+
+            session.answer ( ( a ) =>
+            {
+                //get JS array representation of puzzle
+                let ps = a.lookup ( "X" ).toJavaScript ();
+                //TODO construct puzzle state object
+                resolve ( ps );
             });
         });
 

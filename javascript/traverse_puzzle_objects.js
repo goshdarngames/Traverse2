@@ -128,7 +128,7 @@
 
         this.get_prolog = function ()
         {
-            return `[this.ob.get_prolog(), this.dir.get_prolog ()]`;
+            return `[${this.ob.get_prolog()}, ${this.dir.get_prolog()}]`;
         };
     };
 
