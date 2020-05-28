@@ -63,7 +63,7 @@
 
             this.get_prolog = function ()
             {
-                return `[moving,${this.dest.get_prolog()}]`
+                return `[moving,${this.dest.get_prolog()}]`;
             };
         },
 
@@ -81,16 +81,55 @@
 
         this.get_prolog = function ()
         {
-            return `[${this.x},${this.y}]`
+            return `[${this.x},${this.y}]`;
         };
     };
 
     traverse.PuzzleObjects.Direction = 
     {
-        Up : {},
-        Down : {},
-        Left : {},
-        Right : {},
+        Up : 
+        {
+            get_prolog : function ()
+            {
+                return "up";
+            },
+        },
+
+        Down : 
+        {
+            get_prolog : function ()
+            {
+                return "down";
+            },
+        },
+
+        Left : 
+        {
+            get_prolog : function ()
+            {
+                return "left";
+            },
+        },
+
+        Right : 
+        {
+            get_prolog : function ()
+            {
+                return "right";
+            },
+        },
+
+    };
+
+    traverse.PuzzleObjects.Input = function ( ob, dir )
+    {
+        this.ob = ob;
+        this.dir = dir;
+
+        this.get_prolog = function ()
+        {
+            return `[this.ob.get_prolog(), this.dir.get_prolog ()]`;
+        };
     };
 
     /**

@@ -62,7 +62,7 @@ state_position_object([Ob,Pos,State]):-
 player_controlled( boo ).
 player_controlled( bogey ).
 
-input( Ob, Dir ) :-
+input( [ Ob, Dir ] ) :-
     player_controlled( Ob ),
     direction( D ).
 
