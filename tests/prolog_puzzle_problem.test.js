@@ -5,59 +5,26 @@
  * and javascript.
  */
 
-let pl = require ( "tau-prolog" );
-let loader = require( "tau-prolog/modules/lists" )( pl );
-
-let fs = require("fs").promises;
+let pl_utils = require ( "./prolog_testing_utils" );
 
 require ( "../javascript/traverse_puzzle_objects" );
 require ( "../prolog/traverse_prolog" );
 
-//Wrapping the prolog answer in a promise allows jest to wait on the
-//asynchronous code from the prolog system
-let answer_promise = ( session ) => new Promise ( resolve =>
-{
-    session.answer ( ( a ) => resolve ( a ) );
-});
-
-let read_pl_data = async function ()
-{
-    let pl_data = await fs.readFile (  
-        "./prolog/traverse_rules.pl", "utf8" );
-
-    return pl_data;
-}
-
-let get_prolog_session = async function ()
-{
-    let session = pl.create ();
-
-    let pl_data = await read_pl_data ();
-
-    session.consult ( pl_data );
-
-    return session;
-};
-
 test ( "Prolog objects defined", async () =>
 {
-    expect ( pl ).toBeDefined ();
-    
-    expect ( traverse ).toBeDefined ();
-
-    let session = await get_prolog_session ();
+    let session = await pl_utils.get_prolog_session ();
 
     let answer = undefined;
 
     session.query ( "object(bad_object)." );
-    answer = await answer_promise ( session );
+    answer = await pl_utils.answer_promise ( session );
 
     expect ( answer ).toBeFalsy ();
 
     for ( const query of [ "boo", "bogey", "wall" ] )
     {
         session.query ( `(${query}).` );
-        answer = await answer_promise ( session );
+        answer = await pl_utils.answer_promise ( session );
 
         expect ( answer ).toBeDefined ();
     }
@@ -68,7 +35,7 @@ test ( "Prolog objects defined", async () =>
 
 test ( "Prolog puzzle_problem", async () =>
 {
-    let session = await get_prolog_session ();
+    let session = await pl_utils.get_prolog_session ();
 
     let ps = new traverse.PuzzleState ();
 
@@ -114,7 +81,7 @@ test ( "Prolog puzzle_problem", async () =>
 
 test ( "Prolog puzzle_problem both ghosts moving", async () =>
 {
-    let session = await get_prolog_session ();
+    let session = await pl_utils.get_prolog_session ();
 
     let ps = new traverse.PuzzleState ();
 
@@ -141,7 +108,7 @@ test ( "Prolog puzzle_problem both ghosts moving", async () =>
 
 test ( "Prolog puzzle_problem position out of bounds", async () =>
 {
-    let session = await get_prolog_session ();
+    let session = await pl_utils.get_prolog_session ();
 
     let ps = new traverse.PuzzleState ();
 
@@ -168,7 +135,7 @@ test ( "Prolog puzzle_problem position out of bounds", async () =>
 
 test ( "Prolog puzzle_problem move dest out of bounds", async () =>
 {
-    let session = await get_prolog_session ();
+    let session = await pl_utils.get_prolog_session ();
 
     let ps = new traverse.PuzzleState ();
 
@@ -192,4 +159,3 @@ test ( "Prolog puzzle_problem move dest out of bounds", async () =>
 
     expect ( a ).toEqual ( "Bad puzzle object" );
 });
-
