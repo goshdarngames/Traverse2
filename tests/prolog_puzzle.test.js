@@ -166,7 +166,7 @@ test ( "Prolog puzzle_problem position out of bounds", async () =>
     expect ( a ).toEqual ( "Bad puzzle object" );
 });
 
-test ( "Prolog puzzle_problem position out of bounds", async () =>
+test ( "Prolog puzzle_problem move dest out of bounds", async () =>
 {
     let session = await get_prolog_session ();
 
