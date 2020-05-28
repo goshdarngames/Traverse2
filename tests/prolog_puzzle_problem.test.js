@@ -1,5 +1,5 @@
 /**
- * prolog_puzzle.test.js
+ * prolog_puzzle_problem.test.js
  *
  * Tests the functions used to check the puzzle state between prolog
  * and javascript.
