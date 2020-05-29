@@ -5,7 +5,40 @@
  * and URL-String representations.
  */
 
-//TODO - Prolog to and from JS
-test ( "Placeholder", () =>
+test ( "Convert ps to prolog and check equals", () =>
 {
+    let o_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Boo, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let p_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Bogey, 
+        new traverse.PuzzleObjects.Position ( 1, 2 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let q_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 3 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let ps_0 = new traverse.PuzzleState ();
+
+    ps_0.add_object ( o_0 );
+    ps_0.add_object ( p_0 );
+    ps_0.add_object ( q_0 );
+
+    let ps_0_pl = ps_0.get_prolog ();
+
+    let ps_1 = new traverse.PuzzleState ();
+
+    ps_1.load_prolog ( ps_0_pl );
+
+    expect ( ps_0.equals ( ps_1 ) ).toBeTruthy ();
+    expect ( ps_1.equals ( ps_0 ) ).toBeTruthy ();
+
+
 });
