@@ -268,6 +268,14 @@
             return `[${objects_pl.join()}]`
         };
 
+        /**
+         * When called on an empty puzzle state object this will add
+         * the objects defined in the prolog array.
+         */
+        this.load_prolog = function ( pl_array )
+        {
+        };
+
     };
 
     traverse.valid_puzzle_state = function ( s )
