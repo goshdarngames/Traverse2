@@ -62,8 +62,9 @@ test ( "Input down", async () =>
         .state_after_input ( ps0.get_prolog (), 
                              input.get_prolog (), session );
 
-    console.log ( a );
+    //console.log ( a );
 
+    //TODO - check return value (next puzzle state) is equal to ps1
     expect ( a ).toBeDefined ();
 
 });
