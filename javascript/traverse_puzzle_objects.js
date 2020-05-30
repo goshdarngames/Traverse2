@@ -205,7 +205,10 @@
             objects.add ( o );
         };
 
-        //TODO - take position object instead of x,y
+        /**
+         * Takes a position object and searches the puzzle state for
+         * an object at that postion.
+         */
         this.get_object_at_pos = function ( pos )
         {
             if ( position_index.get ( pos.x ) != undefined )
@@ -214,11 +217,18 @@
             }
         };
 
+        /**
+         * Access unique objects (e.g. boo / bogey ) by name.
+         */
         this.get_unique_object = function ( name )
         {
             return unique_objects.get ( name );
         };
 
+        /**
+         * Removes a puzzle object from the state.  Note the object is
+         * addressed by reference rather than an equality check.
+         */
         this.remove_object = function ( o )
         {
             if ( o == undefined )
@@ -247,6 +257,10 @@
 
         };
 
+        /**
+         * Calls get_prolog () on all objects in the puzzle state and
+         * returns a string prolog array of the puzzle state.
+         */
         this.get_prolog = function ()
         {
             let objects_pl = [...objects].map ( o => o.get_prolog () );
