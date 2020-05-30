@@ -5,6 +5,11 @@
  * and URL-String representations.
  */
 
+let pl_utils = require ( "./prolog_testing_utils" );
+
+require ( "../javascript/traverse_puzzle_objects" );
+require ( "../prolog/traverse_prolog" );
+
 test ( "Convert ps to prolog and check equals", () =>
 {
     let o_0 = new traverse.PuzzleObject ( 
