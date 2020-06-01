@@ -54,6 +54,11 @@
             {
                 return "[static]"
             };
+
+            this.equals = function ( other )
+            {
+                return this.__proto__ === other.__proto__;
+            };
         },
 
         //Moving towards dest
@@ -65,12 +70,24 @@
             {
                 return `[moving,${this.dest.get_prolog()}]`;
             };
+
+            this.equals = function ( other )
+            {
+                return this.__proto__ === other.__proto__ 
+                       && this.dest.equals ( other.dest );
+            };
         },
 
         //leaving the screen
         Exit : function ( d )
         {
             this.direction = d;
+
+            this.equals = function ( other )
+            {
+                return this.__proto__ === other.__proto__ && 
+                       this.direction === other.direction;
+            };
         }
     };
 
@@ -82,6 +99,11 @@
         this.get_prolog = function ()
         {
             return `[${this.x},${this.y}]`;
+        };
+
+        this.equals = function ( other )
+        {
+            return this.x == other.x && this.y == other.y;
         };
     };
 
@@ -153,6 +175,15 @@
             let pos_p = this.position.get_prolog();
 
             return `[${type_p},${pos_p},${state_p}]`
+        };
+
+        this.equals = function ( other )
+        {
+            let type_eq = this.type === other.type;
+            let pos_eq = this.position.equals ( other.position );
+            let state_eq = this.state.equals ( other.state );
+            
+            return type_eq && pos_eq && state_eq;
         };
     };
 
@@ -255,6 +286,36 @@
                 unique_objects.delete ( o.type.name );
             }
 
+        };
+
+        this.get_objects = function () 
+        {
+            return objects;
+        };
+
+        /**
+         * Returns true if this puzzle state is equivalent to ps.
+         */
+        this.equals = function ( ps )
+        {
+            let other_objects = ps.get_objects ();
+
+            if ( other_objects.size != objects.size )
+            {
+                return false;
+            }
+
+            [ ...objects ].forEach ( o => 
+            {
+                let other =  ps.get_object_at_pos ( o.position );
+
+                if ( !o.equals ( other ) )
+                {
+                    return false;
+                }
+            });
+
+            return true;
         };
 
         /**

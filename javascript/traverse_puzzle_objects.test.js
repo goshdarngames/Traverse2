@@ -188,3 +188,102 @@ test ( "Prolog to PuzzleState", () =>
         traverse.PuzzleObjects.States.Static );
 
 });
+
+test('PuzzleState get_objects', () => 
+{
+    let ps_0 = new traverse.PuzzleState ();
+
+    let o_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let p_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 2, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let q_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 2 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    ps_0.add_object ( o_0 );
+    ps_0.add_object ( p_0 );
+    ps_0.add_object ( q_0 );
+
+    let objects = ps_0.get_objects ();
+
+    expect ( objects.size ).toEqual ( 3 );
+
+    expect ( objects.has ( o_0 ) ).toBeTruthy ();
+    expect ( objects.has ( p_0 ) ).toBeTruthy ();
+    expect ( objects.has ( q_0 ) ).toBeTruthy ();
+
+});
+    
+test('PuzzleState equality', () => 
+{
+    let ps_0 = new traverse.PuzzleState ();
+
+    let o_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let p_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 2, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let q_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 2 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    ps_0.add_object ( o_0 );
+    ps_0.add_object ( p_0 );
+    ps_0.add_object ( q_0 );
+    
+    let ps_1 = new traverse.PuzzleState ();
+
+    let o_1 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let p_1 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 2, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let q_1 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 2 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    expect ( o_0.equals ( o_1 ) ).toBeTruthy ();
+    expect ( p_0.equals ( p_1 ) ).toBeTruthy ();
+    expect ( q_0.equals ( q_1 ) ).toBeTruthy ();
+
+    expect ( ps_0.equals ( ps_1 ) ).toBeFalsy ();
+
+    ps_1.add_object ( o_1 );
+    expect ( ps_0.equals ( ps_1 ) ).toBeFalsy ();
+
+    ps_1.add_object ( p_1 );
+    expect ( ps_0.equals ( ps_1 ) ).toBeFalsy ();
+
+    ps_1.add_object ( q_1 );
+    expect ( ps_0.equals ( ps_1 ) ).toBeTruthy ();
+    
+});
