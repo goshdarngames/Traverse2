@@ -27,7 +27,7 @@
 
             let create_button = traverse.create_menu_button ( 
                 "Create", () => button_cb ( 
-                    new traverse.CreateState ( traverse_data ) ) );
+                    new traverse.CreateState ( undefined, traverse_data ) ) );
 
             col.appendChild ( create_button  );
 

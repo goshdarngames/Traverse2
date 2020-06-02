@@ -8,6 +8,8 @@
 
         test_data.puzzle_object_graphics = new Map ();
 
+        test_data.initial_puzzle_state = initial_puzzle_state;
+
         test_data.puzzle_state = undefined;
 
         this.tick = function ( traverse_data )
@@ -25,6 +27,7 @@
         {
         };
 
+        //TODO move this logic to state state?
         this.set_puzzle_state = function ( old_state, new_state )
         {
             if ( old_state != undefined )
@@ -139,6 +142,18 @@
 
         });
 
+        let edit_button = 
+            traverse.create_menu_button ( "Edit", 
+            ()=>
+            {
+                let create_state = 
+                    new traverse.CreateState ( 
+                        test_data.initial_puzzle_state, traverse_data );
+
+                traverse.change_state ( create_state, traverse_data );
+            } );
+
+        root_div.appendChild ( edit_button );
     
     };
 

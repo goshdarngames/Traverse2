@@ -1,6 +1,6 @@
 ( function ( traverse, undefined )
 {
-    traverse.CreateState = function ( traverse_data )
+    traverse.CreateState = function ( initial_puzzle_state, traverse_data )
     {
         this.traverse_data = traverse_data;
 
@@ -10,6 +10,8 @@
         //associate puzzle objects with their graphics systems
         this.create_data.puzzle_object_graphics = new Map ();
 
+        this.create_data.puzzle_state = initial_puzzle_state;
+
         this.create_data.state = new StartState ();
 
         this.tick = function ( traverse_data )
@@ -18,7 +20,7 @@
                 .tick ( this.create_data, traverse_data );
         };
 
-        this.stage_clicked = function ( e )
+        this.stage_clicked = ( e ) =>
         {
             this.create_data.state.create_event
                 .stage_clicked ( e, this.create_data, this.traverse_data );
@@ -27,16 +29,15 @@
         this.enter_state = function ( traverse_data )
         {
             traverse_data.pixi_app.renderer.plugins.interaction
-                .on ( 'pointerdown', 
-                    ( e ) => 
-                    { 
-                        this.stage_clicked ( e ); 
-                    });
+                .on ( 'pointerdown', this.stage_clicked );
         };
 
         this.exit_state = function ( traverse_data )
         {
             clear_graphics ( this.create_data, traverse_data );
+            
+            traverse_data.pixi_app.renderer.plugins.interaction
+                .off ( 'pointerdown', this.stage_clicked );
         };
     };
     
@@ -84,7 +85,20 @@
         this.create_event.tick = ( create_data, traverse_data ) =>
         {
 
-            create_data.puzzle_state = new traverse.PuzzleState ();
+            if ( create_data.puzzle_state == undefined )
+            {
+                create_data.puzzle_state = new traverse.PuzzleState ();
+            }
+            else
+            {
+                create_data.puzzle_state.get_objects().forEach ( 
+                    puzzle_ob =>
+                {
+                    create_puzzle_object_graphics 
+                        ( puzzle_ob, create_data, traverse_data );
+
+                });
+            }
 
             create_data.build_objects = 
                 new Set ( [ traverse.PuzzleObjects.Types.Wall,
@@ -216,6 +230,10 @@
                 e.data.global.x, e.data.global.y, traverse_data );
 
             add_puzzle_object ( puzzle_ob, create_data, traverse_data );
+
+            create_puzzle_object_graphics 
+                ( puzzle_ob, create_data, traverse_data );
+
         }
 
         this.create_event
@@ -306,15 +324,9 @@
         return puzzle_ob;
     };
 
-    let add_puzzle_object =
+    let create_puzzle_object_graphics = 
         function ( puzzle_ob, create_data, traverse_data )
     {
-        remove_puzzle_object_at ( puzzle_ob.position, 
-                                  create_data, traverse_data );
-
-        remove_existing_unique ( puzzle_ob.type.name, 
-                                 create_data, traverse_data );
-
         let po_graphics = puzzle_ob.get_graphics ( traverse_data );
 
         po_graphics.enable ( 
@@ -324,6 +336,17 @@
         );
 
         create_data.puzzle_object_graphics.set ( puzzle_ob, po_graphics );
+
+    };
+
+    let add_puzzle_object =
+        function ( puzzle_ob, create_data, traverse_data )
+    {
+        remove_puzzle_object_at ( puzzle_ob.position, 
+                                  create_data, traverse_data );
+
+        remove_existing_unique ( puzzle_ob.type.name, 
+                                 create_data, traverse_data );
 
         create_data.puzzle_state.add_object ( puzzle_ob ); 
     };
