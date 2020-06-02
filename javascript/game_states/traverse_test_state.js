@@ -35,6 +35,13 @@
 
         this.tick = ( test_data, traverse_data ) => {};
 
+        this.dir_panel_events =
+        {
+            u : () => { console.log ( "up");},
+            d : () => { console.log ( "down");},
+            l : () => { console.log ( "left");},
+            r : () => { console.log ( "right");},
+        };
     };
 
     /************************************************************************
@@ -53,6 +60,8 @@
 
             init_dom ( test_data, traverse_data );
 
+            this.test_event.tick = () => {};
+
         }
     };
 
@@ -69,7 +78,13 @@
 
         cp.add_content ( root_div );
 
-        let direction_controls = traverse.create_direction_controls ();
+        let dir_button_cb = ( dir ) =>
+        {
+            test_data.state.test_event.dir_panel_events [ dir ] ();
+        };
+
+        let direction_controls = traverse
+            .create_direction_controls ( dir_button_cb );
 
         root_div.appendChild ( direction_controls.container );
 

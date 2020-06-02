@@ -57,7 +57,7 @@
         return button;
     }
     
-    traverse.create_direction_controls = function ()
+    traverse.create_direction_controls = function ( dir_button_cb )
     {
         let controls = {};
 
@@ -80,6 +80,8 @@
                 case 'l' : button.innerHTML = "&#x1F880"; break;
                 case 'r' : button.innerHTML = "&#x1F882"; break;
             }
+
+            button.onclick = () => dir_button_cb ( dir );
         };
 
         let grid_div = document.createElement ( "DIV" );
