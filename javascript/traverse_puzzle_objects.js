@@ -188,54 +188,6 @@
     };
     
     /**
-     * Returns a Puzzle Object constructed from a javascript array as
-     * expected from the prolog system.
-     */
-    traverse.PuzzleObjects.object_from_prolog = function ( pl_arr )
-    {
-        let make_type = ( str ) =>
-        {
-            switch ( str )
-            {
-                case "boo"   : return traverse.PuzzleObjects.Types.Boo;
-                case "bogey" : return traverse.PuzzleObjects.Types.Bogey;
-                case "wall"  : return traverse.PuzzleObjects.Types.Wall;
-            }
-        };
-
-        let make_pos = ( pos_arr ) =>
-        {
-            return new traverse.PuzzleObjects.Position ( pos_arr [ 0 ],
-                                                         pos_arr [ 1 ] );
-        };
-
-        let make_state = ( state_arr ) =>
-        {
-            switch ( state_arr [ 0 ] )
-            {
-                case "static" : 
-                {
-                    return new traverse.PuzzleObjects.States.Static ();
-                }
-                case "moving" :
-                {
-                    return new traverse.PuzzleObjects.States
-                        .Moving ( make_pos ( state_arr [ 1 ] ) );
-                }
-            }
-        };
-
-        let po = new traverse.PuzzleObject (
-            make_type  ( pl_arr [ 0 ] ),
-            make_pos   ( pl_arr [ 1 ] ),
-            make_state ( pl_arr [ 2 ] )   
-        );
-
-        return po;
-
-    };
-
-    /**
      * Keeps track of the position of puzzle pieces in a level.
      */
     traverse.PuzzleState = function ()
@@ -369,6 +321,9 @@
         /**
          * Calls get_prolog () on all objects in the puzzle state and
          * returns a string prolog array of the puzzle state.
+         *
+         * Note:  the string representation is most suitable for 
+         *        querying the prolog system
          */
         this.get_prolog = function ()
         {
@@ -377,20 +332,70 @@
             return `[${objects_pl.join()}]`
         };
 
-        /**
-         * When called on an empty puzzle state object this will add
-         * the objects defined in the prolog array.
-         */
-        this.load_prolog = function ( pl_array )
+    };
+
+    /**
+     * Returns a Puzzle Object constructed from a javascript array as
+     * expected from the prolog system.
+     */
+    traverse.PuzzleObjects.object_from_prolog = function ( pl_arr )
+    {
+        let make_type = ( str ) =>
         {
+            switch ( str )
+            {
+                case "boo"   : return traverse.PuzzleObjects.Types.Boo;
+                case "bogey" : return traverse.PuzzleObjects.Types.Bogey;
+                case "wall"  : return traverse.PuzzleObjects.Types.Wall;
+            }
         };
+
+        let make_pos = ( pos_arr ) =>
+        {
+            return new traverse.PuzzleObjects.Position ( pos_arr [ 0 ],
+                                                         pos_arr [ 1 ] );
+        };
+
+        let make_state = ( state_arr ) =>
+        {
+            switch ( state_arr [ 0 ] )
+            {
+                case "static" : 
+                {
+                    return new traverse.PuzzleObjects.States.Static ();
+                }
+                case "moving" :
+                {
+                    return new traverse.PuzzleObjects.States
+                        .Moving ( make_pos ( state_arr [ 1 ] ) );
+                }
+            }
+        };
+
+        let po = new traverse.PuzzleObject (
+            make_type  ( pl_arr [ 0 ] ),
+            make_pos   ( pl_arr [ 1 ] ),
+            make_state ( pl_arr [ 2 ] )   
+        );
+
+        return po;
 
     };
 
-    traverse.valid_puzzle_state = function ( s )
+    /**
+     * Returns a Puzzle State constructed from a javascript array as
+     * expected from the prolog system.
+     */
+    traverse.PuzzleObjects.puzzle_state_from_prolog = function ( pl_arr )
     {
-        //TODO - check traverse rules prolog
-        return false;
+        let ps = new traverse.PuzzleState ();
+
+        let objects = pl_arr.map ( 
+            pl => traverse.PuzzleObjects.object_from_prolog ( pl ) );
+
+        objects.forEach ( o => ps.add_object ( o ) );
+
+        return ps;
     };
 
 } ( self.traverse = self.traverse || {} ))

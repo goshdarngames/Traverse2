@@ -178,25 +178,9 @@ test ( "Prolog to PuzzleState", () =>
         ["wall",[1,3],["static"]],
     ];
 
-    //Non-empty should throw
-
-    let non_empty_ps = new traverse.PuzzleState ();
-
-    let o = new traverse.PuzzleObject ( 
-        traverse.PuzzleObjects.Types.Boo, 
-        new traverse.PuzzleObjects.Position ( 1, 1 ),
-        new traverse.PuzzleObjects.States.Static () 
-    );
-
-    non_empty_ps.add_object ( o ); 
-
-    expect ( non_empty_ps.load_prolog ( pl_array ) ).toThrow ();
-
     //try a typical simple case
 
-    let ps = new traverse.PuzzleState ();
-
-    ps.load_prolog ( pl_array );
+    let ps = traverse.PuzzleObjects.puzzle_state_from_prolog ( pl_array );
 
     let boo = ps.get_unique_object ( "boo" );
 
@@ -230,6 +214,7 @@ test ( "Prolog to PuzzleState", () =>
         traverse.PuzzleObjects.States.Static );
 
 });
+
 
 test('PuzzleState get_objects', () => 
 {
