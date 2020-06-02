@@ -127,6 +127,46 @@ test ( "PuzzleState to prolog", () =>
     expect ( ps.get_prolog () ).toEqual ( ps_pl );
 });
 
+test ( "Puzzle object from prolog", () =>
+{
+    let o_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Boo, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let o_pl = ["boo",[1,1],["static"]];
+
+    let o_1 = traverse.PuzzleObjects.object_from_prolog ( o_pl );
+
+
+    let p_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Bogey, 
+        new traverse.PuzzleObjects.Position ( 1, 2 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let p_pl = ["bogey",[1,2],["static"]];
+
+    let p_1 = traverse.PuzzleObjects.object_from_prolog ( p_pl );
+
+
+    let q_0 = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 3 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let q_pl = ["wall",[1,3],["static"]];
+
+    let q_1 = traverse.PuzzleObjects.object_from_prolog ( q_pl );
+
+    expect ( o_0.equals ( o_1 ) ).toBeTruthy ();
+    expect ( p_0.equals ( p_1 ) ).toBeTruthy ();
+    expect ( q_0.equals ( q_1 ) ).toBeTruthy ();
+
+});
+
 test ( "Prolog to PuzzleState", () =>
 {
     //prolog puzzle state as expected when converted to JS

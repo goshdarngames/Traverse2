@@ -47,3 +47,26 @@ test ( "Convert ps to prolog and check equals", () =>
 
 
 });
+
+
+test ( "Puzzle object from prolog", () =>
+{
+    let o = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Boo, 
+        new traverse.PuzzleObjects.Position ( 1, 1 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let p = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Bogey, 
+        new traverse.PuzzleObjects.Position ( 1, 2 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+    let q = new traverse.PuzzleObject ( 
+        traverse.PuzzleObjects.Types.Wall, 
+        new traverse.PuzzleObjects.Position ( 1, 3 ),
+        new traverse.PuzzleObjects.States.Static () 
+    );
+
+});
