@@ -6,6 +6,10 @@
 
         test_data.state = new StartState ();
 
+        test_data.puzzle_object_graphics = new Map ();
+
+        test_data.puzzle_state = undefined;
+
         this.tick = function ( traverse_data )
         {
             test_data.state.test_event
@@ -14,11 +18,39 @@
 
         this.enter_state = function ( traverse_data )
         {
+            this.set_puzzle_state ( undefined, initial_puzzle_state );
         };
 
         this.exit_state = function ( traverse_data )
         {
         };
+
+        this.set_puzzle_state = function ( old_state, new_state )
+        {
+            if ( old_state != undefined )
+            {
+                //TODO keep graphics that have not changed
+            }
+            else
+            {
+                test_data.puzzle_state = new_state;
+
+
+                new_state.get_objects ().forEach ( o =>
+                {
+                    let po_graphics = o.get_graphics ( traverse_data );
+
+                    po_graphics.enable ( 
+                        traverse_data.scale_coord ( o.position.x ),
+                        traverse_data.scale_coord ( o.position.y ),
+                        traverse_data
+                    );
+
+                });
+
+            }
+        };
+
     };
 
     /**
@@ -37,10 +69,10 @@
 
         this.dir_panel_events =
         {
-            u : () => { console.log ( "up");},
-            d : () => { console.log ( "down");},
-            l : () => { console.log ( "left");},
-            r : () => { console.log ( "right");},
+            u : () => { console.log ( "up"    );},
+            d : () => { console.log ( "down"  );},
+            l : () => { console.log ( "left"  );},
+            r : () => { console.log ( "right" );},
         };
     };
 
@@ -109,5 +141,6 @@
 
     
     };
+
 
 } ( window.traverse = window.traverse || {} ))
