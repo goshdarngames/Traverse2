@@ -143,10 +143,12 @@ test ( "Puzzle object from prolog", () =>
     let p_0 = new traverse.PuzzleObject ( 
         traverse.PuzzleObjects.Types.Bogey, 
         new traverse.PuzzleObjects.Position ( 1, 2 ),
-        new traverse.PuzzleObjects.States.Static () 
+        new traverse.PuzzleObjects.States.Moving (
+            new traverse.PuzzleObjects.Position ( 8, 2 )
+        ) 
     );
 
-    let p_pl = ["bogey",[1,2],["static"]];
+    let p_pl = ["bogey",[1,2],["moving", [8,2] ] ];
 
     let p_1 = traverse.PuzzleObjects.object_from_prolog ( p_pl );
 

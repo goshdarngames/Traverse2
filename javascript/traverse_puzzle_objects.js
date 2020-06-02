@@ -186,6 +186,54 @@
             return type_eq && pos_eq && state_eq;
         };
     };
+    
+    /**
+     * Returns a Puzzle Object constructed from a javascript array as
+     * expected from the prolog system.
+     */
+    traverse.PuzzleObjects.object_from_prolog = function ( pl_arr )
+    {
+        let make_type = ( str ) =>
+        {
+            switch ( str )
+            {
+                case "boo"   : return traverse.PuzzleObjects.Types.Boo;
+                case "bogey" : return traverse.PuzzleObjects.Types.Bogey;
+                case "wall"  : return traverse.PuzzleObjects.Types.Wall;
+            }
+        };
+
+        let make_pos = ( pos_arr ) =>
+        {
+            return new traverse.PuzzleObjects.Position ( pos_arr [ 0 ],
+                                                         pos_arr [ 1 ] );
+        };
+
+        let make_state = ( state_arr ) =>
+        {
+            switch ( state_arr [ 0 ] )
+            {
+                case "static" : 
+                {
+                    return new traverse.PuzzleObjects.States.Static ();
+                }
+                case "moving" :
+                {
+                    return new traverse.PuzzleObjects.States
+                        .Moving ( make_pos ( state_arr [ 1 ] ) );
+                }
+            }
+        };
+
+        let po = new traverse.PuzzleObject (
+            make_type  ( pl_arr [ 0 ] ),
+            make_pos   ( pl_arr [ 1 ] ),
+            make_state ( pl_arr [ 2 ] )   
+        );
+
+        return po;
+
+    };
 
     /**
      * Keeps track of the position of puzzle pieces in a level.
