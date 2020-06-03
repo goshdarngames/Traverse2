@@ -70,13 +70,8 @@
 
         this.tick = ( test_data, traverse_data ) => {};
 
-        this.dir_panel_events =
-        {
-            u : () => { console.log ( "up"    );},
-            d : () => { console.log ( "down"  );},
-            l : () => { console.log ( "left"  );},
-            r : () => { console.log ( "right" );},
-        };
+        this.dir_button_clicked = ( dir ) => {};
+
     };
 
     /************************************************************************
@@ -95,7 +90,7 @@
 
             init_dom ( test_data, traverse_data );
 
-            this.test_event.tick = () => {};
+            test_data.state = new InputWaitState ();
 
         }
     };
@@ -115,7 +110,7 @@
 
         let dir_button_cb = ( dir ) =>
         {
-            test_data.state.test_event.dir_panel_events [ dir ] ();
+            test_data.state.test_event.dir_button_clicked ( dir );
         };
 
         let direction_controls = traverse
@@ -155,6 +150,27 @@
 
         root_div.appendChild ( edit_button );
     
+    };
+
+    /************************************************************************
+     * Input Wait State
+     * - Waiting for input from user or proceeding if 'none' is a valid
+     *   input.
+     ***********************************************************************/
+
+    let InputWaitState = function ()
+    {
+        this.test_event = new TestEvent ();
+
+        this.test_event.dir_button_clicked = ( dir ) => console.log ( dir );
+
+        this.test_event.tick = ( test_data, traverse_data ) =>
+        {
+
+            this.test_event.tick = () => {};
+        }
+
+         
     };
 
 

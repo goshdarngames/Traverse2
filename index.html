@@ -52,6 +52,8 @@
 
                 traverse_data.dom_elements = traverse.get_dom_elements ();
 
+                //TODO Move this to init & create input manager to send
+                //     pixi events to current state
                 traverse_data.pixi_app.ticker.add ( () =>
                 {
                     traverse.main_loop ( traverse_data );

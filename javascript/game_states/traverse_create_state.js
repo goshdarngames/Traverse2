@@ -28,6 +28,7 @@
 
         this.enter_state = function ( traverse_data )
         {
+            //TODO - define these inside the mainLoop and change with scene
             traverse_data.pixi_app.renderer.plugins.interaction
                 .on ( 'pointerdown', this.stage_clicked );
         };
