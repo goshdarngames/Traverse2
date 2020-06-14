@@ -28,17 +28,11 @@
 
         this.enter_state = function ( traverse_data )
         {
-            //TODO - define these inside the mainLoop and change with scene
-            traverse_data.pixi_app.renderer.plugins.interaction
-                .on ( 'pointerdown', this.stage_clicked );
         };
 
         this.exit_state = function ( traverse_data )
         {
             clear_graphics ( this.create_data, traverse_data );
-            
-            traverse_data.pixi_app.renderer.plugins.interaction
-                .off ( 'pointerdown', this.stage_clicked );
         };
     };
     
