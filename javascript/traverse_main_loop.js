@@ -4,10 +4,11 @@
 
     traverse.pixi_events = 
     {
-        stage_clicked = () => 
+        stage_clicked : ( e ) => 
         { 
-            if ( current_state != undefined ) current_state.stage_clicked ();
-        };
+            if ( current_state != undefined ) 
+                current_state.stage_clicked ( e );
+        }
     };
 
     traverse.main_loop = function ( traverse_data )
