@@ -148,9 +148,27 @@
             traverse.create_menu_button ( "Test", 
             ()=>
             {
+                //This function will be called back the 'back' button to
+                //allow user to return
+                let back_cb = ( play_data )=>
+                {
+                    let create_state = 
+                        new traverse.CreateState ( 
+                            play_data.initial_puzzle_state, traverse_data );
+
+                    traverse.change_state ( create_state, traverse_data );
+                };
+
+                let test_data = 
+                {
+                    initial_puzzle_state : create_data.puzzle_state,
+                    traverse_data : traverse_data,
+                    title : "Testing",
+                    back_text : "Edit",
+                    back_handler : back_cb,
+                };
                 let test_state = 
-                    new traverse.TestState ( create_data.puzzle_state,
-                                             traverse_data );
+                    new traverse.PlayState ( test_data );
 
                 traverse.change_state ( test_state, traverse_data );
             } );

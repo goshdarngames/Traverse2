@@ -1,83 +1,120 @@
 ( function ( traverse, undefined )
 {
-    traverse.PlayState = function ()
+    traverse.PlayState = function ( 
+        {  
+           initial_puzzle_state,
+           title,
+           back_text,
+           back_handler,
+           traverse_data  
+        }
+    )
     {
-        this.play_data = {};
+        let play_data = {};
 
-        this.play_data.tick = start_tick;
+        play_data.state = new StartState ();
+
+        play_data.puzzle_object_graphics = new Map ();
+
+        play_data.initial_puzzle_state = initial_puzzle_state;
+
+        play_data.puzzle_state = undefined;
+
+        play_data.title = title;
+
+        play_data.back_text = back_text;
+
+        play_data.back_handler = back_handler;
 
         this.tick = function ( traverse_data )
         {
-            this.play_data.tick ( this.play_data, traverse_data );
+            play_data.state.play_event
+                .tick ( play_data, traverse_data );
         };
 
         this.enter_state = function ( traverse_data )
         {
+            this.set_puzzle_state ( undefined, initial_puzzle_state );
         };
 
         this.exit_state = function ( traverse_data )
         {
         };
 
-    };
-
-    let start_tick = function ( play_data, traverse_data )
-    {
-        init_dom ( play_data, traverse_data );
-
-        let walls = [ { x : 0, y : 0}, 
-                      { x : 1, y : 5 },
-                      { x : 8, y : 1 },
-                      { x : 5, y : 3 },
-                      { x : 6, y : 4 },
-                      { x : 4, y : 4 },
-                      { x : 6, y : 8 },
-                      { x : 12, y : 14 },
-                      { x : 9, y : 11 },
-                      { x : 9, y : 11 },
-                      { x : 9, y : 8 },
-                      { x : 3, y : 18 },
-                      { x : 1, y : 8 },
-                      { x : 15, y : 15 },
-        ];
-
-        //TODO - move this to a shared objects function
-        let add_sprite = ( texture, x, y ) =>
+        //TODO move this logic to state state?
+        this.set_puzzle_state = function ( old_state, new_state )
         {
-            let sprite = new PIXI.Sprite ( texture );
+            if ( old_state != undefined )
+            {
+                //TODO keep graphics that have not changed
+            }
+            else
+            {
+                play_data.puzzle_state = new_state;
 
-            sprite.position.x = traverse_data.scale_coord ( x );
-            sprite.position.y = traverse_data.scale_coord ( y );
 
-            traverse_data.pixi_app.stage.addChild ( sprite );
+                new_state.get_objects ().forEach ( o =>
+                {
+                    let po_graphics = o.get_graphics ( traverse_data );
+
+                    po_graphics.enable ( 
+                        traverse_data.scale_coord ( o.position.x ),
+                        traverse_data.scale_coord ( o.position.y ),
+                        traverse_data
+                    );
+
+                });
+
+            }
         };
 
-        walls.forEach ( ( w ) =>
-        {
-            //TODO - this sprite creation method is for testing only
-            let sprite = traverse_data.wall_sprite_pool.pop ();
-
-            sprite.position.x = traverse_data.scale_coord ( w.x );
-            sprite.position.y = traverse_data.scale_coord ( w.y );
-
-            traverse_data.pixi_app.stage.addChild ( sprite );
-        });
-
-        add_sprite ( traverse_data.assets.boo_texture, 10, 10 );
-
-        add_sprite ( traverse_data.assets.bogey_texture, 3, 4 );
-
-        play_data.tick = () => {};
     };
 
-    //TODO - Add a function to create wall graphics from prolog rules
+    /**
+     * Each state is expected to store a reference to this component.
+     *
+     * When an event is fired the appropriate method will be called in this
+     * object.  
+     *
+     * States can override the events with their own arrow functions.
+     */
+    let PlayEvent = function ()
+    {
+        this.enter = ( play_data, traverse_data ) => {};
 
+        this.tick = ( play_data, traverse_data ) => {};
 
+        this.dir_button_clicked = ( dir ) => {};
+
+    };
+
+    /************************************************************************
+     * Start State
+     * - Initialize data and DOM interface
+     ***********************************************************************/
+
+    let StartState = function ()
+    {
+        this.play_event = new PlayEvent ();
+
+        this.play_event.tick = ( play_data, traverse_data ) =>
+        {
+
+            play_data.puzzle_state = new traverse.PuzzleState ();
+
+            init_dom ( play_data, traverse_data );
+
+            play_data.state = new InputWaitState ();
+
+        }
+    };
+
+    //TODO make this re-usable between play and test
     let init_dom = function ( play_data, traverse_data )
     {
         let cp = traverse_data.dom_elements.control_panel;
 
-        cp.set_title ( "Play" );
+        cp.set_title ( play_data.title );
 
         cp.clear_content ();
 
@@ -85,7 +122,13 @@
 
         cp.add_content ( root_div );
 
-        let direction_controls = traverse.create_direction_controls ();
+        let dir_button_cb = ( dir ) =>
+        {
+            play_data.state.play_event.dir_button_clicked ( dir );
+        };
+
+        let direction_controls = traverse
+            .create_direction_controls ( dir_button_cb );
 
         root_div.appendChild ( direction_controls.container );
 
@@ -96,19 +139,46 @@
 
         root_div.appendChild ( obj_div );
 
-        [ "boo", "bogey" ].forEach ( ( name ) =>
+        //TODO move to shared dom file
+        [ traverse.PuzzleObjects.Types.Bogey, 
+          traverse.PuzzleObjects.Types.Boo ]
+            .forEach ( ( template ) =>
         {
-            let button = traverse.create_object_button ( name,
-                ( n ) => { console.log ( n ); } );
+            let button = traverse.create_object_button ( template,
+                ( n ) => play_data.play_event.dir_button_clicked ( n ) );
 
             obj_div.appendChild ( button );
 
         });
 
+        let back_button = 
+            traverse.create_menu_button ( "Edit", 
+                () => play_data.back_handler ( play_data ) );
+
+        root_div.appendChild ( back_button );
     
-
-        //TODO - add middle square, add action handlers
-
     };
+
+    /************************************************************************
+     * Input Wait State
+     * - Waiting for input from user or proceeding if 'none' is a valid
+     *   input.
+     ***********************************************************************/
+
+    let InputWaitState = function ()
+    {
+        this.play_event = new PlayEvent ();
+
+        this.play_event.dir_button_clicked = ( dir ) => console.log ( dir );
+
+        this.play_event.tick = ( play_data, traverse_data ) =>
+        {
+
+            this.play_event.tick = () => {};
+        }
+
+         
+    };
+
 
 } ( window.traverse = window.traverse || {} ))
