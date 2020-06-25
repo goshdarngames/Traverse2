@@ -131,7 +131,7 @@
             .forEach ( ( template ) =>
         {
             let button = traverse.create_object_button ( template,
-                ( n ) => { console.log ( n ); } );
+                ( n ) => test_data.test_event.dir_button_clicked ( n ) );
 
             obj_div.appendChild ( button );
 
