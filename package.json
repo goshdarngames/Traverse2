@@ -13,7 +13,7 @@
     "@babel/core": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "babel-jest": "^26.2.2",
-    "grunt": "^1.2.1",
+    "grunt": "^1.3.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-run": "^0.8.1",
